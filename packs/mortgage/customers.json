@@ -1,0 +1,5 @@
+[
+  {"id": "m-001", "preferred_name": "Priya", "document": "samples/m-001.pdf", "persona": "First-time buyer, 90% LTV, 2-year fix", "prefs": {"captions": true, "speech_rate": 1.0}},
+  {"id": "m-002", "preferred_name": "Gareth", "document": "samples/m-002.pdf", "persona": "Remortgage, fee added to loan, 5-year fix", "prefs": {"captions": true, "speech_rate": 1.0}},
+  {"id": "m-003", "preferred_name": "Sophie", "document": "samples/m-003.pdf", "persona": "Home mover, fee paid upfront, 35-year term", "prefs": {"captions": false, "speech_rate": 1.1}}
+]

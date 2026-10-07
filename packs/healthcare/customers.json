@@ -1,0 +1,5 @@
+[
+  {"id": "h-001", "preferred_name": "Margaret", "document": "samples/h-001.pdf", "persona": "Cataract surgery, local anaesthetic, no fasting", "prefs": {"captions": true, "speech_rate": 0.9}},
+  {"id": "h-002", "preferred_name": "Imran", "document": "samples/h-002.pdf", "persona": "Colonoscopy, sedation, bowel preparation", "prefs": {"captions": true, "speech_rate": 1.0}},
+  {"id": "h-003", "preferred_name": "Chloe", "document": "samples/h-003.pdf", "persona": "Knee arthroscopy, general anaesthetic", "prefs": {"captions": false, "speech_rate": 1.0}}
+]

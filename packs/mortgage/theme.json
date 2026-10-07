@@ -1,0 +1,103 @@
+{
+  "brand": {
+    "name": "Fernmoor Building Society",
+    "short_name": "Fernmoor",
+    "wordmark": "FERNMOOR",
+    "mark": "leaf",
+    "tagline": "Straightforward mortgages since 1887",
+    "fictional": true
+  },
+  "color": {
+    "primary": "#0E4D4A",
+    "onPrimary": "#FFFFFF",
+    "surface": "#FBF8F2",
+    "surfaceAlt": "#EFE8DA",
+    "text": "#1D2424",
+    "textMuted": "#4E5A59",
+    "accent": "#C8962E",
+    "onAccent": "#1D2424",
+    "focus": "#1B6FD6",
+    "success": "#2E6B3A",
+    "warning": "#8A5A00",
+    "danger": "#A12A2A",
+    "border": "#C9C0AE"
+  },
+  "font": {
+    "heading": "Fraunces",
+    "body": "Source Sans 3"
+  },
+  "shape": {
+    "radius": "10px"
+  },
+  "motion": {
+    "style": "gentle",
+    "scene_transition_ms": 450
+  },
+  "voice": {
+    "lang": "en-GB",
+    "rate": 1.0,
+    "pitch": 1.0,
+    "preferred_voices": [
+      "Daniel",
+      "Google UK English Male"
+    ]
+  },
+  "tone": "Warm, reassuring, plain English. Explain money terms the first time they appear.",
+  "contrast_pairs": [
+    {
+      "fg": "text",
+      "bg": "surface",
+      "min": 4.5
+    },
+    {
+      "fg": "text",
+      "bg": "surfaceAlt",
+      "min": 4.5
+    },
+    {
+      "fg": "textMuted",
+      "bg": "surface",
+      "min": 4.5
+    },
+    {
+      "fg": "textMuted",
+      "bg": "surfaceAlt",
+      "min": 4.5
+    },
+    {
+      "fg": "onPrimary",
+      "bg": "primary",
+      "min": 4.5
+    },
+    {
+      "fg": "onAccent",
+      "bg": "accent",
+      "min": 4.5
+    },
+    {
+      "fg": "primary",
+      "bg": "surface",
+      "min": 4.5
+    },
+    {
+      "fg": "danger",
+      "bg": "surface",
+      "min": 4.5
+    },
+    {
+      "fg": "warning",
+      "bg": "surface",
+      "min": 4.5
+    },
+    {
+      "fg": "success",
+      "bg": "surface",
+      "min": 4.5
+    },
+    {
+      "fg": "focus",
+      "bg": "surface",
+      "min": 3.0
+    }
+  ]
+}

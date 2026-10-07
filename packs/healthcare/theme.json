@@ -1,0 +1,103 @@
+{
+  "brand": {
+    "name": "Brackenridge Health",
+    "short_name": "Brackenridge",
+    "wordmark": "Brackenridge Health",
+    "mark": "cross-circle",
+    "tagline": "Care close to home",
+    "fictional": true
+  },
+  "color": {
+    "primary": "#3B2E6E",
+    "onPrimary": "#FFFFFF",
+    "surface": "#FFFFFF",
+    "surfaceAlt": "#F1EEF8",
+    "text": "#1E1B2E",
+    "textMuted": "#55506A",
+    "accent": "#22706A",
+    "onAccent": "#FFFFFF",
+    "focus": "#B3261E",
+    "success": "#2E6B3A",
+    "warning": "#8A5A00",
+    "danger": "#B3261E",
+    "border": "#CFC9DE"
+  },
+  "font": {
+    "heading": "Atkinson Hyperlegible",
+    "body": "Atkinson Hyperlegible"
+  },
+  "shape": {
+    "radius": "4px"
+  },
+  "motion": {
+    "style": "minimal",
+    "scene_transition_ms": 250
+  },
+  "voice": {
+    "lang": "en-GB",
+    "rate": 0.95,
+    "pitch": 1.0,
+    "preferred_voices": [
+      "Serena",
+      "Google UK English Female"
+    ]
+  },
+  "tone": "Calm, clear and direct. Short sentences. Put safety information first and never soften it.",
+  "contrast_pairs": [
+    {
+      "fg": "text",
+      "bg": "surface",
+      "min": 4.5
+    },
+    {
+      "fg": "text",
+      "bg": "surfaceAlt",
+      "min": 4.5
+    },
+    {
+      "fg": "textMuted",
+      "bg": "surface",
+      "min": 4.5
+    },
+    {
+      "fg": "textMuted",
+      "bg": "surfaceAlt",
+      "min": 4.5
+    },
+    {
+      "fg": "onPrimary",
+      "bg": "primary",
+      "min": 4.5
+    },
+    {
+      "fg": "onAccent",
+      "bg": "accent",
+      "min": 4.5
+    },
+    {
+      "fg": "primary",
+      "bg": "surface",
+      "min": 4.5
+    },
+    {
+      "fg": "danger",
+      "bg": "surface",
+      "min": 4.5
+    },
+    {
+      "fg": "warning",
+      "bg": "surface",
+      "min": 4.5
+    },
+    {
+      "fg": "success",
+      "bg": "surface",
+      "min": 4.5
+    },
+    {
+      "fg": "focus",
+      "bg": "surface",
+      "min": 3.0
+    }
+  ]
+}

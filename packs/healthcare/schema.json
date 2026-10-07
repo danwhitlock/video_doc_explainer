@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "packs/healthcare/schema.json",
+  "title": "Procedure letter extraction schema",
+  "version": "1.0.0",
+  "description": "Field definitions only. The engine wraps each field as {value, evidence_quote, page} when asking the model, so every value is traceable to the source text.",
+  "type": "object",
+  "properties": {
+    "patient_name": {
+      "type": "string",
+      "description": "Patient name exactly as written in the salutation, including title."
+    },
+    "hospital_number": {
+      "type": "string",
+      "description": "Hospital number, e.g. BH-000000."
+    },
+    "letter_date": {
+      "type": "string",
+      "description": "Date of the letter. ISO date YYYY-MM-DD.",
+      "format": "date"
+    },
+    "procedure_name": {
+      "type": "string",
+      "description": "Name of the procedure, including side if stated, e.g. 'Cataract surgery (right eye)'."
+    },
+    "procedure_plain_english": {
+      "type": "string",
+      "description": "The letter's one-sentence plain-English description of the procedure."
+    },
+    "appointment_date": {
+      "type": "string",
+      "description": "Date of the procedure. ISO date YYYY-MM-DD.",
+      "format": "date"
+    },
+    "arrival_time": {
+      "type": "string",
+      "description": "Time to arrive, 24-hour HH:MM."
+    },
+    "location": {
+      "type": "string",
+      "description": "Unit, floor and hospital where the patient should go."
+    },
+    "anaesthetic_type": {
+      "type": "string",
+      "description": "Type of anaesthetic.",
+      "enum": [
+        "local",
+        "sedation",
+        "general"
+      ]
+    },
+    "stay_type": {
+      "type": "string",
+      "description": "Type of stay, e.g. 'day case' or 'overnight'."
+    },
+    "expected_duration_hours": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "How many hours the patient should expect to be at the hospital."
+    },
+    "last_food_time": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Latest time solid food may be eaten, as ISO datetime YYYY-MM-DDTHH:MM. Null if the patient can eat normally."
+    },
+    "last_clear_fluids_time": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Latest time clear fluids / water may be drunk, as ISO datetime YYYY-MM-DDTHH:MM. Null if no restriction."
+    },
+    "bowel_preparation_required": {
+      "type": "boolean",
+      "description": "True if the patient must take bowel preparation."
+    },
+    "medicine_instructions": {
+      "type": "array",
+      "description": "Each instruction about medicines, one sentence per item, as written.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "items_to_bring": {
+      "type": "array",
+      "description": "Things the patient should bring, one per item.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "escort_required": {
+      "type": "boolean",
+      "description": "True if someone must take the patient home."
+    },
+    "escort_hours": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "How many hours an adult must stay with the patient afterwards. Null if not stated."
+    },
+    "no_driving_days": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "Number of days the patient must not drive, if a fixed number is given. Null if the advice is conditional."
+    },
+    "driving_advice": {
+      "type": "string",
+      "description": "The driving advice sentence as written."
+    },
+    "recovery_summary": {
+      "type": "string",
+      "description": "What recovery is expected to be like, as written."
+    },
+    "warning_signs": {
+      "type": "array",
+      "description": "Symptoms that mean the patient should get help, one per item.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "contact_phone": {
+      "type": "string",
+      "description": "Daytime phone number for questions."
+    },
+    "out_of_hours_phone": {
+      "type": "string",
+      "description": "Out-of-hours phone number."
+    }
+  },
+  "required": [
+    "patient_name",
+    "hospital_number",
+    "letter_date",
+    "procedure_name",
+    "procedure_plain_english",
+    "appointment_date",
+    "arrival_time",
+    "location",
+    "anaesthetic_type",
+    "stay_type",
+    "expected_duration_hours",
+    "last_food_time",
+    "last_clear_fluids_time",
+    "bowel_preparation_required",
+    "medicine_instructions",
+    "items_to_bring",
+    "escort_required",
+    "escort_hours",
+    "no_driving_days",
+    "driving_advice",
+    "recovery_summary",
+    "warning_signs",
+    "contact_phone",
+    "out_of_hours_phone"
+  ],
+  "additionalProperties": false
+}

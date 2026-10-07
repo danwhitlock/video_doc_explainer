@@ -1,0 +1,60 @@
+# Declarative quality rules for the healthcare pack. Same rule vocabulary as the
+# mortgage pack; the engine has no healthcare-specific code. The grounding check
+# runs on every field automatically.
+
+rules:
+  - id: all-required
+    type: required
+    fields: "*"
+    allow_null: [expected_duration_hours, last_food_time, last_clear_fluids_time, escort_hours, no_driving_days]
+    severity: error
+
+  - id: phone-format
+    type: regex
+    field: [contact_phone, out_of_hours_phone]
+    pattern: '^01632 960\d{3}$'
+    severity: warn
+
+  - id: arrival-time-format
+    type: regex
+    field: arrival_time
+    pattern: '^([01]\d|2[0-3]):[0-5]\d$'
+    severity: error
+
+  - id: appointment-after-letter
+    type: date_order
+    before: letter_date
+    after: appointment_date
+    severity: error
+
+  - id: food-before-fluids
+    type: date_order
+    before: last_food_time
+    after: last_clear_fluids_time
+    skip_if_null: true
+    severity: error
+
+  - id: fluids-before-arrival
+    type: date_order
+    before: last_clear_fluids_time
+    after: {date: appointment_date, time: arrival_time}
+    skip_if_null: true
+    severity: error
+
+  - id: escort-for-sedation-or-general
+    type: conditional
+    if: {field: anaesthetic_type, op: in, value: [sedation, general]}
+    then: {field: escort_required, op: "==", value: true}
+    severity: error
+
+  - id: fasting-for-general-anaesthetic
+    type: conditional
+    if: {field: anaesthetic_type, op: "==", value: general}
+    then: {field: last_food_time, op: not_null}
+    severity: error
+
+  - id: has-warning-signs
+    type: range
+    field: warning_signs
+    min_items: 1
+    severity: error

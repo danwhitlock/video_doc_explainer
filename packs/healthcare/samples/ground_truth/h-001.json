@@ -1,0 +1,37 @@
+{
+  "patient_name": "Mrs Margaret Hughes",
+  "hospital_number": "BH-482917",
+  "letter_date": "2026-10-05",
+  "procedure_name": "Cataract surgery (right eye)",
+  "procedure_plain_english": "The cloudy lens in your right eye is removed and replaced with a clear artificial lens.",
+  "appointment_date": "2026-11-12",
+  "arrival_time": "08:30",
+  "location": "Eye Day Unit, Level 1, Brackenridge Community Hospital",
+  "anaesthetic_type": "local",
+  "stay_type": "day case",
+  "expected_duration_hours": 3,
+  "last_food_time": null,
+  "last_clear_fluids_time": null,
+  "bowel_preparation_required": false,
+  "medicine_instructions": [
+    "Keep taking your usual medicines, including eye drops, unless told otherwise.",
+    "If you take blood-thinning medicines, call the pre-assessment team. Do not stop them without advice."
+  ],
+  "items_to_bring": [
+    "A list of your medicines",
+    "Your glasses",
+    "Something to read"
+  ],
+  "escort_required": true,
+  "escort_hours": null,
+  "no_driving_days": null,
+  "driving_advice": "Do not drive until your eye doctor says your sight meets the legal standard.",
+  "recovery_summary": "Most people notice clearer sight within a few days. Use your eye drops as shown for 4 weeks.",
+  "warning_signs": [
+    "Increasing pain in the eye",
+    "Your sight gets worse",
+    "Increasing redness or sticky discharge"
+  ],
+  "contact_phone": "01632 960215",
+  "out_of_hours_phone": "01632 960999"
+}

@@ -1,0 +1,15 @@
+name: mortgage
+display_name: Mortgage offer explainer
+industry: Financial services
+brand: Fernmoor Building Society   # fictional
+document_type: Mortgage offer and illustration
+schema_version: 1.0.0
+retention_days: 30          # derived artefacts are purged after this many days
+reading_ease_min: 60        # Flesch Reading Ease target for narration
+visual_types: [title, stat, comparison, timeline, table, checklist, contact]
+suggested_questions:
+  - What happens when my fixed rate ends?
+  - Can I make overpayments?
+  - How much would it cost to repay early in year 1?
+  - Is the product fee added to my loan?
+  - Can I take this mortgage with me if I move?

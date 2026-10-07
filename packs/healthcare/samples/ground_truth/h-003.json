@@ -1,0 +1,38 @@
+{
+  "patient_name": "Ms Chloe Bennett",
+  "hospital_number": "BH-603845",
+  "letter_date": "2026-10-05",
+  "procedure_name": "Knee arthroscopy (left knee)",
+  "procedure_plain_english": "Keyhole surgery: a small camera and instruments are passed through tiny cuts to look inside and repair your knee joint.",
+  "appointment_date": "2026-11-19",
+  "arrival_time": "07:00",
+  "location": "Day Surgery Unit, Level 2, Brackenridge General Hospital",
+  "anaesthetic_type": "general",
+  "stay_type": "day case",
+  "expected_duration_hours": 6,
+  "last_food_time": "2026-11-19T02:00",
+  "last_clear_fluids_time": "2026-11-19T06:00",
+  "bowel_preparation_required": false,
+  "medicine_instructions": [
+    "Take your usual morning medicines with a small sip of water, unless told otherwise.",
+    "If you take blood-thinning medicines, call the pre-assessment team. Do not stop them without advice."
+  ],
+  "items_to_bring": [
+    "A list of your medicines",
+    "Loose shorts or trousers",
+    "Flat, comfortable shoes"
+  ],
+  "escort_required": true,
+  "escort_hours": 24,
+  "no_driving_days": null,
+  "driving_advice": "Do not drive until you can do an emergency stop without pain. For most people this is 1 to 2 weeks.",
+  "recovery_summary": "Keep your leg raised when resting. Most people return to desk work within 1 to 2 weeks.",
+  "warning_signs": [
+    "Increasing redness, heat or swelling around the knee",
+    "A high temperature",
+    "Pain or swelling in your calf",
+    "Call 999 if you have chest pain or sudden breathlessness"
+  ],
+  "contact_phone": "01632 960577",
+  "out_of_hours_phone": "01632 960999"
+}

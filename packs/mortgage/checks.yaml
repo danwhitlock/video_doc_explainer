@@ -1,0 +1,86 @@
+# Declarative quality rules. The engine implements each rule `type` generically;
+# nothing here is mortgage-specific code. The grounding check (evidence quote must
+# appear in the source page) runs on every field automatically and is not listed.
+#
+# Rule types: required | range | regex | compare | date_order | formula | conditional | sum_check
+# severity:   error (blocks rendering) | warn (renders, flagged in UI)
+
+rules:
+  - id: all-required
+    type: required
+    fields: "*"
+    severity: error
+
+  - id: phone-format
+    type: regex
+    field: contact_phone
+    pattern: '^01632 960\d{3}$'          # Ofcom drama range; real deployments would use a proper phone validator
+    severity: warn
+
+  - id: rate-plausible
+    type: range
+    field: initial_rate_percent
+    min: 0.5
+    max: 15
+    severity: error
+
+  - id: follow-on-rate-plausible
+    type: range
+    field: follow_on_rate_percent
+    min: 0.5
+    max: 15
+    severity: error
+
+  - id: term-plausible
+    type: range
+    field: term_years
+    min: 5
+    max: 40
+    severity: error
+
+  - id: ltv-matches-loan-and-value
+    type: formula
+    formula: ltv                # ltv_percent ≈ loan_amount / property_value * 100
+    inputs: {loan: loan_amount, value: property_value}
+    target: ltv_percent
+    tolerance_abs: 0.2
+    severity: error
+
+  - id: initial-payment-recomputes
+    type: formula
+    formula: amortised_payment  # standard repayment-mortgage formula
+    inputs: {principal: loan_amount, annual_rate_percent: initial_rate_percent, years: term_years}
+    target: monthly_payment_initial
+    tolerance_pct: 1.0
+    severity: error
+
+  - id: follow-on-payment-higher-when-rate-higher
+    type: conditional
+    if: {field: follow_on_rate_percent, op: ">", other: initial_rate_percent}
+    then: {field: monthly_payment_follow_on, op: ">", other: monthly_payment_initial}
+    severity: warn
+
+  - id: expiry-after-offer
+    type: date_order
+    before: offer_date
+    after: offer_expiry_date
+    severity: error
+
+  - id: erc-years-cover-fixed-period
+    type: formula
+    formula: erc_years_cover    # count of ERC years == initial_period_months / 12
+    inputs: {schedule: early_repayment_charges, months: initial_period_months}
+    severity: warn
+
+  - id: no-fee-means-not-added
+    type: conditional
+    if: {field: product_fee, op: "==", value: 0}
+    then: {field: product_fee_added_to_loan, op: "==", value: false}
+    severity: error
+
+  - id: total-exceeds-loan
+    type: compare
+    field: total_amount_repayable
+    op: ">"
+    other: loan_amount
+    severity: error

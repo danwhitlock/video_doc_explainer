@@ -1,0 +1,147 @@
+# Scene-by-scene script for the mortgage explainer.
+#
+# Context available to every template string:
+#   d        extracted, validated fields (d.loan_amount, ...)
+#   p        customer profile from customers.json (p.preferred_name, ...)
+#   brand    theme.brand (brand.short_name, ...)
+#
+# Filters the engine must provide (shared by all packs):
+#   gbp(x)          £1,359.76      gbp0(x)  £627,498 (rounded)
+#   pct(x)          4.89 percent   (spoken-friendly; visuals use their own formatting)
+#   long_date(s)    31 October 2028
+#   years_months(m) "2 years" / "18 months" / "1 year and 6 months"
+#
+# `when:` is a Jinja expression; the scene is skipped if it is false.
+# `narration` is shown in captions and the transcript and spoken by TTS.
+# `visual` is passed to the React scene component as structured data, never as HTML.
+
+speech:
+  phone_numbers: digits        # TTS reads "01632 960412" as "oh one six three two, nine six oh, four one two"
+  symbols: {"%": " percent"}
+
+scenes:
+  - id: welcome
+    title: "Your mortgage offer, explained"
+    visual:
+      type: title
+      heading: "Hi {{ p.preferred_name }}"
+      subheading: "{{ d.product_name }}"
+    narration: >
+      Hi {{ p.preferred_name }}. This short video explains your mortgage offer from {{ brand.short_name }}.
+      It takes about two minutes. You can pause, turn on captions, or ask a question at any time.
+
+  - id: your-loan
+    title: "What you're borrowing"
+    visual:
+      type: stat
+      stats:
+        - {label: "You're borrowing", value: "{{ d.loan_amount | gbp0 }}"}
+        - {label: "Your home is worth", value: "{{ d.property_value | gbp0 }}"}
+      meter: {label: "Loan to value", value: "{{ d.ltv_percent }}", max: 100, unit: "%"}
+    narration: >
+      {% if 'remortgage' in d.mortgage_purpose %}You're remortgaging your home, which is worth {{ d.property_value | gbp0 }}.
+      Your new loan is {{ d.loan_amount | gbp0 }}.{% else %}You're borrowing {{ d.loan_amount | gbp0 }} to buy a home
+      worth {{ d.property_value | gbp0 }}.{% endif %}
+      That's {{ d.ltv_percent | round(0) | int }} percent of its value. Lenders call this your loan to value.
+      You'll pay it back over {{ d.term_years }} years.
+
+  - id: high-ltv
+    when: "d.ltv_percent > 85"
+    title: "Why your loan to value matters"
+    visual:
+      type: alert
+      tone: info
+      heading: "Borrowing more than 85% of the value"
+      body: "Rates are usually higher at this level. Your loan to value falls as you repay."
+    narration: >
+      Loans above 85 percent of a home's value usually have higher rates. Each payment you make lowers
+      your loan to value. When your fixed rate ends, you may have more deals to choose from.
+
+  - id: your-rate
+    title: "Your fixed rate"
+    visual:
+      type: stat
+      stats:
+        - {label: "Fixed rate", value: "{{ d.initial_rate_percent }}%"}
+        - {label: "Monthly payment", value: "{{ d.monthly_payment_initial | gbp }}"}
+        - {label: "Fixed for", value: "{{ d.initial_period_months | years_months }}"}
+    narration: >
+      For the first {{ d.initial_period_months | years_months }}, your rate is fixed at {{ d.initial_rate_percent | pct }}.
+      Your monthly payment stays at {{ d.monthly_payment_initial | gbp }}, even if interest rates change.
+
+  - id: after-fixed
+    title: "When your fixed rate ends"
+    visual:
+      type: comparison
+      before: {label: "Until {{ d.initial_period_end_date | long_date }}", value: "{{ d.monthly_payment_initial | gbp }}", caption: "{{ d.initial_rate_percent }}% fixed"}
+      after: {label: "After that, if nothing changes", value: "{{ d.monthly_payment_follow_on | gbp }}", caption: "{{ d.follow_on_rate_percent }}% variable"}
+      delta: "{{ (d.monthly_payment_follow_on - d.monthly_payment_initial) | gbp }} more a month"
+    narration: >
+      Your fixed rate ends on {{ d.initial_period_end_date | long_date }}. After that, you move to our
+      Standard Variable Rate. It's {{ d.follow_on_rate_percent | pct }} today, and it can go up or down.
+      If it stays the same, your payment would rise to {{ d.monthly_payment_follow_on | gbp }} a month.
+      That's {{ (d.monthly_payment_follow_on - d.monthly_payment_initial) | gbp }} more.
+      Many people choose a new deal before their fixed rate ends.
+
+  - id: overpayments
+    title: "Paying off early"
+    visual:
+      type: table
+      columns: ["Period", "Charge on the amount repaid"]
+      rows: "{{ d.early_repayment_charges }}"      # engine maps to [["Year 1", "2%"], ...]
+      footnote: "Overpay up to {{ d.overpayment_allowance_percent }}% a year with no charge."
+    narration: >
+      You can pay off up to {{ d.overpayment_allowance_percent | int }} percent of what you owe each year at no extra cost.
+      If you repay more than that during your fixed rate, there's an early repayment charge.
+      {% set first = d.early_repayment_charges[0] %}{% set last = d.early_repayment_charges[-1] %}
+      {% if d.early_repayment_charges | length > 2 %}It starts at {{ first.percent }} percent in year 1 and falls to
+      {{ last.percent }} percent in year {{ last.year }}.{% else %}It's {{ first.percent }} percent in year 1 and
+      {{ last.percent }} percent in year 2.{% endif %}
+      For example, repaying an extra ten thousand pounds in year 1 would cost {{ (10000 * first.percent / 100) | gbp0 }}.
+
+  - id: fees
+    when: "d.product_fee > 0"
+    title: "Fees"
+    visual:
+      type: stat
+      stats:
+        - {label: "Product fee", value: "{{ d.product_fee | gbp }}"}
+        - {label: "How it's paid", value: "{% if d.product_fee_added_to_loan %}Added to your loan{% else %}Paid on completion{% endif %}"}
+    narration: >
+      There's a product fee of {{ d.product_fee | gbp }}.
+      {% if d.product_fee_added_to_loan %}You chose to add it to your loan. That means you don't pay it upfront,
+      but you will pay interest on it.{% else %}You pay it when your mortgage completes. It isn't added to your loan.{% endif %}
+
+  - id: total-cost
+    title: "The total cost"
+    visual:
+      type: stat
+      stats:
+        - {label: "Total to repay over {{ d.term_years }} years", value: "{{ d.total_amount_repayable | gbp0 }}"}
+        - {label: "Of which is the loan", value: "{{ d.loan_amount | gbp0 }}"}
+    narration: >
+      Over the full {{ d.term_years }} years, you'd repay about {{ d.total_amount_repayable | gbp0 }} in total,
+      if rates don't change. That includes your loan of {{ d.loan_amount | gbp0 }} and the interest on it.
+
+  - id: your-part
+    title: "Your part"
+    visual:
+      type: checklist
+      items:
+        - "Keep up your monthly payments"
+        - "Keep your home insured for its full rebuild cost"
+        - "Accept this offer before {{ d.offer_expiry_date | long_date }}"
+    narration: >
+      There are a few things you need to do. Keep up your payments. Your home may be repossessed if you don't.
+      Keep your home insured. And remember, this offer is valid until {{ d.offer_expiry_date | long_date }}.
+
+  - id: contact
+    title: "Any questions?"
+    visual:
+      type: contact
+      phone: "{{ d.contact_phone }}"
+      reference: "{{ d.offer_reference }}"
+      hours: "Mon to Fri 8am to 8pm, Sat 9am to 1pm"
+    narration: >
+      If anything isn't clear, type a question in the box next to this video.
+      Or call us on {{ d.contact_phone }} and quote your reference. Thanks for watching, {{ p.preferred_name }}.

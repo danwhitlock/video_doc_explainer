@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "packs/mortgage/schema.json",
+  "title": "Mortgage offer extraction schema",
+  "version": "1.0.0",
+  "description": "Field definitions only. The engine wraps each field as {value, evidence_quote, page} when asking the model, so every value is traceable to the source text.",
+  "type": "object",
+  "properties": {
+    "customer_name": {
+      "type": "string",
+      "description": "Customer name exactly as written in the salutation, including title."
+    },
+    "offer_reference": {
+      "type": "string",
+      "description": "Lender's offer reference, e.g. FBS-2026-000000."
+    },
+    "offer_date": {
+      "type": "string",
+      "description": "Date the offer was issued. ISO date YYYY-MM-DD.",
+      "format": "date"
+    },
+    "offer_expiry_date": {
+      "type": "string",
+      "description": "Date the offer is valid until. ISO date YYYY-MM-DD.",
+      "format": "date"
+    },
+    "property_address": {
+      "type": "string",
+      "description": "Address of the mortgaged property, comma-separated on one line."
+    },
+    "mortgage_purpose": {
+      "type": "string",
+      "description": "Why the mortgage is being taken out, e.g. 'purchase (first-time buyer)', 'remortgage'."
+    },
+    "product_name": {
+      "type": "string",
+      "description": "Name of the mortgage product."
+    },
+    "repayment_type": {
+      "type": "string",
+      "description": "Repayment method.",
+      "enum": [
+        "capital and interest",
+        "interest only",
+        "part and part"
+      ]
+    },
+    "property_value": {
+      "type": "number",
+      "description": "Value of the property in pounds, number only (no \u00a3 or commas)."
+    },
+    "loan_amount": {
+      "type": "number",
+      "description": "Total amount of the loan in pounds, including any fee added to the loan."
+    },
+    "ltv_percent": {
+      "type": "number",
+      "description": "Loan-to-value percentage as a number, e.g. 85.0."
+    },
+    "term_years": {
+      "type": "integer",
+      "description": "Full mortgage term in years."
+    },
+    "initial_rate_percent": {
+      "type": "number",
+      "description": "Initial (fixed) interest rate as a percentage number, e.g. 4.89."
+    },
+    "initial_period_months": {
+      "type": "integer",
+      "description": "Length of the initial rate period in months."
+    },
+    "initial_period_end_date": {
+      "type": "string",
+      "description": "Date the initial rate period ends. ISO date YYYY-MM-DD.",
+      "format": "date"
+    },
+    "follow_on_rate_percent": {
+      "type": "number",
+      "description": "Rate that applies after the initial period (e.g. the SVR), as a percentage number. Not an illustrative 'rates rise' figure."
+    },
+    "monthly_payment_initial": {
+      "type": "number",
+      "description": "Monthly payment during the initial rate period, in pounds."
+    },
+    "monthly_payment_follow_on": {
+      "type": "number",
+      "description": "Monthly payment after the initial period at the current follow-on rate, in pounds. Not the illustrative 'if rates rise' figure."
+    },
+    "total_amount_repayable": {
+      "type": "number",
+      "description": "Total amount to repay over the term, in pounds."
+    },
+    "product_fee": {
+      "type": "number",
+      "description": "Product fee in pounds; 0 if there is none."
+    },
+    "product_fee_added_to_loan": {
+      "type": "boolean",
+      "description": "True if the product fee is added to the loan rather than paid upfront. False if there is no fee."
+    },
+    "early_repayment_charges": {
+      "type": "array",
+      "description": "Early repayment charge for each year of the initial period, in order.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "year": {
+            "type": "integer"
+          },
+          "percent": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "year",
+          "percent"
+        ]
+      }
+    },
+    "overpayment_allowance_percent": {
+      "type": "number",
+      "description": "Percentage of the balance that can be overpaid each year without a charge."
+    },
+    "contact_phone": {
+      "type": "string",
+      "description": "Lender's phone number for questions about the offer."
+    }
+  },
+  "required": [
+    "customer_name",
+    "offer_reference",
+    "offer_date",
+    "offer_expiry_date",
+    "property_address",
+    "mortgage_purpose",
+    "product_name",
+    "repayment_type",
+    "property_value",
+    "loan_amount",
+    "ltv_percent",
+    "term_years",
+    "initial_rate_percent",
+    "initial_period_months",
+    "initial_period_end_date",
+    "follow_on_rate_percent",
+    "monthly_payment_initial",
+    "monthly_payment_follow_on",
+    "total_amount_repayable",
+    "product_fee",
+    "product_fee_added_to_loan",
+    "early_repayment_charges",
+    "overpayment_allowance_percent",
+    "contact_phone"
+  ],
+  "additionalProperties": false
+}

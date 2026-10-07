@@ -1,0 +1,15 @@
+name: healthcare
+display_name: Procedure preparation explainer
+industry: Healthcare
+brand: Brackenridge Health   # fictional
+document_type: Procedure appointment and preparation letter
+schema_version: 1.0.0
+retention_days: 14
+reading_ease_min: 60
+visual_types: [title, stat, timeline, checklist, alert, contact]
+suggested_questions:
+  - When do I need to stop eating?
+  - Can I drive home afterwards?
+  - Which medicines should I stop taking?
+  - What should I bring with me?
+  - Who do I call if I feel unwell after I get home?

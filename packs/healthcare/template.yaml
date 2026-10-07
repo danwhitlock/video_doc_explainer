@@ -1,0 +1,146 @@
+# Scene-by-scene script for the procedure preparation explainer.
+# Same engine, same filters and conventions as packs/mortgage/template.yaml, plus:
+#   time_12h(s)                 "13:00" -> "1pm", "08:30" -> "8:30am"
+#   day_phrase(dt, ref_date)    "2026-11-03T09:00", "2026-11-04" -> "9am the day before"
+#                               "2026-11-04T11:00", "2026-11-04" -> "11am on the day"
+#   weekday_date(s)             "Wednesday 4 November"
+#   lower_first(s)              "Colonoscopy" -> "colonoscopy"
+#   join_and(list)              ["a", "b", "c"] -> "a, b and c"
+# Safety content (fasting, escort, warning signs) must never be skipped by a `when:` that could fail open:
+# those scenes use explicit null checks, and the quality checks block rendering if the data is missing.
+
+speech:
+  phone_numbers: digits
+  symbols: {"%": " percent"}
+
+anaesthetic_explained:
+  local: "You'll be awake. The area will be numbed, so you shouldn't feel pain."
+  sedation: "You'll have medicine to make you relaxed and drowsy. You won't be fully asleep."
+  general: "You'll be fully asleep during the procedure."
+
+scenes:
+  - id: welcome
+    title: "Getting ready for your procedure"
+    visual:
+      type: title
+      heading: "Hello {{ p.preferred_name }}"
+      subheading: "{{ d.procedure_name }}"
+    narration: >
+      Hello {{ p.preferred_name }}. This video helps you get ready for your {{ d.procedure_name | lower_first }}
+      at {{ brand.short_name }}. It takes about two minutes. You can pause it, turn on captions, or ask a question at any time.
+
+  - id: what-happens
+    title: "What happens"
+    visual:
+      type: stat
+      stats:
+        - {label: "Procedure", value: "{{ d.procedure_name }}"}
+        - {label: "Anaesthetic", value: "{{ d.anaesthetic_type | capitalize }}"}
+        - {label: "Stay", value: "{{ d.stay_type | capitalize }}"}
+    narration: >
+      {{ d.procedure_plain_english }} {{ anaesthetic_explained[d.anaesthetic_type] }}
+      {% if d.stay_type == 'day case' %}It's a day case, so you should go home the same day.{% endif %}
+
+  - id: when-where
+    title: "When and where"
+    visual:
+      type: stat
+      stats:
+        - {label: "Date", value: "{{ d.appointment_date | weekday_date }}"}
+        - {label: "Arrive at", value: "{{ d.arrival_time | time_12h }}"}
+        - {label: "Where", value: "{{ d.location }}"}
+    narration: >
+      Your appointment is on {{ d.appointment_date | weekday_date }}. Please arrive at {{ d.arrival_time | time_12h }}.
+      Go to the {{ d.location }}.
+      {% if d.expected_duration_hours %}Expect to be with us for about {{ d.expected_duration_hours | int }} hours.{% endif %}
+
+  - id: eating-drinking
+    when: "d.last_food_time is not none or d.last_clear_fluids_time is not none"
+    title: "Eating and drinking"
+    visual:
+      type: timeline
+      tone: important
+      items:
+        - {time: "{{ d.last_food_time | day_phrase(d.appointment_date) if d.last_food_time else '' }}", label: "Last food"}
+        - {time: "{{ d.last_clear_fluids_time | day_phrase(d.appointment_date) if d.last_clear_fluids_time else '' }}", label: "Last drink"}
+        - {time: "{{ d.arrival_time | time_12h }} on the day", label: "Arrive"}
+    narration: >
+      This part is important for your safety.
+      {% if d.last_food_time %}Don't eat anything after {{ d.last_food_time | day_phrase(d.appointment_date) }}.{% endif %}
+      {% if d.last_clear_fluids_time %}You can drink clear fluids until {{ d.last_clear_fluids_time | day_phrase(d.appointment_date) }}. After that, nothing at all.{% endif %}
+      If you eat or drink after these times, we may have to cancel your procedure.
+
+  - id: eating-normally
+    when: "d.last_food_time is none and d.last_clear_fluids_time is none"
+    title: "Eating and drinking"
+    visual:
+      type: alert
+      tone: info
+      heading: "No need to fast"
+      body: "You can eat and drink normally before your appointment."
+    narration: >
+      Good news. You don't need to stop eating or drinking. You can have your meals as normal before you come in.
+
+  - id: bowel-prep
+    when: "d.bowel_preparation_required"
+    title: "Bowel preparation"
+    visual:
+      type: alert
+      tone: important
+      heading: "Take your bowel preparation"
+      body: "Follow the separate instruction sheet exactly. Stay near a toilet."
+    narration: >
+      You'll need to take bowel preparation to empty your bowel before the test. Follow the separate sheet exactly.
+      It works quickly, so plan to stay at home, close to a toilet.
+
+  - id: medicines
+    title: "Your medicines"
+    visual:
+      type: checklist
+      items: "{{ d.medicine_instructions }}"
+    narration: >
+      Now, your medicines. {% for m in d.medicine_instructions %}{{ m }} {% endfor %}
+
+  - id: what-to-bring
+    title: "What to bring"
+    visual:
+      type: checklist
+      items: "{{ d.items_to_bring }}"
+    narration: >
+      Please bring {{ d.items_to_bring | map('lower_first') | list | join_and }}. Leave jewellery and valuables at home.
+
+  - id: going-home
+    title: "Going home"
+    visual:
+      type: alert
+      tone: important
+      heading: "{% if d.escort_hours %}An adult must stay with you for {{ d.escort_hours }} hours{% else %}Someone must take you home{% endif %}"
+      body: "{{ d.driving_advice }}"
+    narration: >
+      {% if d.escort_hours %}You must have a responsible adult to take you home and stay with you for {{ d.escort_hours }} hours.
+      {% else %}You'll need someone to take you home.{% endif %}
+      {{ d.driving_advice }} {{ d.recovery_summary }}
+
+  - id: warning-signs
+    title: "When to get help"
+    visual:
+      type: alert
+      tone: danger
+      heading: "Call us straight away if you have:"
+      items: "{{ d.warning_signs }}"
+    narration: >
+      After you get home, call us straight away if you have any of these:
+      {% for w in d.warning_signs if not w.lower().startswith('call 999') %}{{ w | lower_first }}{% if not loop.last %}; {% endif %}{% endfor %}.
+      {% for w in d.warning_signs if w.lower().startswith('call 999') %}{{ w }}.{% endfor %}
+
+  - id: contact
+    title: "Any questions?"
+    visual:
+      type: contact
+      phone: "{{ d.contact_phone }}"
+      secondary_phone: "{{ d.out_of_hours_phone }}"
+      reference: "{{ d.hospital_number }}"
+      hours: "Mon to Fri 9am to 5pm. Out of hours: {{ d.out_of_hours_phone }}"
+    narration: >
+      If you have a question, type it in the box next to this video, or call us on {{ d.contact_phone }}.
+      Outside office hours, call {{ d.out_of_hours_phone }}. We look forward to seeing you, {{ p.preferred_name }}.

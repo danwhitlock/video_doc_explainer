@@ -1,0 +1,37 @@
+{
+  "patient_name": "Mr Imran Shah",
+  "hospital_number": "BH-517302",
+  "letter_date": "2026-10-05",
+  "procedure_name": "Colonoscopy",
+  "procedure_plain_english": "A thin, flexible tube with a camera is used to look at the lining of your large bowel.",
+  "appointment_date": "2026-11-04",
+  "arrival_time": "13:00",
+  "location": "Endoscopy Unit, Ground Floor, Brackenridge General Hospital",
+  "anaesthetic_type": "sedation",
+  "stay_type": "day case",
+  "expected_duration_hours": 4,
+  "last_food_time": "2026-11-03T09:00",
+  "last_clear_fluids_time": "2026-11-04T11:00",
+  "bowel_preparation_required": true,
+  "medicine_instructions": [
+    "Stop taking iron tablets 7 days before your appointment.",
+    "If you take blood-thinning medicines or medicines for diabetes, call the pre-assessment team. Do not stop them without advice."
+  ],
+  "items_to_bring": [
+    "A list of your medicines",
+    "A dressing gown and slippers",
+    "Your bowel preparation instruction sheet"
+  ],
+  "escort_required": true,
+  "escort_hours": 24,
+  "no_driving_days": 1,
+  "driving_advice": "Do not drive, cycle or operate machinery for 24 hours after sedation.",
+  "recovery_summary": "You may feel bloated for a few hours. Most people are back to normal the next day.",
+  "warning_signs": [
+    "Severe tummy pain",
+    "Passing more than a small amount of blood",
+    "A high temperature"
+  ],
+  "contact_phone": "01632 960348",
+  "out_of_hours_phone": "01632 960999"
+}

@@ -40,4 +40,4 @@ flowchart LR
 | Evaluate | 8 | ⬜ | Accuracy per model | `pipeline/evaluate.py` |
 | Accessibility, CI, deploy | 9 | ⬜ | Tests, scans, live site, docs | `.github/workflows/` |
 
-**Current step:** 2.1 done (provider interface) — next is OllamaProvider
+**Current step:** 2.2 done (OllamaProvider) — next is ClaudeProvider

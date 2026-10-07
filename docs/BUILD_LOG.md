@@ -35,6 +35,12 @@ Claude appends one entry per step. Read this before an interview.
 - **How it fits:** `extract.py` (step 5) and the Phase 7 Q&A code will depend only on this shape, never on a concrete provider class - that's the mechanism behind `LLM_PROVIDER=ollama|claude` swapping models via config, not code.
 - **Check question:** "Why `Protocol` over `abc.ABC` here?" — Dan: "because it lets other classes satisfy it without inheriting from it." Correct.
 
+### 2.2 — Ollama provider (2026-10-07)
+- **What:** `pipeline/providers/ollama.py` — `OllamaProvider.extract()` (structured output via `format=<schema>`) and `.answer()` (plain prompt over cited passages). Tests use a `FakeOllamaClient` injected in place of the real `ollama.Client`, so no live server is needed.
+- **Why this way:** constructor accepts an optional `client` (dependency injection) specifically so provider logic (building the request, parsing the response) can be tested without a running Ollama server or a pulled model. A malformed model response is left to raise `json.JSONDecodeError` naturally rather than being caught here - retrying belongs to `extract.py` (step 5), not the provider.
+- **How it fits:** second concrete `LLMProvider`; `get_provider()` (step 4) will return this when `LLM_PROVIDER=ollama`.
+- **Check question:** "Why let `json.JSONDecodeError` propagate instead of catching it and returning `{}`?" — asked, moved on before an answer; worth revisiting (an empty dict would look like a valid-but-empty extraction to any caller, hiding the real failure).
+
 ---
 
 ## Glossary
@@ -47,3 +53,5 @@ Terms explained along the way, in plain English.
 | Character offset | A position counted in characters from the start of a string (e.g. `start=120, end=180`). Lets later code point back at exactly which slice of source text a value came from, without copying that text around. |
 | `extra="allow"` (pydantic) | A model setting that stores any fields you didn't explicitly declare instead of rejecting or dropping them, kept in `.model_extra`. Like an intake form with a few required fields plus a free-text box for anything else. |
 | Protocol / structural typing | A way of saying "anything with this shape counts as this type," rather than nominal typing's "you must inherit from this base class." Duck typing, checkable by a type checker (and at runtime, with `@runtime_checkable`). |
+| Dependency injection | Passing a class the thing it depends on (e.g. a client object) rather than having it construct that dependency itself - lets tests hand it a stand-in instead of the real thing. |
+| Structured output | Telling a model API "your reply must match this JSON Schema" as a request parameter, rather than just asking in the prompt and hoping. |

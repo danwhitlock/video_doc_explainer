@@ -29,6 +29,12 @@ Claude appends one entry per step. Read this before an interview.
 - **How it fits:** every later stage (`extract.py`, `checks.py`, `render.py`, web theming) reads pack config through this loader instead of parsing files itself - it's the mechanism that keeps the engine industry-agnostic.
 - **Check question:** "Why does `Rule` only declare `id`, `type`, `severity` when rules clearly have other fields?" — Dan: "because of differences in the format" (correct instinct; the fuller reason is each rule *type* has a different set of meaningful extra fields - `min`/`max` for `range`, `if`/`then` for `conditional`, etc. - so one fixed model would carry fields that don't apply to most rule types. `checks.py`, not the loader, is what will look at `type` and know which extras to expect).
 
+### 2.1 — Provider interface (2026-10-07)
+- **What:** `pipeline/providers/base.py` — the `LLMProvider` Protocol (`extract`, `answer`, `name`, `model`) and `pipeline/providers/__init__.py` (empty, package marker). Tests prove structural matching with a non-inheriting `DummyProvider`.
+- **Why this way:** `Protocol` over `abc.ABC` + `@abstractmethod` - a `Protocol` lets `OllamaProvider`/`ClaudeProvider` satisfy the interface purely by shape, with no inheritance relationship to this module at all. Keeps each provider module fully independent of the others and of `base.py`.
+- **How it fits:** `extract.py` (step 5) and the Phase 7 Q&A code will depend only on this shape, never on a concrete provider class - that's the mechanism behind `LLM_PROVIDER=ollama|claude` swapping models via config, not code.
+- **Check question:** "Why `Protocol` over `abc.ABC` here?" — Dan: "because it lets other classes satisfy it without inheriting from it." Correct.
+
 ---
 
 ## Glossary
@@ -40,3 +46,4 @@ Terms explained along the way, in plain English.
 | Typer callback | A function decorated with `@app.callback()` that runs before/instead of any subcommand; required for Typer to build a valid command tree even with zero subcommands. |
 | Character offset | A position counted in characters from the start of a string (e.g. `start=120, end=180`). Lets later code point back at exactly which slice of source text a value came from, without copying that text around. |
 | `extra="allow"` (pydantic) | A model setting that stores any fields you didn't explicitly declare instead of rejecting or dropping them, kept in `.model_extra`. Like an intake form with a few required fields plus a free-text box for anything else. |
+| Protocol / structural typing | A way of saying "anything with this shape counts as this type," rather than nominal typing's "you must inherit from this base class." Duck typing, checkable by a type checker (and at runtime, with `@runtime_checkable`). |

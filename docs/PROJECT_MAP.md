@@ -29,7 +29,7 @@ flowchart LR
 | Project skeleton | 1 | ✅ | Python project, CLI, tests | `pyproject.toml`, `pipeline/cli.py` |
 | Pack loader | 1 | ✅ | Reads an industry pack's config | `pipeline/packs.py` |
 | Ingest | 1 | ✅ | PDF → page text → chunks | `pipeline/ingest.py` |
-| Provider layer | 2 | ⬜ | One interface for Ollama or Claude | `pipeline/providers/` |
+| Provider layer | 2 | 🟨 | One interface for Ollama or Claude | `pipeline/providers/` |
 | Extract | 2 | ⬜ | Fields + evidence from the document | `pipeline/extract.py` |
 | Quality checks | 3 | ⬜ | Rules + grounding (hallucination guard) | `pipeline/checks.py` |
 | Lineage + purge | 3 | ⬜ | Audit trail, deletion receipts | `pipeline/lineage.py`, `purge.py` |
@@ -40,4 +40,4 @@ flowchart LR
 | Evaluate | 8 | ⬜ | Accuracy per model | `pipeline/evaluate.py` |
 | Accessibility, CI, deploy | 9 | ⬜ | Tests, scans, live site, docs | `.github/workflows/` |
 
-**Current step:** Phase 1 complete (skeleton, ingest, pack loader) — next is Phase 2 (provider layer + extract)
+**Current step:** 2.1 done (provider interface) — next is OllamaProvider

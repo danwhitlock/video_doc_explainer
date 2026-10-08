@@ -115,6 +115,77 @@ def test_regex_list_of_fields_names_the_bad_one():
     assert result.fields == ["out_of_hours_phone"]
 
 
+# --- compare ---
+
+
+def test_compare_passes_fails_and_skips():
+    rule = pack_rule("mortgage", "total-exceeds-loan")
+    values = good_values("mortgage", "m-001")
+
+    assert run_one(rule, values).status == "pass"
+
+    result = run_one(rule, values | {"total_amount_repayable": 1000})
+    assert result.status == "fail"
+    assert result.message == "Expected total_amount_repayable > loan_amount"
+
+    assert run_one(rule, values | {"loan_amount": None}).status == "skip"
+
+
+# --- conditional ---
+
+
+def test_conditional_greater_than_another_field():
+    rule = pack_rule("mortgage", "follow-on-payment-higher-when-rate-higher")
+    values = good_values("mortgage", "m-001")
+
+    assert run_one(rule, values).status == "pass"
+    assert run_one(rule, values | {"monthly_payment_follow_on": 900}).status == "fail"
+
+
+def test_conditional_equals_a_literal():
+    rule = pack_rule("mortgage", "no-fee-means-not-added")
+    values = good_values("mortgage", "m-001") | {"product_fee": 0}
+
+    assert run_one(rule, values | {"product_fee_added_to_loan": False}).status == "pass"
+    assert run_one(rule, values | {"product_fee_added_to_loan": True}).status == "fail"
+
+
+def test_conditional_in_skips_when_not_applicable():
+    rule = pack_rule("healthcare", "escort-for-sedation-or-general")
+    values = good_values("healthcare", "h-001")  # local anaesthetic
+    assert values["anaesthetic_type"] == "local"
+
+    assert run_one(rule, values).status == "skip"
+
+    sedation = values | {"anaesthetic_type": "sedation"}
+    assert run_one(rule, sedation | {"escort_required": True}).status == "pass"
+    assert run_one(rule, sedation | {"escort_required": False}).status == "fail"
+
+
+def test_conditional_not_null():
+    rule = pack_rule("healthcare", "fasting-for-general-anaesthetic")
+    values = good_values("healthcare", "h-003")  # general anaesthetic
+    assert values["anaesthetic_type"] == "general"
+
+    assert run_one(rule, values).status == "pass"
+
+    result = run_one(rule, values | {"last_food_time": None})
+    assert result.status == "fail"
+    assert result.message == "anaesthetic_type == general, so expected last_food_time is set"
+
+
+def test_conditional_unknown_operator_raises():
+    rule = Rule(
+        id="odd",
+        type="conditional",
+        severity="warn",
+        **{"if": {"field": "a", "op": "~=", "value": 1}, "then": {"field": "b", "op": "not_null"}},
+    )
+
+    with pytest.raises(ValueError, match="Unknown operator '~='"):
+        run_rules({"a": 1, "b": 2}, [rule])
+
+
 # --- engine ---
 
 

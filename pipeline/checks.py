@@ -94,6 +94,56 @@ def check_regex(values: Values, params: dict[str, Any]) -> CheckOutcome:
     return "pass", f"Format OK for: {', '.join(present)}", present
 
 
+def check_compare(values: Values, params: dict[str, Any]) -> CheckOutcome:
+    """One field against another, e.g. total_amount_repayable > loan_amount."""
+    names = [params["field"], params["other"]]
+    if any(values.get(name) is None for name in names):
+        return "skip", f"Can't compare {_describe(params)}: a value is empty", names
+    if _holds(values, params):
+        return "pass", f"{_describe(params)} holds", names
+    return "fail", f"Expected {_describe(params)}", names
+
+
+def check_conditional(values: Values, params: dict[str, Any]) -> CheckOutcome:
+    """If the `if` condition holds, the `then` condition must too; otherwise not applicable."""
+    condition, requirement = params["if"], params["then"]
+    names = [condition["field"], requirement["field"]]
+    if not _holds(values, condition):
+        return "skip", f"Not applicable: {_describe(condition)} is not true", names
+    if _holds(values, requirement):
+        return "pass", f"{_describe(condition)}, and {_describe(requirement)}", names
+    return "fail", f"{_describe(condition)}, so expected {_describe(requirement)}", names
+
+
+# Shared by compare and conditional. `>` and `<` treat a null as "not true",
+# because Python can't order None against a number.
+OPERATORS: dict[str, Callable[[Any, Any], bool]] = {
+    "==": lambda left, right: left == right,
+    ">": lambda left, right: left is not None and right is not None and left > right,
+    "<": lambda left, right: left is not None and right is not None and left < right,
+    "in": lambda left, right: left in right,
+    "not_null": lambda left, _right: left is not None,
+}
+
+
+def _holds(values: Values, condition: dict[str, Any]) -> bool:
+    """Evaluate one {field, op, value | other}: `value` is a literal, `other` a field name."""
+    operator = OPERATORS.get(condition["op"])
+    if operator is None:
+        raise ValueError(f"Unknown operator {condition['op']!r}")
+    left = values.get(condition["field"])
+    right = values.get(condition["other"]) if "other" in condition else condition.get("value")
+    return operator(left, right)
+
+
+def _describe(condition: dict[str, Any]) -> str:
+    """Readable form of a condition, e.g. 'product_fee == 0' or 'last_food_time is set'."""
+    if condition["op"] == "not_null":
+        return f"{condition['field']} is set"
+    right = condition["other"] if "other" in condition else condition.get("value")
+    return f"{condition['field']} {condition['op']} {right}"
+
+
 GROUNDING_RULE_ID = "grounding"
 # warn, not error: an ungrounded field is flagged in the UI but doesn't block the
 # explainer. Hard value errors are already blocked by each pack's own error rules.
@@ -140,6 +190,8 @@ RULE_CHECKS: dict[str, Callable[[Values, dict[str, Any]], CheckOutcome]] = {
     "required": check_required,
     "range": check_range,
     "regex": check_regex,
+    "compare": check_compare,
+    "conditional": check_conditional,
 }
 
 

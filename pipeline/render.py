@@ -6,7 +6,9 @@ is false are left out. Visuals stay structured data for React, never HTML.
 
 from __future__ import annotations
 
+import json
 import re
+from pathlib import Path
 from typing import Any
 
 from jinja2 import StrictUndefined
@@ -14,11 +16,15 @@ from jinja2.sandbox import SandboxedEnvironment
 
 from pipeline.filters import FILTERS
 from pipeline.packs import Customer, TemplateConfig
+from pipeline.readability import split_sentences
 from pipeline.speech import to_speech
 
 # A string that is exactly one {{ expression }} and nothing else.
 _WHOLE_EXPRESSION = re.compile(r"\s*\{\{((?:(?!\{\{|\}\}).)*)\}\}\s*", re.DOTALL)
 _SPACE_BEFORE_PUNCTUATION = re.compile(r"\s+([.,;:!?])")
+WORDS_PER_SECOND = 2.6  # estimate until real audio durations exist
+SCENES_NAME = "scenes.json"
+CAPTIONS_NAME = "captions.vtt"
 
 
 def make_environment() -> SandboxedEnvironment:
@@ -67,6 +73,72 @@ def render_scenes(
             }
         )
     return scenes
+
+
+def scenes_document(
+    scenes: list[dict[str, Any]], pack_name: str, customer_id: str
+) -> dict[str, Any]:
+    """scenes.json: the rendered scenes with estimated start times and durations."""
+    words_so_far = 0
+    timed = []
+    for scene in scenes:
+        words = len(scene["narration"].split())
+        timed.append(
+            scene
+            | {
+                "start_seconds": round(words_so_far / WORDS_PER_SECOND, 2),
+                "duration_seconds": round(words / WORDS_PER_SECOND, 2),
+            }
+        )
+        words_so_far += words
+    return {
+        "pack": pack_name,
+        "customer_id": customer_id,
+        "words_per_second": WORDS_PER_SECOND,
+        "total_seconds": round(words_so_far / WORDS_PER_SECOND, 2),
+        "scenes": timed,
+    }
+
+
+def captions_vtt(scenes: list[dict[str, Any]]) -> str:
+    """WebVTT with one cue per sentence, timed continuously across scenes.
+
+    Times come from a running word total, rounded only for display, so small
+    rounding errors can't add up into captions drifting out of sync.
+    Cue ids name their scene (e.g. "your-loan-2") for the player.
+    """
+    lines = ["WEBVTT", ""]
+    words_so_far = 0
+    for scene in scenes:
+        for number, sentence in enumerate(split_sentences(scene["narration"]), 1):
+            words = len(sentence.split())
+            start = _vtt_time(words_so_far / WORDS_PER_SECOND)
+            end = _vtt_time((words_so_far + words) / WORDS_PER_SECOND)
+            lines += [f"{scene['id']}-{number}", f"{start} --> {end}", sentence, ""]
+            words_so_far += words
+    return "\n".join(lines)
+
+
+def write_render_outputs(
+    customer_dir: Path, scenes: list[dict[str, Any]], pack_name: str, customer_id: str
+) -> list[Path]:
+    """Write scenes.json and captions.vtt; return their paths for the manifest."""
+    customer_dir.mkdir(parents=True, exist_ok=True)
+    scenes_path = customer_dir / SCENES_NAME
+    document = scenes_document(scenes, pack_name, customer_id)
+    scenes_path.write_text(json.dumps(document, indent=2, ensure_ascii=False) + "\n")
+    captions_path = customer_dir / CAPTIONS_NAME
+    captions_path.write_text(captions_vtt(scenes))
+    return [scenes_path, captions_path]
+
+
+def _vtt_time(seconds: float) -> str:
+    """75.5 -> '00:01:15.500'."""
+    total_ms = round(seconds * 1000)
+    hours, rest = divmod(total_ms, 3_600_000)
+    minutes, rest = divmod(rest, 60_000)
+    secs, ms = divmod(rest, 1000)
+    return f"{hours:02d}:{minutes:02d}:{secs:02d}.{ms:03d}"
 
 
 def _render_visual(env: SandboxedEnvironment, node: Any, context: dict[str, Any]) -> Any:

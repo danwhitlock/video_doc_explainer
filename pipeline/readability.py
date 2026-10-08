@@ -12,9 +12,9 @@ import re
 _VOWEL_GROUP = re.compile(r"[aeiouy]+")
 # A word, a contraction like "don't", or a number like 1,359.76 (one token).
 _WORD = re.compile(r"[A-Za-z]+(?:'[A-Za-z]+)?|\d+(?:[,.]\d+)*")
-# Sentence ends at . ! ? followed by whitespace or the end - so the "." in
-# "1,359.76" doesn't split a sentence.
-_SENTENCE_END = re.compile(r"[.!?]+(?=\s|$)")
+# A sentence ends at . ! ? followed by whitespace - so the "." in "1,359.76"
+# doesn't split one. Shared with captions so both agree on what a sentence is.
+_SENTENCE_BREAK = re.compile(r"(?<=[.!?])\s+")
 _VOWELS = "aeiouy"
 
 
@@ -41,12 +41,17 @@ def count_syllables(word: str) -> int:
     return max(1, count)
 
 
+def split_sentences(text: str) -> list[str]:
+    """Split text into sentences, keeping each one's closing punctuation."""
+    return [sentence for sentence in _SENTENCE_BREAK.split(text.strip()) if sentence]
+
+
 def flesch_reading_ease(text: str) -> float:
     """Return the Flesch Reading Ease score for `text`, rounded to 1 dp."""
     words = _WORD.findall(text)
     if not words:
         raise ValueError("Can't score text with no words")
-    sentences = max(1, len([part for part in _SENTENCE_END.split(text) if part.strip()]))
+    sentences = len(split_sentences(text))
     syllables = sum(count_syllables(word) for word in words)
 
     score = 206.835 - 1.015 * (len(words) / sentences) - 84.6 * (syllables / len(words))

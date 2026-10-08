@@ -8,4 +8,9 @@ dist/
 playwright-report/
 test-results/
 .DS_Store
-.claude/settings.local.json
+
+# Build-process scaffolding - kept locally, not published
+.claude/
+CLAUDE.md
+PROMPTS.md
+docs/

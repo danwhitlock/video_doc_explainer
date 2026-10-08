@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from pipeline.checks import check_grounding, run_rules, values_of
+from pipeline.checks import amortised_payment, check_grounding, run_rules, values_of
 from pipeline.packs import Rule, load_pack
 
 PACKS_DIR = Path(__file__).resolve().parents[2] / "packs"
@@ -239,6 +239,58 @@ def test_date_order_equal_moments_fail():
     same_day = values | {"offer_expiry_date": values["offer_date"]}
 
     assert run_one(pack_rule("mortgage", "expiry-after-offer"), same_day).status == "fail"
+
+
+# --- formula ---
+
+
+def test_amortised_payment_reproduces_the_document():
+    # m-001: £256,500 at 4.89% over 30 years; the offer letter says £1,359.76.
+    assert amortised_payment(256500, 4.89, 30) == pytest.approx(1359.76, rel=0.01)
+    assert amortised_payment(12000, 0, 1) == 1000  # 0% guard: no division by zero
+
+
+def test_formula_ltv_within_absolute_tolerance():
+    rule = pack_rule("mortgage", "ltv-matches-loan-and-value")
+    values = good_values("mortgage", "m-001")
+
+    assert run_one(rule, values).status == "pass"
+    assert run_one(rule, values | {"ltv_percent": 80}).status == "fail"
+
+
+def test_formula_payment_within_percentage_tolerance():
+    rule = pack_rule("mortgage", "initial-payment-recomputes")
+    values = good_values("mortgage", "m-001")
+
+    assert run_one(rule, values).status == "pass"
+
+    result = run_one(rule, values | {"monthly_payment_initial": 1500})
+    assert result.status == "fail"
+    assert "but amortised_payment gives" in result.message
+
+
+def test_formula_without_target_is_true_or_false():
+    rule = pack_rule("mortgage", "erc-years-cover-fixed-period")
+    values = good_values("mortgage", "m-001")  # 24-month fix, 2 ERC years
+    assert values["initial_period_months"] == 24
+
+    assert run_one(rule, values).status == "pass"
+
+    one_year = values | {"early_repayment_charges": [{"year": 1, "percent": 2}]}
+    assert run_one(rule, one_year).status == "fail"
+
+
+def test_formula_skips_null_input():
+    values = good_values("mortgage", "m-001") | {"property_value": None}
+
+    assert run_one(pack_rule("mortgage", "ltv-matches-loan-and-value"), values).status == "skip"
+
+
+def test_formula_unknown_name_raises():
+    rule = Rule(id="x", type="formula", severity="warn", formula="magic", inputs={})
+
+    with pytest.raises(ValueError, match="Unknown formula 'magic'"):
+        run_rules({}, [rule])
 
 
 # --- engine ---

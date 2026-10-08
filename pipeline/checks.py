@@ -161,6 +161,71 @@ def _moment(values: Values, spec: str | dict[str, str]) -> tuple[str, list[str],
     return f"{spec['date']} + {spec['time']}", [spec["date"], spec["time"]], text
 
 
+def check_formula(values: Values, params: dict[str, Any]) -> CheckOutcome:
+    """Recompute a value with a named formula and compare it to `target`.
+
+    `inputs` maps the formula's argument names to field names. With a target,
+    the result must match within tolerance_abs or tolerance_pct; without one,
+    the formula itself returns True/False.
+    """
+    name = params["formula"]
+    formula = FORMULAS.get(name)
+    if formula is None:
+        raise ValueError(f"Unknown formula {name!r}")
+
+    inputs = {arg: values.get(field) for arg, field in params["inputs"].items()}
+    target = params.get("target")
+    names = list(params["inputs"].values()) + ([target] if target else [])
+    if any(value is None for value in inputs.values()) or (target and values.get(target) is None):
+        return "skip", f"Can't compute {name}: an input is empty", names
+
+    try:
+        computed = formula(**inputs)
+    except ZeroDivisionError:
+        return "fail", f"Can't compute {name}: division by zero", names
+
+    if target is None:
+        if computed:
+            return "pass", f"{name} holds", names
+        return "fail", f"{name} does not hold for {inputs}", names
+
+    actual = values[target]
+    allowed = params.get("tolerance_abs", 0) or abs(computed) * params.get("tolerance_pct", 0) / 100
+    if abs(actual - computed) <= allowed:
+        return "pass", f"{target} = {actual} matches {name} = {computed:.2f}", names
+    return (
+        "fail",
+        f"{target} = {actual} but {name} gives {computed:.2f} (allowed ±{allowed:.2f})",
+        names,
+    )
+
+
+def ltv(loan: float, value: float) -> float:
+    """Loan-to-value, as a percentage."""
+    return loan / value * 100
+
+
+def amortised_payment(principal: float, annual_rate_percent: float, years: int) -> float:
+    """Monthly payment on a repayment mortgage: P * r / (1 - (1 + r) ** -n)."""
+    monthly_rate = annual_rate_percent / 100 / 12
+    payments = years * 12
+    if monthly_rate == 0:
+        return principal / payments
+    return principal * monthly_rate / (1 - (1 + monthly_rate) ** -payments)
+
+
+def erc_years_cover(schedule: list[dict[str, Any]], months: int) -> bool:
+    """One early repayment charge entry per year of the initial rate period."""
+    return len(schedule) == months / 12
+
+
+FORMULAS: dict[str, Callable[..., Any]] = {
+    "ltv": ltv,
+    "amortised_payment": amortised_payment,
+    "erc_years_cover": erc_years_cover,
+}
+
+
 # Shared by compare and conditional. `>` and `<` treat a null as "not true",
 # because Python can't order None against a number.
 OPERATORS: dict[str, Callable[[Any, Any], bool]] = {
@@ -239,6 +304,7 @@ RULE_CHECKS: dict[str, Callable[[Values, dict[str, Any]], CheckOutcome]] = {
     "compare": check_compare,
     "conditional": check_conditional,
     "date_order": check_date_order,
+    "formula": check_formula,
 }
 
 

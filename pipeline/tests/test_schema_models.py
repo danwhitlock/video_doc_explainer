@@ -119,3 +119,41 @@ def test_missing_field_fails():
 
     with pytest.raises(ValidationError, match="contact_phone"):
         model.model_validate(reply)
+
+
+def test_false_or_empty_list_may_have_no_evidence():
+    model = build_model(schema_for("healthcare"))
+    reply = valid_reply("healthcare", "h-001")
+    reply["bowel_preparation_required"] = {"value": False, "evidence_quote": None, "page": None}
+    reply["medicine_instructions"] = {"value": [], "evidence_quote": None, "page": None}
+
+    model.model_validate(reply)
+
+
+def test_true_without_evidence_still_fails():
+    model = build_model(schema_for("healthcare"))
+    reply = valid_reply("healthcare", "h-001")
+    reply["bowel_preparation_required"] = {"value": True, "evidence_quote": None, "page": None}
+
+    with pytest.raises(ValidationError, match="needs an evidence_quote"):
+        model.model_validate(reply)
+
+
+def test_null_word_text_becomes_real_null():
+    model = build_model(schema_for("mortgage"))
+    reply = valid_reply("mortgage", "m-001")
+    reply["property_address"] = {"value": "null", "evidence_quote": "null", "page": 1}
+
+    # property_address can't be null, so "null" is now a validation error naming it.
+    with pytest.raises(ValidationError, match="property_address.value"):
+        model.model_validate(reply)
+
+
+def test_null_word_quote_becomes_real_null():
+    model = build_model(schema_for("healthcare"))
+    reply = valid_reply("healthcare", "h-001")
+    reply["escort_hours"] = {"value": None, "evidence_quote": "None", "page": None}
+
+    result = model.model_validate(reply)
+
+    assert result.escort_hours.evidence_quote is None

@@ -360,6 +360,21 @@ def test_grounding_fails_out_of_range_page_and_missing_quote():
     assert ground_one(evidenced(256500, None, 1)).status == "fail"
 
 
+def test_grounding_skips_absence_facts_with_a_reason():
+    for absent in (False, []):
+        result = ground_one(evidenced(absent, None, None))
+        assert result.status == "skip"
+        assert result.message == "Not stated in the document (inferred from absence)"
+
+
+def test_grounding_still_checks_a_false_that_has_a_quote():
+    assert ground_one(evidenced(False, "An invented quote", 1)).status == "fail"
+
+
+def test_grounding_fails_true_without_a_quote():
+    assert ground_one(evidenced(True, None, None)).status == "fail"
+
+
 def test_grounding_skips_null_values():
     assert ground_one(evidenced(None, None, None)).status == "skip"
 

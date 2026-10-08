@@ -1,0 +1,37 @@
+{
+  "run_id": "37924b093b3443499960f956ac18ee55",
+  "timestamp": "2026-10-08T15:37:21+00:00",
+  "pack": {
+    "name": "mortgage",
+    "schema_version": "1.0.0"
+  },
+  "customer_id": "m-002",
+  "input": {
+    "file": "m-002.pdf",
+    "sha256": "efea954aebecbcc3e7a29dfe272ec3ac3005246e08a3fcadcb83c6e9153cb0c5"
+  },
+  "extraction": {
+    "provider": "ollama",
+    "model": "qwen2.5:7b",
+    "prompt_sha256": "f6602a2d5eb26896bed40d21f302094e8a80afc27419041ba2aa7ea40e654180",
+    "attempts": 1
+  },
+  "stage_seconds": {
+    "ingest": 0.048,
+    "extract": 106.833,
+    "check": 0.004
+  },
+  "checks": {
+    "pass": 22,
+    "fail": 13,
+    "skip": 1,
+    "errors": 1,
+    "warnings": 12,
+    "blocking": true
+  },
+  "outputs": {
+    "extraction.json": "230c4ba45d1dce73895df95f526e03fb777e4993034825777704782a3fee533f",
+    "quality_report.json": "88a01b2901fad2763903570eea8f528e1ad7e5a69d5762433afc3f84a345790d",
+    "chunks.json": "dc0eef740a7f5351eb01ab1780cb92e582632c00ffbbaf0915c51ef73c4e60a2"
+  }
+}

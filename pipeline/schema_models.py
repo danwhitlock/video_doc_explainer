@@ -60,6 +60,15 @@ def wrap_schema(schema: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+NULL_WORDS = {"null", "none"}
+
+
+def is_absence_fact(value: Any) -> bool:
+    """`false` or an empty list can be true *because* the document is silent
+    (a cataract letter never mentions bowel preparation), so there may be no quote."""
+    return value is False or value == []
+
+
 class EvidencedField(BaseModel):
     """Base for each wrapped field; `build_model` adds a typed `value`."""
 
@@ -68,11 +77,29 @@ class EvidencedField(BaseModel):
     evidence_quote: str | None
     page: int | None
 
+    @model_validator(mode="before")
+    @classmethod
+    def _null_words_are_null(cls, data: Any) -> Any:
+        # Small models sometimes write the text "null" instead of a real null.
+        if isinstance(data, dict):
+            data = {
+                key: None
+                if key in ("value", "evidence_quote")
+                and isinstance(item, str)
+                and item.strip().lower() in NULL_WORDS
+                else item
+                for key, item in data.items()
+            }
+        return data
+
     @model_validator(mode="after")
     def _evidence_required_for_a_value(self) -> EvidencedField:
         # A value with no quote can't be traced back to the document - that's
         # exactly the untraceable output this project exists to prevent.
-        if self.value is not None and (not self.evidence_quote or self.page is None):
+        # Only absence facts (false, empty list) are exempt.
+        if self.value is None or is_absence_fact(self.value):
+            return self
+        if not self.evidence_quote or self.page is None:
             raise ValueError("a non-null value needs an evidence_quote and a page")
         return self
 

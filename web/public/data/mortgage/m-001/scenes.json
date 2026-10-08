@@ -1,0 +1,186 @@
+{
+  "pack": "mortgage",
+  "customer_id": "m-001",
+  "words_per_second": 2.6,
+  "total_seconds": 122.31,
+  "scenes": [
+    {
+      "id": "welcome",
+      "title": "Your mortgage offer, explained",
+      "visual": {
+        "type": "title",
+        "heading": "Hi Priya",
+        "subheading": "2 Year Fixed First Home"
+      },
+      "narration": "Hi Priya. This short video explains your mortgage offer from Fernmoor. It takes about two minutes. You can pause, turn on captions, or ask a question at any time.",
+      "speech": "Hi Priya. This short video explains your mortgage offer from Fernmoor. It takes about two minutes. You can pause, turn on captions, or ask a question at any time.",
+      "start_seconds": 0.0,
+      "duration_seconds": 11.15
+    },
+    {
+      "id": "your-loan",
+      "title": "What you're borrowing",
+      "visual": {
+        "type": "stat",
+        "stats": [
+          {
+            "label": "You're borrowing",
+            "value": "£256,500"
+          },
+          {
+            "label": "Your home is worth",
+            "value": "£285,000"
+          }
+        ],
+        "meter": {
+          "label": "Loan to value",
+          "value": 90,
+          "max": 100,
+          "unit": "%"
+        }
+      },
+      "narration": "You're borrowing £256,500 to buy a home worth £285,000. That's 90 percent of its value. Lenders call this your loan to value. You'll pay it back over 30 years.",
+      "speech": "You're borrowing £256,500 to buy a home worth £285,000. That's 90 percent of its value. Lenders call this your loan to value. You'll pay it back over 30 years.",
+      "start_seconds": 11.15,
+      "duration_seconds": 11.15
+    },
+    {
+      "id": "high-ltv",
+      "title": "Why your loan to value matters",
+      "visual": {
+        "type": "alert",
+        "tone": "info",
+        "heading": "Borrowing more than 85% of the value",
+        "body": "Rates are usually higher at this level. Your loan to value falls as you repay."
+      },
+      "narration": "Loans above 85 percent of a home's value usually have higher rates. Each payment you make lowers your loan to value. When your fixed rate ends, you may have more deals to choose from.",
+      "speech": "Loans above 85 percent of a home's value usually have higher rates. Each payment you make lowers your loan to value. When your fixed rate ends, you may have more deals to choose from.",
+      "start_seconds": 22.31,
+      "duration_seconds": 13.08
+    },
+    {
+      "id": "your-rate",
+      "title": "Your fixed rate",
+      "visual": {
+        "type": "stat",
+        "stats": [
+          {
+            "label": "Fixed rate",
+            "value": "4.89%"
+          },
+          {
+            "label": "Monthly payment",
+            "value": "£1,359.76"
+          },
+          {
+            "label": "Fixed for",
+            "value": "2 years"
+          }
+        ]
+      },
+      "narration": "For the first 2 years, your rate is fixed at 4.89 percent. Your monthly payment stays at £1,359.76, even if interest rates change.",
+      "speech": "For the first 2 years, your rate is fixed at 4.89 percent. Your monthly payment stays at £1,359.76, even if interest rates change.",
+      "start_seconds": 35.38,
+      "duration_seconds": 8.85
+    },
+    {
+      "id": "after-fixed",
+      "title": "When your fixed rate ends",
+      "visual": {
+        "type": "comparison",
+        "before": {
+          "label": "Until 31 October 2028",
+          "value": "£1,359.76",
+          "caption": "4.89% fixed"
+        },
+        "after": {
+          "label": "After that, if nothing changes",
+          "value": "£1,770.43",
+          "caption": "7.49% variable"
+        },
+        "delta": "£410.67 more a month"
+      },
+      "narration": "Your fixed rate ends on 31 October 2028. After that, you move to our Standard Variable Rate. It's 7.49 percent today, and it can go up or down. If it stays the same, your payment would rise to £1,770.43 a month. That's £410.67 more. Many people choose a new deal before their fixed rate ends.",
+      "speech": "Your fixed rate ends on 31 October 2028. After that, you move to our Standard Variable Rate. It's 7.49 percent today, and it can go up or down. If it stays the same, your payment would rise to £1,770.43 a month. That's £410.67 more. Many people choose a new deal before their fixed rate ends.",
+      "start_seconds": 44.23,
+      "duration_seconds": 21.15
+    },
+    {
+      "id": "overpayments",
+      "title": "Paying off early",
+      "visual": {
+        "type": "table",
+        "columns": [
+          "Period",
+          "Charge on the amount repaid"
+        ],
+        "rows": [
+          [
+            "Year 1",
+            "2%"
+          ],
+          [
+            "Year 2",
+            "1%"
+          ]
+        ],
+        "footnote": "Overpay up to 10% a year with no charge."
+      },
+      "narration": "You can pay off up to 10 percent of what you owe each year at no extra cost. If you repay more than that during your fixed rate, there's an early repayment charge. It's 2 percent in year 1 and 1 percent in year 2. For example, repaying an extra ten thousand pounds in year 1 would cost £200.",
+      "speech": "You can pay off up to 10 percent of what you owe each year at no extra cost. If you repay more than that during your fixed rate, there's an early repayment charge. It's 2 percent in year 1 and 1 percent in year 2. For example, repaying an extra ten thousand pounds in year 1 would cost £200.",
+      "start_seconds": 65.38,
+      "duration_seconds": 22.69
+    },
+    {
+      "id": "total-cost",
+      "title": "The total cost",
+      "visual": {
+        "type": "stat",
+        "stats": [
+          {
+            "label": "Total to repay over 30 years",
+            "value": "£627,498"
+          },
+          {
+            "label": "Of which is the loan",
+            "value": "£256,500"
+          }
+        ]
+      },
+      "narration": "Over the full 30 years, you'd repay about £627,498 in total, if rates don't change. That includes your loan of £256,500 and the interest on it.",
+      "speech": "Over the full 30 years, you'd repay about £627,498 in total, if rates don't change. That includes your loan of £256,500 and the interest on it.",
+      "start_seconds": 88.08,
+      "duration_seconds": 10.0
+    },
+    {
+      "id": "your-part",
+      "title": "Your part",
+      "visual": {
+        "type": "checklist",
+        "items": [
+          "Keep up your monthly payments",
+          "Keep your home insured for its full rebuild cost",
+          "Accept this offer before 14 March 2027"
+        ]
+      },
+      "narration": "There are a few things you need to do. Keep up your payments. Your home may be repossessed if you don't. Keep your home insured. And remember, this offer is valid until 14 March 2027.",
+      "speech": "There are a few things you need to do. Keep up your payments. Your home may be repossessed if you don't. Keep your home insured. And remember, this offer is valid until 14 March 2027.",
+      "start_seconds": 98.08,
+      "duration_seconds": 13.46
+    },
+    {
+      "id": "contact",
+      "title": "Any questions?",
+      "visual": {
+        "type": "contact",
+        "phone": "01632 960412",
+        "reference": "FBS-2026-104381",
+        "hours": "Mon to Fri 8am to 8pm, Sat 9am to 1pm"
+      },
+      "narration": "If anything isn't clear, type a question in the box next to this video. Or call us on 01632 960412 and quote your reference. Thanks for watching, Priya.",
+      "speech": "If anything isn't clear, type a question in the box next to this video. Or call us on oh one six three two, nine six oh, four one two and quote your reference. Thanks for watching, Priya.",
+      "start_seconds": 111.54,
+      "duration_seconds": 10.77
+    }
+  ]
+}

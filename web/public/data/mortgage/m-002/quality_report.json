@@ -1,11 +1,11 @@
 {
   "summary": {
-    "pass": 36,
-    "fail": 1,
-    "skip": 0,
-    "errors": 0,
-    "warnings": 1,
-    "blocking": false
+    "pass": 22,
+    "fail": 13,
+    "skip": 1,
+    "errors": 1,
+    "warnings": 12,
+    "blocking": true
   },
   "results": [
     {
@@ -28,7 +28,7 @@
       "rule_id": "rate-plausible",
       "severity": "error",
       "status": "pass",
-      "message": "initial_rate_percent = 4.89 is within 0.5–15",
+      "message": "initial_rate_percent = 4.19 is within 0.5–15",
       "fields": [
         "initial_rate_percent"
       ]
@@ -46,7 +46,7 @@
       "rule_id": "term-plausible",
       "severity": "error",
       "status": "pass",
-      "message": "term_years = 30 is within 5–40",
+      "message": "term_years = 20 is within 5–40",
       "fields": [
         "term_years"
       ]
@@ -55,7 +55,7 @@
       "rule_id": "ltv-matches-loan-and-value",
       "severity": "error",
       "status": "pass",
-      "message": "ltv_percent = 90.0 matches ltv = 90.00",
+      "message": "ltv_percent = 50.2 matches ltv = 50.24",
       "fields": [
         "loan_amount",
         "property_value",
@@ -66,7 +66,7 @@
       "rule_id": "initial-payment-recomputes",
       "severity": "error",
       "status": "pass",
-      "message": "monthly_payment_initial = 1359.76 matches amortised_payment = 1359.76",
+      "message": "monthly_payment_initial = 1299.84 matches amortised_payment = 1299.84",
       "fields": [
         "loan_amount",
         "initial_rate_percent",
@@ -87,8 +87,8 @@
     {
       "rule_id": "expiry-after-offer",
       "severity": "error",
-      "status": "pass",
-      "message": "offer_date (1494-09-14) is before offer_expiry_date (2027-03-14)",
+      "status": "fail",
+      "message": "Expected offer_date (2292-09-22) before offer_expiry_date (2027-03-22)",
       "fields": [
         "offer_date",
         "offer_expiry_date"
@@ -97,8 +97,8 @@
     {
       "rule_id": "erc-years-cover-fixed-period",
       "severity": "warn",
-      "status": "pass",
-      "message": "erc_years_cover holds",
+      "status": "fail",
+      "message": "erc_years_cover does not hold for {'schedule': [{'year': 1, 'percent': 5.0}, {'year': 2, 'percent': 4.0}, {'year': 3, 'percent': 3.0}, {'year': 4, 'percent': 2.0}, {'year': 5, 'percent': 1.0}, {'year': 0, 'percent': 0.0}], 'months': 60}",
       "fields": [
         "early_repayment_charges",
         "initial_period_months"
@@ -107,8 +107,8 @@
     {
       "rule_id": "no-fee-means-not-added",
       "severity": "error",
-      "status": "pass",
-      "message": "product_fee == 0, and product_fee_added_to_loan == False",
+      "status": "skip",
+      "message": "Not applicable: product_fee == 0 is not true",
       "fields": [
         "product_fee",
         "product_fee_added_to_loan"
@@ -163,8 +163,8 @@
     {
       "rule_id": "grounding",
       "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 1",
+      "status": "fail",
+      "message": "Ungrounded: quote not found on page 1 or any other page",
       "fields": [
         "property_address"
       ]
@@ -190,8 +190,8 @@
     {
       "rule_id": "grounding",
       "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 1",
+      "status": "fail",
+      "message": "Ungrounded: quote not found on page 1 or any other page",
       "fields": [
         "repayment_type"
       ]
@@ -199,8 +199,8 @@
     {
       "rule_id": "grounding",
       "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 1",
+      "status": "fail",
+      "message": "Ungrounded: quote not found on page 1 or any other page",
       "fields": [
         "property_value"
       ]
@@ -208,8 +208,8 @@
     {
       "rule_id": "grounding",
       "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 1",
+      "status": "fail",
+      "message": "Ungrounded: quote not found on page 1 or any other page",
       "fields": [
         "loan_amount"
       ]
@@ -217,8 +217,8 @@
     {
       "rule_id": "grounding",
       "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 1",
+      "status": "fail",
+      "message": "Ungrounded: quote not found on page 1 or any other page",
       "fields": [
         "ltv_percent"
       ]
@@ -226,8 +226,8 @@
     {
       "rule_id": "grounding",
       "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 1",
+      "status": "fail",
+      "message": "Ungrounded: quote not found on page 1 or any other page",
       "fields": [
         "term_years"
       ]
@@ -262,8 +262,8 @@
     {
       "rule_id": "grounding",
       "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 1",
+      "status": "fail",
+      "message": "Ungrounded: quote not found on page 1 or any other page",
       "fields": [
         "follow_on_rate_percent"
       ]
@@ -280,8 +280,8 @@
     {
       "rule_id": "grounding",
       "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 1",
+      "status": "fail",
+      "message": "Ungrounded: quote not found on page 1 or any other page",
       "fields": [
         "monthly_payment_follow_on"
       ]
@@ -289,8 +289,8 @@
     {
       "rule_id": "grounding",
       "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 1",
+      "status": "fail",
+      "message": "Ungrounded: quote not found on page 1 or any other page",
       "fields": [
         "total_amount_repayable"
       ]
@@ -317,7 +317,7 @@
       "rule_id": "grounding",
       "severity": "warn",
       "status": "fail",
-      "message": "Ungrounded: quote not found on page 1 or any other page",
+      "message": "Ungrounded: quote not found on page 2 or any other page",
       "fields": [
         "early_repayment_charges"
       ]
@@ -325,8 +325,8 @@
     {
       "rule_id": "grounding",
       "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 1",
+      "status": "fail",
+      "message": "Ungrounded: quote not found on page 2 or any other page",
       "fields": [
         "overpayment_allowance_percent"
       ]
@@ -339,13 +339,6 @@
       "fields": [
         "contact_phone"
       ]
-    },
-    {
-      "rule_id": "readability",
-      "severity": "warn",
-      "status": "pass",
-      "message": "Reading ease 73.3 meets the target of 60",
-      "fields": []
     }
   ]
 }

@@ -23,6 +23,7 @@ For every field, return:
 - evidence_quote: a short quote copied word for word from the document that supports the value.
 - page: the page number from the "=== Page N ===" marker above the quote.
 If the document does not state a field, set value, evidence_quote and page to null.
+If a value is false or an empty list because the document never mentions it, set evidence_quote and page to null.
 Do not guess or calculate values that are not written in the document."""
 
 MAX_ATTEMPTS = 2  # the first try plus one retry with the validation errors

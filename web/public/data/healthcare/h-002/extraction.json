@@ -1,0 +1,140 @@
+{
+  "fields": {
+    "patient_name": {
+      "evidence_quote": "Mr Imran Shah",
+      "page": 1,
+      "value": "Mr Imran Shah"
+    },
+    "hospital_number": {
+      "evidence_quote": "Hospital number: BH-517302",
+      "page": 1,
+      "value": "BH-517302"
+    },
+    "letter_date": {
+      "evidence_quote": "Date: 5 October 2026",
+      "page": 1,
+      "value": "5052-10-05"
+    },
+    "procedure_name": {
+      "evidence_quote": "You are booked for a colonoscopy.",
+      "page": 1,
+      "value": "colonoscopy"
+    },
+    "procedure_plain_english": {
+      "evidence_quote": "A thin, flexible tube with a camera is used to look at the lining of your large bowel.",
+      "page": 1,
+      "value": "A thin, flexible tube with a camera is used to look at the lining of your large bowel."
+    },
+    "appointment_date": {
+      "evidence_quote": "Date Wednesday 4 November 2026",
+      "page": 1,
+      "value": "2026-11-04"
+    },
+    "arrival_time": {
+      "evidence_quote": "Please arrive at 13:00",
+      "page": 1,
+      "value": "13:00"
+    },
+    "location": {
+      "evidence_quote": "Where Endoscopy Unit, Ground Floor, Brackenridge General Hospital",
+      "page": 1,
+      "value": "Endoscopy Unit, Ground Floor, Brackenridge General Hospital"
+    },
+    "anaesthetic_type": {
+      "evidence_quote": "Anaesthetic Sedation (you will be relaxed and drowsy but not fully asleep)",
+      "page": 1,
+      "value": "sedation"
+    },
+    "stay_type": {
+      "evidence_quote": "Type of stay Day case: expect to be with us for about 4 hours",
+      "page": 1,
+      "value": "day case"
+    },
+    "expected_duration_hours": {
+      "evidence_quote": "Type of stay Day case: expect to be with us for about 4 hours",
+      "page": 1,
+      "value": 4.0
+    },
+    "last_food_time": {
+      "evidence_quote": "Have your last solid food by 9am on Tuesday 3 November 2026.",
+      "page": 1,
+      "value": "2026-11-03 09:00"
+    },
+    "last_clear_fluids_time": {
+      "evidence_quote": "You can keep drinking clear fluids (water, squash, black tea) until 11am on the day of your appointment.",
+      "page": 1,
+      "value": "2026-11-04 11:00"
+    },
+    "bowel_preparation_required": {
+      "evidence_quote": "Follow a low-fibre diet for 2 days before your appointment. Have your last solid food by 9am on Tuesday 3 November 2026. After that, take the bowel preparation as described on the separate sheet and drink clear fluids only.",
+      "page": 1,
+      "value": true
+    },
+    "medicine_instructions": {
+      "evidence_quote": "Stop taking iron tablets 7 days before your appointment.\nIf you take blood-thinning medicines or medicines for diabetes, call the pre-assessment team. Do not stop them without advice.",
+      "page": 1,
+      "value": [
+        "Stop taking iron tablets 7 days before your appointment.",
+        "If you take blood-thinning medicines or medicines for diabetes, call the pre-assessment team. Do not stop them without advice."
+      ]
+    },
+    "items_to_bring": {
+      "evidence_quote": "Please leave jewellery and valuables at home.\n(cid:127) A list of your medicines\n(cid:127) A dressing gown and slippers\n(cid:127) Your bowel preparation instruction sheet",
+      "page": 1,
+      "value": [
+        "A list of your medicines",
+        "A dressing gown and slippers",
+        "Your bowel preparation instruction sheet"
+      ]
+    },
+    "escort_required": {
+      "evidence_quote": "You must arrange for a responsible adult to take you home and stay with you for 24 hours. Do not drive, cycle or operate machinery for 24 hours after sedation.",
+      "page": 1,
+      "value": true
+    },
+    "escort_hours": {
+      "evidence_quote": "You must arrange for a responsible adult to take you home and stay with you for 24 hours. Do not drive, cycle or operate machinery for 24 hours after sedation.",
+      "page": 1,
+      "value": 24
+    },
+    "no_driving_days": {
+      "evidence_quote": "Do not drive, cycle or operate machinery for 24 hours after sedation.",
+      "page": 1,
+      "value": 1
+    },
+    "driving_advice": {
+      "evidence_quote": "Do not drive, cycle or operate machinery for 24 hours after sedation.",
+      "page": 1,
+      "value": "Do not drive, cycle or operate machinery for 24 hours after sedation."
+    },
+    "recovery_summary": {
+      "evidence_quote": "You may feel bloated for a few hours. Most people are back to normal the next day.",
+      "page": 1,
+      "value": "You may feel bloated for a few hours. Most people are back to normal the next day."
+    },
+    "warning_signs": {
+      "evidence_quote": "Contact us straight away if you have any of the following:\n(cid:127) Severe tummy pain\n(cid:127) Passing more than a small amount of blood\n(cid:127) A high temperature",
+      "page": 1,
+      "value": [
+        "Severe tummy pain",
+        "Passing more than a small amount of blood",
+        "A high temperature"
+      ]
+    },
+    "contact_phone": {
+      "evidence_quote": "If you have questions, or need to change your appointment, call 01632 960348 (Monday to Friday, 9am to 5pm).",
+      "page": 2,
+      "value": "01632 960348"
+    },
+    "out_of_hours_phone": {
+      "evidence_quote": "Outside these hours, call 01632 960999.",
+      "page": 2,
+      "value": "01632 960999"
+    }
+  },
+  "provider": "ollama",
+  "model": "qwen2.5:7b",
+  "prompt_sha256": "8833d0d57c6afc5924e0a525ee9cd17d068e258a04c47c8b272d553d4e858346",
+  "duration_seconds": 112.472,
+  "attempts": 1
+}

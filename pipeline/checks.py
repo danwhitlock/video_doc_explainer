@@ -14,6 +14,7 @@ from typing import Any, Literal
 
 from pipeline.packs import Rule
 from pipeline.readability import flesch_reading_ease
+from pipeline.schema_models import is_absence_fact
 
 Status = Literal["pass", "fail", "skip"]
 Values = dict[str, Any]
@@ -283,6 +284,8 @@ def _ground_one(wrapped: dict[str, Any], normalised_pages: list[str]) -> tuple[S
         return "skip", "No value, so no evidence to ground"
 
     quote, page = _normalise(wrapped["evidence_quote"] or ""), wrapped["page"]
+    if not quote and is_absence_fact(wrapped["value"]):
+        return "skip", "Not stated in the document (inferred from absence)"
     if not quote:
         return "fail", "Ungrounded: no evidence quote"
     if (

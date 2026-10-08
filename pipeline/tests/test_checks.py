@@ -186,6 +186,61 @@ def test_conditional_unknown_operator_raises():
         run_rules({"a": 1, "b": 2}, [rule])
 
 
+# --- date_order ---
+
+
+def test_date_order_plain_dates():
+    rule = pack_rule("mortgage", "expiry-after-offer")
+    values = good_values("mortgage", "m-001")
+
+    assert run_one(rule, values).status == "pass"
+
+    reversed_dates = values | {"offer_date": "2027-03-14", "offer_expiry_date": "2026-09-14"}
+    assert run_one(rule, reversed_dates).status == "fail"
+
+
+def test_date_order_fails_text_that_is_not_iso():
+    values = good_values("mortgage", "m-001") | {"offer_date": "next Tuesday"}
+
+    result = run_one(pack_rule("mortgage", "expiry-after-offer"), values)
+
+    assert result.status == "fail"
+    assert "Can't read 'next Tuesday'" in result.message
+
+
+def test_date_order_datetimes_and_skip_if_null():
+    rule = pack_rule("healthcare", "food-before-fluids")
+
+    assert run_one(rule, good_values("healthcare", "h-003")).status == "pass"
+    # h-001 is a local anaesthetic: no fasting times, and the rule says skip_if_null.
+    assert run_one(rule, good_values("healthcare", "h-001")).status == "skip"
+
+
+def test_date_order_null_fails_without_skip_if_null():
+    values = good_values("mortgage", "m-001") | {"offer_expiry_date": None}
+
+    assert run_one(pack_rule("mortgage", "expiry-after-offer"), values).status == "fail"
+
+
+def test_date_order_date_plus_time_pair():
+    rule = pack_rule("healthcare", "fluids-before-arrival")
+    values = good_values("healthcare", "h-003")  # arrives 07:00, fluids until 06:00
+
+    result = run_one(rule, values)
+    assert result.status == "pass"
+    assert result.fields == ["last_clear_fluids_time", "appointment_date", "arrival_time"]
+
+    late_fluids = values | {"last_clear_fluids_time": f"{values['appointment_date']}T07:30"}
+    assert run_one(rule, late_fluids).status == "fail"
+
+
+def test_date_order_equal_moments_fail():
+    values = good_values("mortgage", "m-001")
+    same_day = values | {"offer_expiry_date": values["offer_date"]}
+
+    assert run_one(pack_rule("mortgage", "expiry-after-offer"), same_day).status == "fail"
+
+
 # --- engine ---
 
 

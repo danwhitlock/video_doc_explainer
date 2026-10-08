@@ -9,6 +9,7 @@ from __future__ import annotations
 import re
 from collections.abc import Callable
 from dataclasses import dataclass, field
+from datetime import datetime
 from typing import Any, Literal
 
 from pipeline.packs import Rule
@@ -115,6 +116,51 @@ def check_conditional(values: Values, params: dict[str, Any]) -> CheckOutcome:
     return "fail", f"{_describe(condition)}, so expected {_describe(requirement)}", names
 
 
+def check_date_order(values: Values, params: dict[str, Any]) -> CheckOutcome:
+    """`before` must be strictly earlier than `after`.
+
+    Each side is a field holding an ISO date or datetime, or a {date, time} pair
+    of fields. Null values fail unless the rule sets skip_if_null. Text that
+    isn't ISO (e.g. "next Tuesday") fails - this is where `format: date` is enforced.
+    """
+    before_label, before_fields, before_text = _moment(values, params["before"])
+    after_label, after_fields, after_text = _moment(values, params["after"])
+    names = before_fields + after_fields
+
+    if before_text is None or after_text is None:
+        if params.get("skip_if_null"):
+            return "skip", f"Not checked: {before_label} or {after_label} is empty", names
+        return "fail", f"Missing date: {before_label} or {after_label} is empty", names
+
+    try:
+        before, after = datetime.fromisoformat(before_text), datetime.fromisoformat(after_text)
+    except ValueError:
+        return "fail", f"Can't read {before_text!r} or {after_text!r} as a date", names
+
+    if before < after:
+        return (
+            "pass",
+            f"{before_label} ({before_text}) is before {after_label} ({after_text})",
+            names,
+        )
+    return (
+        "fail",
+        f"Expected {before_label} ({before_text}) before {after_label} ({after_text})",
+        names,
+    )
+
+
+def _moment(values: Values, spec: str | dict[str, str]) -> tuple[str, list[str], str | None]:
+    """Turn a field name or {date, time} spec into (label, fields, ISO text or None if empty)."""
+    if isinstance(spec, str):
+        value = values.get(spec)
+        return spec, [spec], None if value is None else str(value)
+
+    date, time = values.get(spec["date"]), values.get(spec["time"])
+    text = None if date is None or time is None else f"{date}T{time}"
+    return f"{spec['date']} + {spec['time']}", [spec["date"], spec["time"]], text
+
+
 # Shared by compare and conditional. `>` and `<` treat a null as "not true",
 # because Python can't order None against a number.
 OPERATORS: dict[str, Callable[[Any, Any], bool]] = {
@@ -192,6 +238,7 @@ RULE_CHECKS: dict[str, Callable[[Values, dict[str, Any]], CheckOutcome]] = {
     "regex": check_regex,
     "compare": check_compare,
     "conditional": check_conditional,
+    "date_order": check_date_order,
 }
 
 

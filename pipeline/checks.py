@@ -94,6 +94,48 @@ def check_regex(values: Values, params: dict[str, Any]) -> CheckOutcome:
     return "pass", f"Format OK for: {', '.join(present)}", present
 
 
+GROUNDING_RULE_ID = "grounding"
+# warn, not error: an ungrounded field is flagged in the UI but doesn't block the
+# explainer. Hard value errors are already blocked by each pack's own error rules.
+GROUNDING_SEVERITY = "warn"
+
+
+def check_grounding(
+    extracted_fields: dict[str, dict[str, Any]], pages: list[str]
+) -> list[CheckResult]:
+    """Built-in hallucination guard: each evidence quote must appear on its cited page.
+
+    Compared after collapsing whitespace and case, because PDF text is hard-wrapped
+    mid-sentence. One result per field, so the UI can show a per-field badge.
+    """
+    normalised_pages = [_normalise(page) for page in pages]
+    results = []
+    for name, wrapped in extracted_fields.items():
+        status, message = _ground_one(wrapped, normalised_pages)
+        results.append(CheckResult(GROUNDING_RULE_ID, GROUNDING_SEVERITY, status, message, [name]))
+    return results
+
+
+def _ground_one(wrapped: dict[str, Any], normalised_pages: list[str]) -> tuple[Status, str]:
+    if wrapped["value"] is None:
+        return "skip", "No value, so no evidence to ground"
+
+    quote, page = _normalise(wrapped["evidence_quote"] or ""), wrapped["page"]
+    if not quote:
+        return "fail", "Ungrounded: no evidence quote"
+    if (
+        page is not None
+        and 1 <= page <= len(normalised_pages)
+        and quote in normalised_pages[page - 1]
+    ):
+        return "pass", f"Quote found on page {page}"
+
+    found_on = [number for number, text in enumerate(normalised_pages, 1) if quote in text]
+    if found_on:
+        return "fail", f"Ungrounded: quote found on page {found_on[0]}, not page {page}"
+    return "fail", f"Ungrounded: quote not found on page {page} or any other page"
+
+
 RULE_CHECKS: dict[str, Callable[[Values, dict[str, Any]], CheckOutcome]] = {
     "required": check_required,
     "range": check_range,
@@ -103,6 +145,10 @@ RULE_CHECKS: dict[str, Callable[[Values, dict[str, Any]], CheckOutcome]] = {
 
 def _as_list(value: str | list[str]) -> list[str]:
     return value if isinstance(value, list) else [value]
+
+
+def _normalise(text: str) -> str:
+    return " ".join(text.split()).casefold()
 
 
 def _is_missing(value: Any) -> bool:

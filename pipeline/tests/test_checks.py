@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from pipeline.checks import run_rules, values_of
+from pipeline.checks import check_grounding, run_rules, values_of
 from pipeline.packs import Rule, load_pack
 
 PACKS_DIR = Path(__file__).resolve().parents[2] / "packs"
@@ -123,3 +123,58 @@ def test_unknown_rule_type_raises():
 
     with pytest.raises(ValueError, match="unknown type 'telepathy'"):
         run_rules({}, [rule])
+
+
+# --- grounding ---
+
+PAGES = [
+    "Amount of loan £256,500.00\nValue of the property\n£285,000.00\nYear 1 2% of the amount repaid",
+    "Year 2 1% of the amount repaid\nCall us on 01632 960412",
+]
+
+
+def evidenced(value, quote, page):
+    return {"value": value, "evidence_quote": quote, "page": page}
+
+
+def ground_one(wrapped):
+    (result,) = check_grounding({"field": wrapped}, PAGES)
+    return result
+
+
+def test_grounding_passes_across_line_breaks_and_case():
+    result = ground_one(evidenced(285000, "VALUE OF THE PROPERTY £285,000.00", 1))
+
+    assert result.status == "pass"
+    assert result.rule_id == "grounding"
+    assert result.fields == ["field"]
+
+
+def test_grounding_fails_an_invented_quote():
+    result = ground_one(evidenced(250000, "Amount of loan £250,000.00", 1))
+
+    assert result.status == "fail"
+    assert "not found on page 1 or any other page" in result.message
+
+
+def test_grounding_fails_wrong_page_and_says_where_it_is():
+    result = ground_one(evidenced("01632 960412", "Call us on 01632 960412", 1))
+
+    assert result.status == "fail"
+    assert "found on page 2, not page 1" in result.message
+
+
+def test_grounding_fails_a_quote_spanning_two_pages():
+    # Like the m-001 early repayment table, which runs across the page break.
+    quote = "Year 1 2% of the amount repaid Year 2 1% of the amount repaid"
+
+    assert ground_one(evidenced([2, 1], quote, 1)).status == "fail"
+
+
+def test_grounding_fails_out_of_range_page_and_missing_quote():
+    assert ground_one(evidenced(256500, "Amount of loan £256,500.00", 9)).status == "fail"
+    assert ground_one(evidenced(256500, None, 1)).status == "fail"
+
+
+def test_grounding_skips_null_values():
+    assert ground_one(evidenced(None, None, None)).status == "skip"

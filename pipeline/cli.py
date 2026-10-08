@@ -17,6 +17,7 @@ from pipeline.purge import (
     purge_customer,
     purge_expired,
 )
+from pipeline.run import run_pack
 
 app = typer.Typer()
 
@@ -114,6 +115,39 @@ def purge_command(
         return
     typer.echo(f"Purged {describe_receipt(receipt)}")
     typer.echo(f"Receipt: {customer_dir / RECEIPT_NAME}")
+
+
+@app.command("run")
+def run_command(
+    pack: Annotated[str, typer.Option(help="Industry pack, e.g. mortgage")],
+    customer: Annotated[str | None, typer.Option(help="Run just this customer")] = None,
+    all_customers: Annotated[
+        bool, typer.Option("--all", help="Run every customer in the pack")
+    ] = False,
+    out_dir: Annotated[Path, typer.Option(help="Where outputs are written")] = Path(
+        "web/public/data"
+    ),
+) -> None:
+    """Full pipeline: ingest, extract, check, render, chunks, manifest. Exits 1 if any
+    customer is blocked or failed."""
+    if (customer is None) == (not all_customers):
+        raise typer.BadParameter("Use exactly one of --customer <id> or --all")
+
+    loaded = load_pack(pack)
+    known = [c.id for c in loaded.customers]
+    if customer is not None and customer not in known:
+        raise typer.BadParameter(f"{customer!r} is not in {pack}: {', '.join(known)}")
+    customer_ids = None if all_customers else [customer]
+    results = run_pack(loaded, get_provider(), out_dir, customer_ids)
+
+    for result in results:
+        line = (
+            f"{result.customer_id:<8} {result.outcome:<9} {result.errors} error(s) · "
+            f"{result.warnings} warning(s) · {result.seconds}s"
+        )
+        typer.echo(line + (f"\n         {result.message}" if result.message else ""))
+    if any(result.outcome != "rendered" for result in results):
+        raise typer.Exit(code=1)
 
 
 def format_table(extraction: Extraction, width: int = 40) -> str:

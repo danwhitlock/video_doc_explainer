@@ -322,14 +322,20 @@ def check_readability(text: str, minimum: float) -> CheckResult:
 def build_quality_report(
     extracted_fields: dict[str, dict[str, Any]], pages: list[str], rules: list[Rule]
 ) -> dict[str, Any]:
-    """Run the pack's rules plus grounding and summarise them for quality_report.json.
+    """Run the pack's rules plus grounding and summarise them for quality_report.json."""
+    return summarise(quality_results(extracted_fields, pages, rules))
 
-    `blocking` is true when any error-severity check failed: rendering is
-    skipped for that customer. Warnings render but are shown in the UI.
-    """
-    results = run_rules(values_of(extracted_fields), rules) + check_grounding(
-        extracted_fields, pages
-    )
+
+def quality_results(
+    extracted_fields: dict[str, dict[str, Any]], pages: list[str], rules: list[Rule]
+) -> list[CheckResult]:
+    """Every pack rule, then one grounding result per field."""
+    return run_rules(values_of(extracted_fields), rules) + check_grounding(extracted_fields, pages)
+
+
+def summarise(results: list[CheckResult]) -> dict[str, Any]:
+    """Counts plus `blocking`, which is true when any error-severity check failed:
+    rendering is skipped for that customer. Warnings render but are shown in the UI."""
     failed = [result for result in results if result.status == "fail"]
     errors = sum(result.severity == "error" for result in failed)
     return {

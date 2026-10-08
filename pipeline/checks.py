@@ -13,6 +13,7 @@ from datetime import datetime
 from typing import Any, Literal
 
 from pipeline.packs import Rule
+from pipeline.readability import flesch_reading_ease
 
 Status = Literal["pass", "fail", "skip"]
 Values = dict[str, Any]
@@ -295,6 +296,27 @@ def _ground_one(wrapped: dict[str, Any], normalised_pages: list[str]) -> tuple[S
     if found_on:
         return "fail", f"Ungrounded: quote found on page {found_on[0]}, not page {page}"
     return "fail", f"Ungrounded: quote not found on page {page} or any other page"
+
+
+READABILITY_RULE_ID = "readability"
+
+
+def check_readability(text: str, minimum: float) -> CheckResult:
+    """Narration should score at least the pack's reading_ease_min (warn below)."""
+    score = flesch_reading_ease(text)
+    if score >= minimum:
+        return CheckResult(
+            READABILITY_RULE_ID,
+            "warn",
+            "pass",
+            f"Reading ease {score} meets the target of {minimum}",
+        )
+    return CheckResult(
+        READABILITY_RULE_ID,
+        "warn",
+        "fail",
+        f"Reading ease {score} is below the target of {minimum}",
+    )
 
 
 RULE_CHECKS: dict[str, Callable[[Values, dict[str, Any]], CheckOutcome]] = {

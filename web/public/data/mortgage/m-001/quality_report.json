@@ -1,0 +1,344 @@
+{
+  "summary": {
+    "pass": 35,
+    "fail": 1,
+    "skip": 0,
+    "errors": 0,
+    "warnings": 1,
+    "blocking": false
+  },
+  "results": [
+    {
+      "rule_id": "all-required",
+      "severity": "error",
+      "status": "pass",
+      "message": "All 24 required fields present",
+      "fields": []
+    },
+    {
+      "rule_id": "phone-format",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Format OK for: contact_phone",
+      "fields": [
+        "contact_phone"
+      ]
+    },
+    {
+      "rule_id": "rate-plausible",
+      "severity": "error",
+      "status": "pass",
+      "message": "initial_rate_percent = 4.89 is within 0.5\u201315",
+      "fields": [
+        "initial_rate_percent"
+      ]
+    },
+    {
+      "rule_id": "follow-on-rate-plausible",
+      "severity": "error",
+      "status": "pass",
+      "message": "follow_on_rate_percent = 7.49 is within 0.5\u201315",
+      "fields": [
+        "follow_on_rate_percent"
+      ]
+    },
+    {
+      "rule_id": "term-plausible",
+      "severity": "error",
+      "status": "pass",
+      "message": "term_years = 30 is within 5\u201340",
+      "fields": [
+        "term_years"
+      ]
+    },
+    {
+      "rule_id": "ltv-matches-loan-and-value",
+      "severity": "error",
+      "status": "pass",
+      "message": "ltv_percent = 90.0 matches ltv = 90.00",
+      "fields": [
+        "loan_amount",
+        "property_value",
+        "ltv_percent"
+      ]
+    },
+    {
+      "rule_id": "initial-payment-recomputes",
+      "severity": "error",
+      "status": "pass",
+      "message": "monthly_payment_initial = 1359.76 matches amortised_payment = 1359.76",
+      "fields": [
+        "loan_amount",
+        "initial_rate_percent",
+        "term_years",
+        "monthly_payment_initial"
+      ]
+    },
+    {
+      "rule_id": "follow-on-payment-higher-when-rate-higher",
+      "severity": "warn",
+      "status": "pass",
+      "message": "follow_on_rate_percent > initial_rate_percent, and monthly_payment_follow_on > monthly_payment_initial",
+      "fields": [
+        "follow_on_rate_percent",
+        "monthly_payment_follow_on"
+      ]
+    },
+    {
+      "rule_id": "expiry-after-offer",
+      "severity": "error",
+      "status": "pass",
+      "message": "offer_date (1497-09-14) is before offer_expiry_date (2027-03-14)",
+      "fields": [
+        "offer_date",
+        "offer_expiry_date"
+      ]
+    },
+    {
+      "rule_id": "erc-years-cover-fixed-period",
+      "severity": "warn",
+      "status": "pass",
+      "message": "erc_years_cover holds",
+      "fields": [
+        "early_repayment_charges",
+        "initial_period_months"
+      ]
+    },
+    {
+      "rule_id": "no-fee-means-not-added",
+      "severity": "error",
+      "status": "pass",
+      "message": "product_fee == 0, and product_fee_added_to_loan == False",
+      "fields": [
+        "product_fee",
+        "product_fee_added_to_loan"
+      ]
+    },
+    {
+      "rule_id": "total-exceeds-loan",
+      "severity": "error",
+      "status": "pass",
+      "message": "total_amount_repayable > loan_amount holds",
+      "fields": [
+        "total_amount_repayable",
+        "loan_amount"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "customer_name"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "offer_reference"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "offer_date"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "offer_expiry_date"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "property_address"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "mortgage_purpose"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "product_name"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "repayment_type"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "property_value"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "loan_amount"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "ltv_percent"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "term_years"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "initial_rate_percent"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "initial_period_months"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "initial_period_end_date"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "follow_on_rate_percent"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "monthly_payment_initial"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "monthly_payment_follow_on"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "total_amount_repayable"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "product_fee"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "product_fee_added_to_loan"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "fail",
+      "message": "Ungrounded: quote not found on page 1 or any other page",
+      "fields": [
+        "early_repayment_charges"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "overpayment_allowance_percent"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 2",
+      "fields": [
+        "contact_phone"
+      ]
+    }
+  ]
+}

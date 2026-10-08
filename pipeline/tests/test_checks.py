@@ -3,7 +3,13 @@ from pathlib import Path
 
 import pytest
 
-from pipeline.checks import amortised_payment, check_grounding, run_rules, values_of
+from pipeline.checks import (
+    amortised_payment,
+    build_quality_report,
+    check_grounding,
+    run_rules,
+    values_of,
+)
 from pipeline.packs import Rule, load_pack
 
 PACKS_DIR = Path(__file__).resolve().parents[2] / "packs"
@@ -356,3 +362,38 @@ def test_grounding_fails_out_of_range_page_and_missing_quote():
 
 def test_grounding_skips_null_values():
     assert ground_one(evidenced(None, None, None)).status == "skip"
+
+
+# --- quality report ---
+
+
+def report_for(values: dict) -> dict:
+    """Report for these values, with every quote genuinely on page 1."""
+    fields = {name: evidenced(value, f"quote for {name}", 1) for name, value in values.items()}
+    pages = [" ".join(f"quote for {name}" for name in values)]
+    rules = load_pack("mortgage", packs_dir=PACKS_DIR).checks.rules
+    return build_quality_report(fields, pages, rules)
+
+
+def test_report_has_the_briefs_fields_and_a_clean_summary():
+    report = report_for(good_values("mortgage", "m-001"))
+
+    assert set(report["results"][0]) == {"rule_id", "severity", "status", "message", "fields"}
+    assert report["summary"] == {
+        "pass": 12 + 24,  # every rule + one grounding result per field
+        "fail": 0,
+        "skip": 0,
+        "errors": 0,
+        "warnings": 0,
+        "blocking": False,
+    }
+
+
+def test_error_failure_blocks_but_warning_alone_does_not():
+    warning_only = report_for(good_values("mortgage", "m-001") | {"contact_phone": "999"})
+    assert warning_only["summary"]["warnings"] == 1
+    assert warning_only["summary"]["blocking"] is False
+
+    error = report_for(good_values("mortgage", "m-001") | {"initial_rate_percent": 16})
+    assert error["summary"]["errors"] >= 1
+    assert error["summary"]["blocking"] is True

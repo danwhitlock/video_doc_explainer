@@ -12,7 +12,7 @@ from typing import Any
 from pydantic import ValidationError
 
 from pipeline.ingest import extract_pages
-from pipeline.packs import load_pack
+from pipeline.packs import customer_document, load_pack
 from pipeline.providers.base import LLMProvider
 from pipeline.schema_models import build_model, wrap_schema
 
@@ -88,11 +88,7 @@ def extract_customer(
     `explainer run`) calls.
     """
     pack = load_pack(pack_name, packs_dir=packs_dir)
-    customer = next((c for c in pack.customers if c.id == customer_id), None)
-    if customer is None:
-        raise ValueError(f"No customer {customer_id!r} in pack {pack_name!r}")
-
-    pages = extract_pages(Path(packs_dir) / pack_name / customer.document)
+    pages = extract_pages(customer_document(pack, customer_id, packs_dir))
     return extract(pages, pack.extraction_schema, provider)
 
 

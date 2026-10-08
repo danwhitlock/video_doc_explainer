@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import re
 from collections.abc import Callable
-from dataclasses import dataclass, field
+from dataclasses import asdict, dataclass, field
 from datetime import datetime
 from typing import Any, Literal
 
@@ -317,6 +317,32 @@ def check_readability(text: str, minimum: float) -> CheckResult:
         "fail",
         f"Reading ease {score} is below the target of {minimum}",
     )
+
+
+def build_quality_report(
+    extracted_fields: dict[str, dict[str, Any]], pages: list[str], rules: list[Rule]
+) -> dict[str, Any]:
+    """Run the pack's rules plus grounding and summarise them for quality_report.json.
+
+    `blocking` is true when any error-severity check failed: rendering is
+    skipped for that customer. Warnings render but are shown in the UI.
+    """
+    results = run_rules(values_of(extracted_fields), rules) + check_grounding(
+        extracted_fields, pages
+    )
+    failed = [result for result in results if result.status == "fail"]
+    errors = sum(result.severity == "error" for result in failed)
+    return {
+        "summary": {
+            "pass": sum(result.status == "pass" for result in results),
+            "fail": len(failed),
+            "skip": sum(result.status == "skip" for result in results),
+            "errors": errors,
+            "warnings": len(failed) - errors,
+            "blocking": errors > 0,
+        },
+        "results": [asdict(result) for result in results],
+    }
 
 
 RULE_CHECKS: dict[str, Callable[[Values, dict[str, Any]], CheckOutcome]] = {

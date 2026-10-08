@@ -146,3 +146,11 @@ def load_pack(name: str, packs_dir: Path | str = "packs") -> Pack:
         theme=theme,
         customers=customers,
     )
+
+
+def customer_document(pack: Pack, customer_id: str, packs_dir: Path | str = "packs") -> Path:
+    """Path to this customer's source document, e.g. packs/mortgage/samples/m-001.pdf."""
+    customer = next((c for c in pack.customers if c.id == customer_id), None)
+    if customer is None:
+        raise ValueError(f"No customer {customer_id!r} in pack {pack.config.name!r}")
+    return Path(packs_dir) / pack.config.name / customer.document

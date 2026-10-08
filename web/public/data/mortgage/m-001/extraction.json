@@ -1,0 +1,138 @@
+{
+  "fields": {
+    "customer_name": {
+      "evidence_quote": "Dear Ms Priya Raman,",
+      "page": 1,
+      "value": "Ms Priya Raman"
+    },
+    "offer_reference": {
+      "evidence_quote": "Our reference: FBS-2026-104381",
+      "page": 1,
+      "value": "FBS-2026-104381"
+    },
+    "offer_date": {
+      "evidence_quote": "Date: 14 September 2026",
+      "page": 1,
+      "value": "1497-09-14"
+    },
+    "offer_expiry_date": {
+      "evidence_quote": "This offer is valid until 14 March 2027.",
+      "page": 1,
+      "value": "2027-03-14"
+    },
+    "property_address": {
+      "evidence_quote": "We are pleased to offer you a mortgage for the purchase (first-time buyer) of the property shown above.",
+      "page": 1,
+      "value": "The property shown above"
+    },
+    "mortgage_purpose": {
+      "evidence_quote": "We are pleased to offer you a mortgage for the purchase (first-time buyer) of the property shown above.",
+      "page": 1,
+      "value": "First-time buyer"
+    },
+    "product_name": {
+      "evidence_quote": "Product 2 Year Fixed First Home 90%",
+      "page": 1,
+      "value": "2 Year Fixed First Home"
+    },
+    "repayment_type": {
+      "evidence_quote": "Repayment method Capital and interest (repayment)",
+      "page": 1,
+      "value": "capital and interest"
+    },
+    "property_value": {
+      "evidence_quote": "Value of the property £285,000.00",
+      "page": 1,
+      "value": 285000.0
+    },
+    "loan_amount": {
+      "evidence_quote": "Amount of loan £256,500.00",
+      "page": 1,
+      "value": 256500.0
+    },
+    "ltv_percent": {
+      "evidence_quote": "Loan to value 90.0%",
+      "page": 1,
+      "value": 90.0
+    },
+    "term_years": {
+      "evidence_quote": "Mortgage term 30 years",
+      "page": 1,
+      "value": 30
+    },
+    "initial_rate_percent": {
+      "evidence_quote": "Your mortgage starts on a fixed rate of 4.89% for 24 months, until 31 October 2028.",
+      "page": 1,
+      "value": 4.89
+    },
+    "initial_period_months": {
+      "evidence_quote": "Your mortgage starts on a fixed rate of 4.89% for 24 months, until 31 October 2028.",
+      "page": 1,
+      "value": 24
+    },
+    "initial_period_end_date": {
+      "evidence_quote": "Your mortgage starts on a fixed rate of 4.89% for 24 months, until 31 October 2028.",
+      "page": 1,
+      "value": "2028-10-31"
+    },
+    "follow_on_rate_percent": {
+      "evidence_quote": "After that, it will move to our Standard Variable Rate (SVR), currently 7.49%, for the rest of the term. The SVR can go up or down at any time.",
+      "page": 1,
+      "value": 7.49
+    },
+    "monthly_payment_initial": {
+      "evidence_quote": "Fixed rate at 4.89% 24 £1,359.76",
+      "page": 1,
+      "value": 1359.76
+    },
+    "monthly_payment_follow_on": {
+      "evidence_quote": "SVR at 7.49% (assumed unchanged) 336 £1,770.43",
+      "page": 1,
+      "value": 1770.43
+    },
+    "total_amount_repayable": {
+      "evidence_quote": "The total amount you will have to repay, assuming rates do not change, is £627,497.65.",
+      "page": 1,
+      "value": 627497.65
+    },
+    "product_fee": {
+      "evidence_quote": "There is no product fee for this mortgage.",
+      "page": 1,
+      "value": 0.0
+    },
+    "product_fee_added_to_loan": {
+      "evidence_quote": "There is no product fee for this mortgage.",
+      "page": 1,
+      "value": false
+    },
+    "early_repayment_charges": {
+      "evidence_quote": "If you pay more than this, or repay the mortgage in full during the fixed-rate period, an early repayment charge (ERC) applies to the amount repaid:\nPeriod Early repayment charge\nYear 1 2% of the amount repaid\nYear 2 1% of the amount repaid",
+      "page": 1,
+      "value": [
+        {
+          "year": 1,
+          "percent": 2.0
+        },
+        {
+          "year": 2,
+          "percent": 1.0
+        }
+      ]
+    },
+    "overpayment_allowance_percent": {
+      "evidence_quote": "You can overpay up to 10% of the outstanding balance each year during the fixed-rate period without a charge.",
+      "page": 1,
+      "value": 10.0
+    },
+    "contact_phone": {
+      "evidence_quote": "If you have questions about this offer, call our mortgage team on 01632 960412 (Monday to Friday, 8am to 8pm, Saturday 9am to 1pm), quoting reference FBS-2026-104381.",
+      "page": 2,
+      "value": "01632 960412"
+    }
+  },
+  "provider": "ollama",
+  "model": "qwen2.5:7b",
+  "prompt_sha256": "f6602a2d5eb26896bed40d21f302094e8a80afc27419041ba2aa7ea40e654180",
+  "duration_seconds": 176.344,
+  "attempts": 1
+}

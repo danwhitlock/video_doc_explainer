@@ -6,10 +6,13 @@ import hashlib
 import json
 import time
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any
 
 from pydantic import ValidationError
 
+from pipeline.ingest import extract_pages
+from pipeline.packs import load_pack
 from pipeline.providers.base import LLMProvider
 from pipeline.schema_models import build_model, wrap_schema
 
@@ -71,6 +74,26 @@ def extract(pages: list[str], schema: dict[str, Any], provider: LLMProvider) -> 
         )
 
     raise ExtractionError(f"Reply still invalid after {MAX_ATTEMPTS} attempts:\n{problems}")
+
+
+def extract_customer(
+    pack_name: str,
+    customer_id: str,
+    provider: LLMProvider,
+    packs_dir: Path | str = "packs",
+) -> Extraction:
+    """Load a pack, find this customer's document, and extract it.
+
+    The one-customer unit of work that `explainer extract` (and later
+    `explainer run`) calls.
+    """
+    pack = load_pack(pack_name, packs_dir=packs_dir)
+    customer = next((c for c in pack.customers if c.id == customer_id), None)
+    if customer is None:
+        raise ValueError(f"No customer {customer_id!r} in pack {pack_name!r}")
+
+    pages = extract_pages(Path(packs_dir) / pack_name / customer.document)
+    return extract(pages, pack.extraction_schema, provider)
 
 
 def format_pages(pages: list[str]) -> str:

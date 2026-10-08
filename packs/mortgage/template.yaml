@@ -10,6 +10,7 @@
 #   pct(x)          4.89 percent   (spoken-friendly; visuals use their own formatting)
 #   long_date(s)    31 October 2028
 #   years_months(m) "2 years" / "18 months" / "1 year and 6 months"
+#   table_rows(list, *formats)  one format per column: table_rows('Year {year}', '{percent}%') -> [["Year 1", "2%"], ...]
 #
 # `when:` is a Jinja expression; the scene is skipped if it is false.
 # `narration` is shown in captions and the transcript and spoken by TTS.
@@ -88,7 +89,7 @@ scenes:
     visual:
       type: table
       columns: ["Period", "Charge on the amount repaid"]
-      rows: "{{ d.early_repayment_charges }}"      # engine maps to [["Year 1", "2%"], ...]
+      rows: "{{ d.early_repayment_charges | table_rows('Year {year}', '{percent}%') }}"   # [["Year 1", "2%"], ...]
       footnote: "Overpay up to {{ d.overpayment_allowance_percent }}% a year with no charge."
     narration: >
       You can pay off up to {{ d.overpayment_allowance_percent | int }} percent of what you owe each year at no extra cost.

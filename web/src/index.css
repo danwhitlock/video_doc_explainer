@@ -289,3 +289,51 @@ h3 {
   color: var(--color-primary);
   font-weight: 700;
 }
+
+/* ---- Storyboard (temporary: every scene at once, until the Player in 5.9) ---- */
+
+.storyboard {
+  list-style: none;
+  margin: 2rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.storyboard__scene {
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+.storyboard__scene h2 {
+  margin-top: 0;
+}
+
+.storyboard__narration {
+  margin-bottom: 0;
+  max-width: 40rem;
+}
+
+.visual-placeholder {
+  display: grid;
+  place-items: center;
+  min-height: 8rem;
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface-alt);
+  color: var(--color-text-muted);
+  font-weight: 700;
+}
+
+.load-error {
+  margin-top: 2rem;
+  padding: 1rem 1.25rem;
+  border-left: 4px solid var(--color-danger);
+  background: var(--color-surface-alt);
+}
+
+.load-error h2 {
+  margin-top: 0;
+}

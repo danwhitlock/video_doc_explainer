@@ -1,0 +1,140 @@
+{
+  "fields": {
+    "patient_name": {
+      "evidence_quote": "Brackenridge Health\nMrs Margaret Hughes\nHospital number: BH-482917",
+      "page": 1,
+      "value": "Mrs Margaret Hughes"
+    },
+    "hospital_number": {
+      "evidence_quote": "Hospital number: BH-482917",
+      "page": 1,
+      "value": "BH-482917"
+    },
+    "letter_date": {
+      "evidence_quote": "Date: 5 October 2026",
+      "page": 1,
+      "value": "2026-10-05"
+    },
+    "procedure_name": {
+      "evidence_quote": "You are booked for a cataract surgery (right eye).",
+      "page": 1,
+      "value": "Cataract surgery (right eye)"
+    },
+    "procedure_plain_english": {
+      "evidence_quote": "You are booked for a cataract surgery (right eye). The cloudy lens in your right eye is removed and replaced with a clear artificial lens.",
+      "page": 1,
+      "value": "The cloudy lens in your right eye is removed and replaced with a clear artificial lens."
+    },
+    "appointment_date": {
+      "evidence_quote": "Date Thursday 12 November 2026",
+      "page": 1,
+      "value": "2026-11-12"
+    },
+    "arrival_time": {
+      "evidence_quote": "Please arrive at 08:30",
+      "page": 1,
+      "value": "08:30"
+    },
+    "location": {
+      "evidence_quote": "Where Eye Day Unit, Level 1, Brackenridge Community Hospital",
+      "page": 1,
+      "value": "Eye Day Unit, Level 1, Brackenridge Community Hospital"
+    },
+    "anaesthetic_type": {
+      "evidence_quote": "Anaesthetic Local anaesthetic (you will be awake; the area is numbed)",
+      "page": 1,
+      "value": "local"
+    },
+    "stay_type": {
+      "evidence_quote": "Type of stay Day case: expect to be with us for about 3 hours",
+      "page": 1,
+      "value": "day case"
+    },
+    "expected_duration_hours": {
+      "evidence_quote": "Type of stay Day case: expect to be with us for about 3 hours",
+      "page": 1,
+      "value": 3.0
+    },
+    "last_food_time": {
+      "evidence_quote": null,
+      "page": null,
+      "value": null
+    },
+    "last_clear_fluids_time": {
+      "evidence_quote": null,
+      "page": null,
+      "value": null
+    },
+    "bowel_preparation_required": {
+      "evidence_quote": null,
+      "page": null,
+      "value": false
+    },
+    "medicine_instructions": {
+      "evidence_quote": "Your medicines\n(cid:127) Keep taking your usual medicines, including eye drops, unless told otherwise.\n(cid:127) If you take blood-thinning medicines, call the pre-assessment team. Do not stop them without advice.",
+      "page": 1,
+      "value": [
+        "Keep taking your usual medicines, including eye drops, unless told otherwise.",
+        "If you take blood-thinning medicines, call the pre-assessment team. Do not stop them without advice."
+      ]
+    },
+    "items_to_bring": {
+      "evidence_quote": "What to bring\n(cid:127) A list of your medicines\n(cid:127) Your glasses\n(cid:127) Something to read",
+      "page": 1,
+      "value": [
+        "A list of your medicines",
+        "Your glasses",
+        "Something to read"
+      ]
+    },
+    "escort_required": {
+      "evidence_quote": "Going home You will need someone to take you home, as you will not be able to drive.",
+      "page": 1,
+      "value": true
+    },
+    "escort_hours": {
+      "evidence_quote": null,
+      "page": null,
+      "value": null
+    },
+    "no_driving_days": {
+      "evidence_quote": null,
+      "page": null,
+      "value": null
+    },
+    "driving_advice": {
+      "evidence_quote": "Going home You will need someone to take you home, as you will not be able to drive. Do not drive until your eye doctor says your sight meets the legal standard.",
+      "page": 1,
+      "value": "Do not drive until your eye doctor says your sight meets the legal standard."
+    },
+    "recovery_summary": {
+      "evidence_quote": "Most people notice clearer sight within a few days. Use your eye drops as shown for 4 weeks.",
+      "page": 1,
+      "value": "Most people notice clearer sight within a few days. Use your eye drops as shown for 4 weeks."
+    },
+    "warning_signs": {
+      "evidence_quote": "When to get help Contact us straight away if you have any of the following:\n(cid:127) Increasing pain in the eye\n(cid:127) Your sight gets worse\n(cid:127) Increasing redness or sticky discharge",
+      "page": 1,
+      "value": [
+        "Increasing pain in the eye",
+        "Your sight gets worse",
+        "Increasing redness or sticky discharge"
+      ]
+    },
+    "contact_phone": {
+      "evidence_quote": "Contact us If you have questions, or need to change your appointment, call 01632 960215 (Monday to Friday, 9am to 5pm).",
+      "page": 2,
+      "value": "01632 960215"
+    },
+    "out_of_hours_phone": {
+      "evidence_quote": "Outside these hours, call 01632 960999.",
+      "page": 2,
+      "value": "01632 960999"
+    }
+  },
+  "provider": "ollama",
+  "model": "qwen2.5:7b",
+  "prompt_sha256": "027be5c99a78198e2fe1845cba13edda1111dcbbdeb98316779c0e06dbc0dc44",
+  "duration_seconds": 97.912,
+  "attempts": 1
+}

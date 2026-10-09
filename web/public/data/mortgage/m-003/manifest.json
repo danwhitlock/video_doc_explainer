@@ -1,0 +1,40 @@
+{
+  "run_id": "b8a5053c3f6e4ad49d0bd034324003a8",
+  "timestamp": "2026-10-09T07:49:48+00:00",
+  "pack": {
+    "name": "mortgage",
+    "schema_version": "1.0.0"
+  },
+  "customer_id": "m-003",
+  "input": {
+    "file": "m-003.pdf",
+    "sha256": "288afbe60747237fc68644b19c182680c7cc471f6b46b9cac0768d7975c20ffb"
+  },
+  "extraction": {
+    "provider": "ollama",
+    "model": "qwen2.5:7b",
+    "prompt_sha256": "8b1acfae7de559a169fa3b45e8f840257681a8d34ad2b81d27d8b574685fc5f4",
+    "attempts": 1
+  },
+  "stage_seconds": {
+    "ingest": 0.051,
+    "extract": 86.981,
+    "check": 0.002,
+    "render": 0.028
+  },
+  "checks": {
+    "pass": 34,
+    "fail": 2,
+    "skip": 1,
+    "errors": 0,
+    "warnings": 2,
+    "blocking": false
+  },
+  "outputs": {
+    "extraction.json": "a5380a7db6b6b5034dfed89aba9a5a7dd3708049061c752fc28da2e399f9e6d3",
+    "scenes.json": "aece05075b28b4fd28b57bb03c2ed0b93e05aef9c87c71a9af9796198f26ecb1",
+    "captions.vtt": "4375d3076dab0d04f7bf31e6180ccbe87f010521367e65be0913c1e7a97e3696",
+    "quality_report.json": "e00169c4d130186c116c4e839486ce5f2dd7e5c40d52a08ff22398caf3417904",
+    "chunks.json": "ba0e5ec5f31e6c094c19134fffde0934b7261ffdc7ea93873c9adbd048b1fbe9"
+  }
+}

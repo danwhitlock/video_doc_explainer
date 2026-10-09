@@ -88,7 +88,7 @@
       "rule_id": "expiry-after-offer",
       "severity": "error",
       "status": "pass",
-      "message": "offer_date (1494-09-14) is before offer_expiry_date (2027-03-14)",
+      "message": "offer_date (2026-09-14) is before offer_expiry_date (2027-03-14)",
       "fields": [
         "offer_date",
         "offer_expiry_date"
@@ -317,7 +317,7 @@
       "rule_id": "grounding",
       "severity": "warn",
       "status": "fail",
-      "message": "Ungrounded: quote not found on page 1 or any other page",
+      "message": "Ungrounded: quote not found on page 2 or any other page",
       "fields": [
         "early_repayment_charges"
       ]

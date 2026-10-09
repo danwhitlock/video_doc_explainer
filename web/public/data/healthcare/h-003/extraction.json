@@ -1,0 +1,141 @@
+{
+  "fields": {
+    "patient_name": {
+      "evidence_quote": "Brackenridge Health\nMs Chloe Bennett\nHospital number: BH-603845",
+      "page": 1,
+      "value": "Ms Chloe Bennett"
+    },
+    "hospital_number": {
+      "evidence_quote": "Hospital number: BH-603845",
+      "page": 1,
+      "value": "BH-603845"
+    },
+    "letter_date": {
+      "evidence_quote": "Date: 5 October 2026",
+      "page": 1,
+      "value": "2026-10-05"
+    },
+    "procedure_name": {
+      "evidence_quote": "You are booked for a knee arthroscopy (left knee).",
+      "page": 1,
+      "value": "knee arthroscopy (left knee)"
+    },
+    "procedure_plain_english": {
+      "evidence_quote": "You are booked for a knee arthroscopy (left knee). Keyhole surgery: a small camera and instruments are passed through tiny cuts to look inside and repair your knee joint.",
+      "page": 1,
+      "value": "Keyhole surgery: a small camera and instruments are passed through tiny cuts to look inside and repair your knee joint."
+    },
+    "appointment_date": {
+      "evidence_quote": "Date Thursday 19 November 2026",
+      "page": 1,
+      "value": "2026-11-19"
+    },
+    "arrival_time": {
+      "evidence_quote": "Please arrive at 07:00",
+      "page": 1,
+      "value": "07:00"
+    },
+    "location": {
+      "evidence_quote": "Where Day Surgery Unit, Level 2, Brackenridge General Hospital",
+      "page": 1,
+      "value": "Day Surgery Unit, Level 2, Brackenridge General Hospital"
+    },
+    "anaesthetic_type": {
+      "evidence_quote": "Anaesthetic General anaesthetic (you will be asleep)",
+      "page": 1,
+      "value": "general"
+    },
+    "stay_type": {
+      "evidence_quote": "Type of stay Day case: expect to be with us for about 6 hours",
+      "page": 1,
+      "value": "day case"
+    },
+    "expected_duration_hours": {
+      "evidence_quote": "Type of stay Day case: expect to be with us for about 6 hours",
+      "page": 1,
+      "value": 6.0
+    },
+    "last_food_time": {
+      "evidence_quote": "Do not eat anything after 2am on the day of your operation. This includes chewing gum and sweets. You can drink water only until 6am.",
+      "page": 1,
+      "value": "2026-11-19T02:00"
+    },
+    "last_clear_fluids_time": {
+      "evidence_quote": "You can drink water only until 6am.",
+      "page": 1,
+      "value": "2026-11-19T06:00"
+    },
+    "bowel_preparation_required": {
+      "evidence_quote": null,
+      "page": null,
+      "value": false
+    },
+    "medicine_instructions": {
+      "evidence_quote": "Your medicines\n- Take your usual morning medicines with a small sip of water, unless told otherwise.\n- If you take blood-thinning medicines, call the pre-assessment team. Do not stop them without advice.",
+      "page": 1,
+      "value": [
+        "Take your usual morning medicines with a small sip of water, unless told otherwise.",
+        "If you take blood-thinning medicines, call the pre-assessment team. Do not stop them without advice."
+      ]
+    },
+    "items_to_bring": {
+      "evidence_quote": "What to bring\n- A list of your medicines\n- Loose shorts or trousers\n- Flat, comfortable shoes",
+      "page": 1,
+      "value": [
+        "A list of your medicines",
+        "Loose shorts or trousers",
+        "Flat, comfortable shoes"
+      ]
+    },
+    "escort_required": {
+      "evidence_quote": "Going home\nYou must arrange for a responsible adult to take you home and stay with you for 24 hours.",
+      "page": 1,
+      "value": true
+    },
+    "escort_hours": {
+      "evidence_quote": "Going home\nYou must arrange for a responsible adult to take you home and stay with you for 24 hours.",
+      "page": 1,
+      "value": 24
+    },
+    "no_driving_days": {
+      "evidence_quote": "Do not drive until you can do an emergency stop without pain. For most people this is 1 to 2 weeks.",
+      "page": 1,
+      "value": 14
+    },
+    "driving_advice": {
+      "evidence_quote": "Going home\nYou must arrange for a responsible adult to take you home and stay with you for 24 hours. Do not drive until you can do an emergency stop without pain. For most people this is 1 to 2 weeks.",
+      "page": 1,
+      "value": "Do not drive until you can do an emergency stop without pain. For most people this is 1 to 2 weeks."
+    },
+    "recovery_summary": {
+      "evidence_quote": "Most people return to desk work within 1 to 2 weeks.",
+      "page": 1,
+      "value": "Keep your leg raised when resting. Most people return to desk work within 1 to 2 weeks."
+    },
+    "warning_signs": {
+      "evidence_quote": "When to get help\nContact us straight away if you have any of the following:\n- Increasing redness, heat or swelling around the knee\n- A high temperature\n- Pain or swelling in your calf\n- Call 999 if you have chest pain or sudden breathlessness",
+      "page": 1,
+      "value": [
+        "Increasing redness, heat or swelling around the knee",
+        "A high temperature",
+        "Pain or swelling in your calf",
+        "Call 999 if you have chest pain or sudden breathlessness"
+      ]
+    },
+    "contact_phone": {
+      "evidence_quote": "Contact us\nIf you have questions, or need to change your appointment, call 01632 960577 (Monday to Friday, 9am to 5pm).",
+      "page": 2,
+      "value": "01632 960577"
+    },
+    "out_of_hours_phone": {
+      "evidence_quote": "Outside these hours, call 01632 960999. Please quote your hospital number.",
+      "page": 2,
+      "value": "01632 960999"
+    }
+  },
+  "provider": "ollama",
+  "model": "qwen2.5:7b",
+  "prompt_sha256": "027be5c99a78198e2fe1845cba13edda1111dcbbdeb98316779c0e06dbc0dc44",
+  "duration_seconds": 107.632,
+  "attempts": 1
+}

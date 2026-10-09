@@ -1,0 +1,189 @@
+{
+  "pack": "healthcare",
+  "customer_id": "h-002",
+  "words_per_second": 2.6,
+  "total_seconds": 132.31,
+  "scenes": [
+    {
+      "id": "welcome",
+      "title": "Getting ready for your procedure",
+      "visual": {
+        "type": "title",
+        "heading": "Hello Imran",
+        "subheading": "colonoscopy"
+      },
+      "narration": "Hello Imran. This video helps you get ready for your colonoscopy at Brackenridge. It takes about two minutes. You can pause it, turn on captions, or ask a question at any time.",
+      "speech": "Hello Imran. This video helps you get ready for your colonoscopy at Brackenridge. It takes about two minutes. You can pause it, turn on captions, or ask a question at any time.",
+      "start_seconds": 0.0,
+      "duration_seconds": 12.31
+    },
+    {
+      "id": "what-happens",
+      "title": "What happens",
+      "visual": {
+        "type": "stat",
+        "stats": [
+          {
+            "label": "Procedure",
+            "value": "colonoscopy"
+          },
+          {
+            "label": "Anaesthetic",
+            "value": "Sedation"
+          },
+          {
+            "label": "Stay",
+            "value": "Day case"
+          }
+        ]
+      },
+      "narration": "A thin, flexible tube with a camera is used to look at the lining of your large bowel. You'll have medicine to make you relaxed and drowsy. You won't be fully asleep. It's a day case, so you should go home the same day.",
+      "speech": "A thin, flexible tube with a camera is used to look at the lining of your large bowel. You'll have medicine to make you relaxed and drowsy. You won't be fully asleep. It's a day case, so you should go home the same day.",
+      "start_seconds": 12.31,
+      "duration_seconds": 16.92
+    },
+    {
+      "id": "when-where",
+      "title": "When and where",
+      "visual": {
+        "type": "stat",
+        "stats": [
+          {
+            "label": "Date",
+            "value": "Wednesday 4 November"
+          },
+          {
+            "label": "Arrive at",
+            "value": "1pm"
+          },
+          {
+            "label": "Where",
+            "value": "Endoscopy Unit, Ground Floor, Brackenridge General Hospital"
+          }
+        ]
+      },
+      "narration": "Your appointment is on Wednesday 4 November. Please arrive at 1pm. Go to the Endoscopy Unit, Ground Floor, Brackenridge General Hospital. Expect to be with us for about 4 hours.",
+      "speech": "Your appointment is on Wednesday 4 November. Please arrive at 1pm. Go to the Endoscopy Unit, Ground Floor, Brackenridge General Hospital. Expect to be with us for about 4 hours.",
+      "start_seconds": 29.23,
+      "duration_seconds": 11.54
+    },
+    {
+      "id": "eating-drinking",
+      "title": "Eating and drinking",
+      "visual": {
+        "type": "timeline",
+        "tone": "important",
+        "items": [
+          {
+            "time": "9am the day before",
+            "label": "Last food"
+          },
+          {
+            "time": "11am on the day",
+            "label": "Last drink"
+          },
+          {
+            "time": "1pm on the day",
+            "label": "Arrive"
+          }
+        ]
+      },
+      "narration": "This part is important for your safety. Don't eat anything after 9am the day before. You can drink clear fluids until 11am on the day. After that, nothing at all. If you eat or drink after these times, we may have to cancel your procedure.",
+      "speech": "This part is important for your safety. Don't eat anything after 9am the day before. You can drink clear fluids until 11am on the day. After that, nothing at all. If you eat or drink after these times, we may have to cancel your procedure.",
+      "start_seconds": 40.77,
+      "duration_seconds": 17.31
+    },
+    {
+      "id": "bowel-prep",
+      "title": "Bowel preparation",
+      "visual": {
+        "type": "alert",
+        "tone": "important",
+        "heading": "Take your bowel preparation",
+        "body": "Follow the separate instruction sheet exactly. Stay near a toilet."
+      },
+      "narration": "You'll need to take bowel preparation to empty your bowel before the test. Follow the separate sheet exactly. It works quickly, so plan to stay at home, close to a toilet.",
+      "speech": "You'll need to take bowel preparation to empty your bowel before the test. Follow the separate sheet exactly. It works quickly, so plan to stay at home, close to a toilet.",
+      "start_seconds": 58.08,
+      "duration_seconds": 11.92
+    },
+    {
+      "id": "medicines",
+      "title": "Your medicines",
+      "visual": {
+        "type": "checklist",
+        "items": [
+          "Stop taking iron tablets 7 days before your appointment.",
+          "If you take blood-thinning medicines or medicines for diabetes, call the pre-assessment team. Do not stop them without advice."
+        ]
+      },
+      "narration": "Now, your medicines. Stop taking iron tablets 7 days before your appointment. If you take blood-thinning medicines or medicines for diabetes, call the pre-assessment team. Do not stop them without advice.",
+      "speech": "Now, your medicines. Stop taking iron tablets 7 days before your appointment. If you take blood-thinning medicines or medicines for diabetes, call the pre-assessment team. Do not stop them without advice.",
+      "start_seconds": 70.0,
+      "duration_seconds": 11.92
+    },
+    {
+      "id": "what-to-bring",
+      "title": "What to bring",
+      "visual": {
+        "type": "checklist",
+        "items": [
+          "A list of your medicines",
+          "A dressing gown and slippers",
+          "Your bowel preparation instruction sheet"
+        ]
+      },
+      "narration": "Please bring a list of your medicines, a dressing gown and slippers and your bowel preparation instruction sheet. Leave jewellery and valuables at home.",
+      "speech": "Please bring a list of your medicines, a dressing gown and slippers and your bowel preparation instruction sheet. Leave jewellery and valuables at home.",
+      "start_seconds": 81.92,
+      "duration_seconds": 9.23
+    },
+    {
+      "id": "going-home",
+      "title": "Going home",
+      "visual": {
+        "type": "alert",
+        "tone": "important",
+        "heading": "An adult must stay with you for 24 hours",
+        "body": "Do not drive, cycle or operate machinery for 24 hours after sedation."
+      },
+      "narration": "You must have a responsible adult to take you home and stay with you for 24 hours. Do not drive, cycle or operate machinery for 24 hours after sedation. You may feel bloated for a few hours. Most people are back to normal the next day.",
+      "speech": "You must have a responsible adult to take you home and stay with you for 24 hours. Do not drive, cycle or operate machinery for 24 hours after sedation. You may feel bloated for a few hours. Most people are back to normal the next day.",
+      "start_seconds": 91.15,
+      "duration_seconds": 17.69
+    },
+    {
+      "id": "warning-signs",
+      "title": "When to get help",
+      "visual": {
+        "type": "alert",
+        "tone": "danger",
+        "heading": "Call us straight away if you have:",
+        "items": [
+          "Severe tummy pain",
+          "Passing more than a small amount of blood",
+          "A high temperature"
+        ]
+      },
+      "narration": "After you get home, call us straight away if you have any of these: severe tummy pain; passing more than a small amount of blood; a high temperature.",
+      "speech": "After you get home, call us straight away if you have any of these: severe tummy pain; passing more than a small amount of blood; a high temperature.",
+      "start_seconds": 108.85,
+      "duration_seconds": 10.77
+    },
+    {
+      "id": "contact",
+      "title": "Any questions?",
+      "visual": {
+        "type": "contact",
+        "phone": "01632 960348",
+        "secondary_phone": "01632 960999",
+        "reference": "BH-517302",
+        "hours": "Mon to Fri 9am to 5pm. Out of hours: 01632 960999"
+      },
+      "narration": "If you have a question, type it in the box next to this video, or call us on 01632 960348. Outside office hours, call 01632 960999. We look forward to seeing you, Imran.",
+      "speech": "If you have a question, type it in the box next to this video, or call us on oh one six three two, nine six oh, three four eight. Outside office hours, call oh one six three two, nine six oh, nine nine nine. We look forward to seeing you, Imran.",
+      "start_seconds": 119.62,
+      "duration_seconds": 12.69
+    }
+  ]
+}

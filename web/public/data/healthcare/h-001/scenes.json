@@ -1,0 +1,163 @@
+{
+  "pack": "healthcare",
+  "customer_id": "h-001",
+  "words_per_second": 2.6,
+  "total_seconds": 106.15,
+  "scenes": [
+    {
+      "id": "welcome",
+      "title": "Getting ready for your procedure",
+      "visual": {
+        "type": "title",
+        "heading": "Hello Margaret",
+        "subheading": "Cataract surgery (right eye)"
+      },
+      "narration": "Hello Margaret. This video helps you get ready for your cataract surgery (right eye) at Brackenridge. It takes about two minutes. You can pause it, turn on captions, or ask a question at any time.",
+      "speech": "Hello Margaret. This video helps you get ready for your cataract surgery (right eye) at Brackenridge. It takes about two minutes. You can pause it, turn on captions, or ask a question at any time.",
+      "start_seconds": 0.0,
+      "duration_seconds": 13.46
+    },
+    {
+      "id": "what-happens",
+      "title": "What happens",
+      "visual": {
+        "type": "stat",
+        "stats": [
+          {
+            "label": "Procedure",
+            "value": "Cataract surgery (right eye)"
+          },
+          {
+            "label": "Anaesthetic",
+            "value": "Local"
+          },
+          {
+            "label": "Stay",
+            "value": "Day case"
+          }
+        ]
+      },
+      "narration": "The cloudy lens in your right eye is removed and replaced with a clear artificial lens. You'll be awake. The area will be numbed, so you shouldn't feel pain. It's a day case, so you should go home the same day.",
+      "speech": "The cloudy lens in your right eye is removed and replaced with a clear artificial lens. You'll be awake. The area will be numbed, so you shouldn't feel pain. It's a day case, so you should go home the same day.",
+      "start_seconds": 13.46,
+      "duration_seconds": 15.77
+    },
+    {
+      "id": "when-where",
+      "title": "When and where",
+      "visual": {
+        "type": "stat",
+        "stats": [
+          {
+            "label": "Date",
+            "value": "Thursday 12 November"
+          },
+          {
+            "label": "Arrive at",
+            "value": "8:30am"
+          },
+          {
+            "label": "Where",
+            "value": "Eye Day Unit, Level 1, Brackenridge Community Hospital"
+          }
+        ]
+      },
+      "narration": "Your appointment is on Thursday 12 November. Please arrive at 8:30am. Go to the Eye Day Unit, Level 1, Brackenridge Community Hospital. Expect to be with us for about 3 hours.",
+      "speech": "Your appointment is on Thursday 12 November. Please arrive at 8:30am. Go to the Eye Day Unit, Level 1, Brackenridge Community Hospital. Expect to be with us for about 3 hours.",
+      "start_seconds": 29.23,
+      "duration_seconds": 11.92
+    },
+    {
+      "id": "eating-normally",
+      "title": "Eating and drinking",
+      "visual": {
+        "type": "alert",
+        "tone": "info",
+        "heading": "No need to fast",
+        "body": "You can eat and drink normally before your appointment."
+      },
+      "narration": "Good news. You don't need to stop eating or drinking. You can have your meals as normal before you come in.",
+      "speech": "Good news. You don't need to stop eating or drinking. You can have your meals as normal before you come in.",
+      "start_seconds": 41.15,
+      "duration_seconds": 8.08
+    },
+    {
+      "id": "medicines",
+      "title": "Your medicines",
+      "visual": {
+        "type": "checklist",
+        "items": [
+          "Keep taking your usual medicines, including eye drops, unless told otherwise.",
+          "If you take blood-thinning medicines, call the pre-assessment team. Do not stop them without advice."
+        ]
+      },
+      "narration": "Now, your medicines. Keep taking your usual medicines, including eye drops, unless told otherwise. If you take blood-thinning medicines, call the pre-assessment team. Do not stop them without advice.",
+      "speech": "Now, your medicines. Keep taking your usual medicines, including eye drops, unless told otherwise. If you take blood-thinning medicines, call the pre-assessment team. Do not stop them without advice.",
+      "start_seconds": 49.23,
+      "duration_seconds": 11.15
+    },
+    {
+      "id": "what-to-bring",
+      "title": "What to bring",
+      "visual": {
+        "type": "checklist",
+        "items": [
+          "A list of your medicines",
+          "Your glasses",
+          "Something to read"
+        ]
+      },
+      "narration": "Please bring a list of your medicines, your glasses and something to read. Leave jewellery and valuables at home.",
+      "speech": "Please bring a list of your medicines, your glasses and something to read. Leave jewellery and valuables at home.",
+      "start_seconds": 60.38,
+      "duration_seconds": 7.31
+    },
+    {
+      "id": "going-home",
+      "title": "Going home",
+      "visual": {
+        "type": "alert",
+        "tone": "important",
+        "heading": "Someone must take you home",
+        "body": "Do not drive until your eye doctor says your sight meets the legal standard."
+      },
+      "narration": "You'll need someone to take you home. Do not drive until your eye doctor says your sight meets the legal standard. Most people notice clearer sight within a few days. Use your eye drops as shown for 4 weeks.",
+      "speech": "You'll need someone to take you home. Do not drive until your eye doctor says your sight meets the legal standard. Most people notice clearer sight within a few days. Use your eye drops as shown for 4 weeks.",
+      "start_seconds": 67.69,
+      "duration_seconds": 15.0
+    },
+    {
+      "id": "warning-signs",
+      "title": "When to get help",
+      "visual": {
+        "type": "alert",
+        "tone": "danger",
+        "heading": "Call us straight away if you have:",
+        "items": [
+          "Increasing pain in the eye",
+          "Your sight gets worse",
+          "Increasing redness or sticky discharge"
+        ]
+      },
+      "narration": "After you get home, call us straight away if you have any of these: increasing pain in the eye; your sight gets worse; increasing redness or sticky discharge.",
+      "speech": "After you get home, call us straight away if you have any of these: increasing pain in the eye; your sight gets worse; increasing redness or sticky discharge.",
+      "start_seconds": 82.69,
+      "duration_seconds": 10.77
+    },
+    {
+      "id": "contact",
+      "title": "Any questions?",
+      "visual": {
+        "type": "contact",
+        "phone": "01632 960215",
+        "secondary_phone": "01632 960999",
+        "reference": "BH-482917",
+        "hours": "Mon to Fri 9am to 5pm. Out of hours: 01632 960999"
+      },
+      "narration": "If you have a question, type it in the box next to this video, or call us on 01632 960215. Outside office hours, call 01632 960999. We look forward to seeing you, Margaret.",
+      "speech": "If you have a question, type it in the box next to this video, or call us on oh one six three two, nine six oh, two one five. Outside office hours, call oh one six three two, nine six oh, nine nine nine. We look forward to seeing you, Margaret.",
+      "start_seconds": 93.46,
+      "duration_seconds": 12.69
+    }
+  ]
+}

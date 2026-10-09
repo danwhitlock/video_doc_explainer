@@ -1,7 +1,7 @@
 {
   "fields": {
     "customer_name": {
-      "evidence_quote": "Dear Mr Gareth Lloyd,\nWe are pleased to offer you a mortgage for the remortgage of the property shown above.",
+      "evidence_quote": "Dear Mr Gareth Lloyd,",
       "page": 1,
       "value": "Mr Gareth Lloyd"
     },
@@ -13,7 +13,7 @@
     "offer_date": {
       "evidence_quote": "Date: 22 September 2026",
       "page": 1,
-      "value": "2292-09-22"
+      "value": "2026-09-22"
     },
     "offer_expiry_date": {
       "evidence_quote": "This offer is valid until 22 March 2027.",
@@ -21,9 +21,9 @@
       "value": "2027-03-22"
     },
     "property_address": {
-      "evidence_quote": "null",
+      "evidence_quote": "Ty Glas\n3 Heol yr Afon\nLlanfernant\nLF2 6RT",
       "page": 1,
-      "value": "null"
+      "value": "3 Heol yr Afon, Llanfernant, LF2 6RT, Ty Glas"
     },
     "mortgage_purpose": {
       "evidence_quote": "We are pleased to offer you a mortgage for the remortgage of the property shown above.",
@@ -31,82 +31,82 @@
       "value": "remortgage"
     },
     "product_name": {
-      "evidence_quote": "1. Key features\nProduct 5 Year Fixed Remortgage 60%",
+      "evidence_quote": "Product 5 Year Fixed Remortgage",
       "page": 1,
       "value": "5 Year Fixed Remortgage"
     },
     "repayment_type": {
-      "evidence_quote": "1. Key features\nRepayment method Capital and interest (repayment)",
+      "evidence_quote": "Mortgage term 20 years\nRepayment method Capital and interest (repayment)",
       "page": 1,
       "value": "capital and interest"
     },
     "property_value": {
-      "evidence_quote": "1. Key features\nValue of the property £420,000.00",
+      "evidence_quote": "Value of the property £420,000.00",
       "page": 1,
       "value": 420000.0
     },
     "loan_amount": {
-      "evidence_quote": "1. Key features\nAmount of loan £210,999.00 (includes product fee added to the loan)",
+      "evidence_quote": "Amount of loan £210,999.00 (includes product fee added to the loan)",
       "page": 1,
       "value": 210999.0
     },
     "ltv_percent": {
-      "evidence_quote": "1. Key features\nLoan to value 50.2%",
+      "evidence_quote": "Loan to value 50.2%",
       "page": 1,
       "value": 50.2
     },
     "term_years": {
-      "evidence_quote": "1. Key features\nMortgage term 20 years",
+      "evidence_quote": "Mortgage term 20 years",
       "page": 1,
       "value": 20
     },
     "initial_rate_percent": {
-      "evidence_quote": "2. Interest rate\nYour mortgage starts on a fixed rate of 4.19% for 60 months, until 31 October 2031.",
+      "evidence_quote": "Your mortgage starts on a fixed rate of 4.19% for 60 months, until 31 October 2031.",
       "page": 1,
       "value": 4.19
     },
     "initial_period_months": {
-      "evidence_quote": "2. Interest rate\nYour mortgage starts on a fixed rate of 4.19% for 60 months, until 31 October 2031.",
+      "evidence_quote": "Your mortgage starts on a fixed rate of 4.19% for 60 months, until 31 October 2031.",
       "page": 1,
       "value": 60
     },
     "initial_period_end_date": {
-      "evidence_quote": "2. Interest rate\nYour mortgage starts on a fixed rate of 4.19% for 60 months, until 31 October 2031.",
+      "evidence_quote": "Your mortgage starts on a fixed rate of 4.19% for 60 months, until 31 October 2031.",
       "page": 1,
       "value": "2031-10-31"
     },
     "follow_on_rate_percent": {
-      "evidence_quote": "2. Interest rate\nAfter that, it will move to our Standard Variable Rate (SVR), currently 7.49%, for the rest of the term.",
+      "evidence_quote": "After that, it will move to our Standard Variable Rate (SVR), currently 7.49%, for the rest of the term. The SVR can go up or down at any time.",
       "page": 1,
       "value": 7.49
     },
     "monthly_payment_initial": {
-      "evidence_quote": "3. What you will need to pay\nPeriod Number of payments Monthly payment\nFixed rate at 4.19% 60 £1,299.84",
+      "evidence_quote": "Period Number of payments Monthly payment\nFixed rate at 4.19% 60 £1,299.84",
       "page": 1,
       "value": 1299.84
     },
     "monthly_payment_follow_on": {
-      "evidence_quote": "3. What you will need to pay\nPeriod Number of payments Monthly payment\nSVR at 7.49% (assumed unchanged) 180 £1,607.25",
+      "evidence_quote": "SVR at 7.49% (assumed unchanged) 180 £1,607.25",
       "page": 1,
       "value": 1607.25
     },
     "total_amount_repayable": {
-      "evidence_quote": "3. What you will need to pay\nThe total amount you will have to repay, assuming rates do not change, is £367,295.28.",
+      "evidence_quote": "The total amount you will have to repay, assuming rates do not change, is £367,295.28.",
       "page": 1,
       "value": 367295.28
     },
     "product_fee": {
-      "evidence_quote": "4. Fees\nA product fee of £999.00 applies. You asked us to add it to your loan, so you will pay interest on it.",
+      "evidence_quote": "A product fee of £999.00 applies. You asked us to add it to your loan, so you will pay interest on it.",
       "page": 1,
       "value": 999.0
     },
     "product_fee_added_to_loan": {
-      "evidence_quote": "4. Fees\nA product fee of £999.00 applies. You asked us to add it to your loan, so you will pay interest on it.",
+      "evidence_quote": "You asked us to add it to your loan, so you will pay interest on it.",
       "page": 1,
       "value": true
     },
     "early_repayment_charges": {
-      "evidence_quote": "6. Your obligations\nEarly repayment charge (ERC) applies to the amount repaid:\nPeriod Early repayment charge\nYear 1 5% of the amount repaid\nYear 2 4% of the amount repaid\nYear 3 3% of the amount repaid\nYear 4 2% of the amount repaid\nYear 5 1% of the amount repaid\nAfter the fixed-rate period No charge",
+      "evidence_quote": "Year 1 5% of the amount repaid\nYear 2 4% of the amount repaid\nYear 3 3% of the amount repaid\nYear 4 2% of the amount repaid\nYear 5 1% of the amount repaid",
       "page": 2,
       "value": [
         {
@@ -128,27 +128,23 @@
         {
           "year": 5,
           "percent": 1.0
-        },
-        {
-          "year": 0,
-          "percent": 0.0
         }
       ]
     },
     "overpayment_allowance_percent": {
-      "evidence_quote": "6. Your obligations\nYou can overpay up to 10% of the outstanding balance each year during the fixed-rate period without a charge.",
+      "evidence_quote": "You can overpay up to 10% of the outstanding balance each year during the fixed-rate period without a charge.",
       "page": 2,
       "value": 10.0
     },
     "contact_phone": {
-      "evidence_quote": "7. Contact us\nIf you have questions about this offer, call our mortgage team on 01632 960412 (Monday to Friday, 8am to 8pm, Saturday 9am to 1pm), quoting reference FBS-2026-104512.",
+      "evidence_quote": "If you have questions about this offer, call our mortgage team on 01632 960412 (Monday to Friday, 8am to 8pm, Saturday 9am to 1pm), quoting reference FBS-2026-104512.",
       "page": 2,
       "value": "01632 960412"
     }
   },
   "provider": "ollama",
   "model": "qwen2.5:7b",
-  "prompt_sha256": "f6602a2d5eb26896bed40d21f302094e8a80afc27419041ba2aa7ea40e654180",
-  "duration_seconds": 106.819,
+  "prompt_sha256": "8b1acfae7de559a169fa3b45e8f840257681a8d34ad2b81d27d8b574685fc5f4",
+  "duration_seconds": 111.715,
   "attempts": 1
 }

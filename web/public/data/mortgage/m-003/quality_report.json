@@ -1,10 +1,10 @@
 {
   "summary": {
-    "pass": 35,
-    "fail": 1,
+    "pass": 34,
+    "fail": 2,
     "skip": 1,
     "errors": 0,
-    "warnings": 1,
+    "warnings": 2,
     "blocking": false
   },
   "results": [
@@ -28,7 +28,7 @@
       "rule_id": "rate-plausible",
       "severity": "error",
       "status": "pass",
-      "message": "initial_rate_percent = 4.19 is within 0.5–15",
+      "message": "initial_rate_percent = 5.09 is within 0.5–15",
       "fields": [
         "initial_rate_percent"
       ]
@@ -46,7 +46,7 @@
       "rule_id": "term-plausible",
       "severity": "error",
       "status": "pass",
-      "message": "term_years = 20 is within 5–40",
+      "message": "term_years = 35 is within 5–40",
       "fields": [
         "term_years"
       ]
@@ -55,7 +55,7 @@
       "rule_id": "ltv-matches-loan-and-value",
       "severity": "error",
       "status": "pass",
-      "message": "ltv_percent = 50.2 matches ltv = 50.24",
+      "message": "ltv_percent = 85.0 matches ltv = 85.00",
       "fields": [
         "loan_amount",
         "property_value",
@@ -66,7 +66,7 @@
       "rule_id": "initial-payment-recomputes",
       "severity": "error",
       "status": "pass",
-      "message": "monthly_payment_initial = 1299.84 matches amortised_payment = 1299.84",
+      "message": "monthly_payment_initial = 1518.57 matches amortised_payment = 1518.57",
       "fields": [
         "loan_amount",
         "initial_rate_percent",
@@ -88,7 +88,7 @@
       "rule_id": "expiry-after-offer",
       "severity": "error",
       "status": "pass",
-      "message": "offer_date (2026-09-22) is before offer_expiry_date (2027-03-22)",
+      "message": "offer_date (2026-10-01) is before offer_expiry_date (2027-04-01)",
       "fields": [
         "offer_date",
         "offer_expiry_date"
@@ -316,8 +316,8 @@
     {
       "rule_id": "grounding",
       "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 2",
+      "status": "fail",
+      "message": "Ungrounded: quote not found on page 2 or any other page",
       "fields": [
         "early_repayment_charges"
       ]
@@ -344,7 +344,7 @@
       "rule_id": "readability",
       "severity": "warn",
       "status": "pass",
-      "message": "Reading ease 73.3 meets the target of 60",
+      "message": "Reading ease 71.6 meets the target of 60",
       "fields": []
     }
   ]

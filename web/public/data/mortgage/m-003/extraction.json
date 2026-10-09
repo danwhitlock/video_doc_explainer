@@ -1,0 +1,138 @@
+{
+  "fields": {
+    "customer_name": {
+      "evidence_quote": "Dear Mrs Sophie Clarke,",
+      "page": 1,
+      "value": "Mrs Sophie Clarke"
+    },
+    "offer_reference": {
+      "evidence_quote": "Our reference: FBS-2026-104777",
+      "page": 1,
+      "value": "FBS-2026-104777"
+    },
+    "offer_date": {
+      "evidence_quote": "Date: 1 October 2026",
+      "page": 1,
+      "value": "2026-10-01"
+    },
+    "offer_expiry_date": {
+      "evidence_quote": "This offer is valid until 1 April 2027.",
+      "page": 1,
+      "value": "2027-04-01"
+    },
+    "property_address": {
+      "evidence_quote": "27 Orchard Rise\nHollins Cross\nHX7 2LD",
+      "page": 1,
+      "value": "27 Orchard Rise, Hollins Cross, HX7 2LD"
+    },
+    "mortgage_purpose": {
+      "evidence_quote": "for the purchase (home mover) of the property shown above",
+      "page": 1,
+      "value": "purchase (home mover)"
+    },
+    "product_name": {
+      "evidence_quote": "Product 2 Year Fixed Mover 85%",
+      "page": 1,
+      "value": "2 Year Fixed Mover"
+    },
+    "repayment_type": {
+      "evidence_quote": "Mortgage term 35 years\nRepayment method Capital and interest (repayment)",
+      "page": 1,
+      "value": "capital and interest"
+    },
+    "property_value": {
+      "evidence_quote": "Value of the property £350,000.00",
+      "page": 1,
+      "value": 350000.0
+    },
+    "loan_amount": {
+      "evidence_quote": "Amount of loan £297,500.00",
+      "page": 1,
+      "value": 297500.0
+    },
+    "ltv_percent": {
+      "evidence_quote": "Loan to value 85.0%",
+      "page": 1,
+      "value": 85.0
+    },
+    "term_years": {
+      "evidence_quote": "Mortgage term 35 years",
+      "page": 1,
+      "value": 35
+    },
+    "initial_rate_percent": {
+      "evidence_quote": "Your mortgage starts on a fixed rate of 5.09% for 24 months",
+      "page": 1,
+      "value": 5.09
+    },
+    "initial_period_months": {
+      "evidence_quote": "Your mortgage starts on a fixed rate of 5.09% for 24 months",
+      "page": 1,
+      "value": 24
+    },
+    "initial_period_end_date": {
+      "evidence_quote": "until 30 November 2028",
+      "page": 1,
+      "value": "2028-11-30"
+    },
+    "follow_on_rate_percent": {
+      "evidence_quote": "After that, it will move to our Standard Variable Rate (SVR), currently 7.49%",
+      "page": 1,
+      "value": 7.49
+    },
+    "monthly_payment_initial": {
+      "evidence_quote": "Monthly payment\nFixed rate at 5.09% 24 £1,518.57",
+      "page": 1,
+      "value": 1518.57
+    },
+    "monthly_payment_follow_on": {
+      "evidence_quote": "SVR at 7.49% (assumed unchanged) 396 £1,985.46",
+      "page": 1,
+      "value": 1985.46
+    },
+    "total_amount_repayable": {
+      "evidence_quote": "The total amount you will have to repay, assuming rates do not change, is £824,186.31.",
+      "page": 1,
+      "value": 824186.31
+    },
+    "product_fee": {
+      "evidence_quote": "A product fee of £1,499.00 applies. This is payable on completion and is not added to your loan.",
+      "page": 1,
+      "value": 1499.0
+    },
+    "product_fee_added_to_loan": {
+      "evidence_quote": "A product fee of £1,499.00 applies. This is payable on completion and is not added to your loan.",
+      "page": 1,
+      "value": false
+    },
+    "early_repayment_charges": {
+      "evidence_quote": "Year 1 3% of the amount repaid\nYear 2 2% of the amount repaid",
+      "page": 2,
+      "value": [
+        {
+          "year": 1,
+          "percent": 3.0
+        },
+        {
+          "year": 2,
+          "percent": 2.0
+        }
+      ]
+    },
+    "overpayment_allowance_percent": {
+      "evidence_quote": "You can overpay up to 10% of the outstanding balance each year during the fixed-rate period without a charge.",
+      "page": 2,
+      "value": 10.0
+    },
+    "contact_phone": {
+      "evidence_quote": "If you have questions about this offer, call our mortgage team on 01632 960412 (Monday to Friday, 8am to 8pm, Saturday 9am to 1pm), quoting reference FBS-2026-104777.",
+      "page": 2,
+      "value": "01632 960412"
+    }
+  },
+  "provider": "ollama",
+  "model": "qwen2.5:7b",
+  "prompt_sha256": "8b1acfae7de559a169fa3b45e8f840257681a8d34ad2b81d27d8b574685fc5f4",
+  "duration_seconds": 86.97,
+  "attempts": 1
+}

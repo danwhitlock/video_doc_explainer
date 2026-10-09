@@ -1,10 +1,10 @@
 {
   "summary": {
-    "pass": 35,
-    "fail": 1,
+    "pass": 30,
+    "fail": 3,
     "skip": 1,
     "errors": 0,
-    "warnings": 1,
+    "warnings": 3,
     "blocking": false
   },
   "results": [
@@ -19,316 +19,277 @@
       "rule_id": "phone-format",
       "severity": "warn",
       "status": "pass",
-      "message": "Format OK for: contact_phone",
+      "message": "Format OK for: contact_phone, out_of_hours_phone",
       "fields": [
-        "contact_phone"
+        "contact_phone",
+        "out_of_hours_phone"
       ]
     },
     {
-      "rule_id": "rate-plausible",
+      "rule_id": "arrival-time-format",
       "severity": "error",
       "status": "pass",
-      "message": "initial_rate_percent = 4.19 is within 0.5–15",
+      "message": "Format OK for: arrival_time",
       "fields": [
-        "initial_rate_percent"
+        "arrival_time"
       ]
     },
     {
-      "rule_id": "follow-on-rate-plausible",
+      "rule_id": "appointment-after-letter",
       "severity": "error",
       "status": "pass",
-      "message": "follow_on_rate_percent = 7.49 is within 0.5–15",
+      "message": "letter_date (2026-10-05) is before appointment_date (2026-11-19)",
       "fields": [
-        "follow_on_rate_percent"
+        "letter_date",
+        "appointment_date"
       ]
     },
     {
-      "rule_id": "term-plausible",
+      "rule_id": "food-before-fluids",
       "severity": "error",
       "status": "pass",
-      "message": "term_years = 20 is within 5–40",
+      "message": "last_food_time (2026-11-19T02:00) is before last_clear_fluids_time (2026-11-19T06:00)",
       "fields": [
-        "term_years"
+        "last_food_time",
+        "last_clear_fluids_time"
       ]
     },
     {
-      "rule_id": "ltv-matches-loan-and-value",
+      "rule_id": "fluids-before-arrival",
       "severity": "error",
       "status": "pass",
-      "message": "ltv_percent = 50.2 matches ltv = 50.24",
+      "message": "last_clear_fluids_time (2026-11-19T06:00) is before appointment_date + arrival_time (2026-11-19T07:00)",
       "fields": [
-        "loan_amount",
-        "property_value",
-        "ltv_percent"
+        "last_clear_fluids_time",
+        "appointment_date",
+        "arrival_time"
       ]
     },
     {
-      "rule_id": "initial-payment-recomputes",
+      "rule_id": "escort-for-sedation-or-general",
       "severity": "error",
       "status": "pass",
-      "message": "monthly_payment_initial = 1299.84 matches amortised_payment = 1299.84",
+      "message": "anaesthetic_type in ['sedation', 'general'], and escort_required == True",
       "fields": [
-        "loan_amount",
-        "initial_rate_percent",
-        "term_years",
-        "monthly_payment_initial"
+        "anaesthetic_type",
+        "escort_required"
       ]
     },
     {
-      "rule_id": "follow-on-payment-higher-when-rate-higher",
+      "rule_id": "fasting-for-general-anaesthetic",
+      "severity": "error",
+      "status": "pass",
+      "message": "anaesthetic_type == general, and last_food_time is set",
+      "fields": [
+        "anaesthetic_type",
+        "last_food_time"
+      ]
+    },
+    {
+      "rule_id": "has-warning-signs",
+      "severity": "error",
+      "status": "pass",
+      "message": "warning_signs has 4 item(s)",
+      "fields": [
+        "warning_signs"
+      ]
+    },
+    {
+      "rule_id": "grounding",
       "severity": "warn",
       "status": "pass",
-      "message": "follow_on_rate_percent > initial_rate_percent, and monthly_payment_follow_on > monthly_payment_initial",
+      "message": "Quote found on page 1",
       "fields": [
-        "follow_on_rate_percent",
-        "monthly_payment_follow_on"
+        "patient_name"
       ]
     },
     {
-      "rule_id": "expiry-after-offer",
-      "severity": "error",
-      "status": "pass",
-      "message": "offer_date (2026-09-22) is before offer_expiry_date (2027-03-22)",
-      "fields": [
-        "offer_date",
-        "offer_expiry_date"
-      ]
-    },
-    {
-      "rule_id": "erc-years-cover-fixed-period",
+      "rule_id": "grounding",
       "severity": "warn",
       "status": "pass",
-      "message": "erc_years_cover holds",
+      "message": "Quote found on page 1",
       "fields": [
-        "early_repayment_charges",
-        "initial_period_months"
+        "hospital_number"
       ]
     },
     {
-      "rule_id": "no-fee-means-not-added",
-      "severity": "error",
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "letter_date"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "procedure_name"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "procedure_plain_english"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "appointment_date"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "arrival_time"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "location"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "anaesthetic_type"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "stay_type"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "expected_duration_hours"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "last_food_time"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "last_clear_fluids_time"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
       "status": "skip",
-      "message": "Not applicable: product_fee == 0 is not true",
+      "message": "Not stated in the document (inferred from absence)",
       "fields": [
-        "product_fee",
-        "product_fee_added_to_loan"
-      ]
-    },
-    {
-      "rule_id": "total-exceeds-loan",
-      "severity": "error",
-      "status": "pass",
-      "message": "total_amount_repayable > loan_amount holds",
-      "fields": [
-        "total_amount_repayable",
-        "loan_amount"
-      ]
-    },
-    {
-      "rule_id": "grounding",
-      "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 1",
-      "fields": [
-        "customer_name"
-      ]
-    },
-    {
-      "rule_id": "grounding",
-      "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 1",
-      "fields": [
-        "offer_reference"
-      ]
-    },
-    {
-      "rule_id": "grounding",
-      "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 1",
-      "fields": [
-        "offer_date"
-      ]
-    },
-    {
-      "rule_id": "grounding",
-      "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 1",
-      "fields": [
-        "offer_expiry_date"
-      ]
-    },
-    {
-      "rule_id": "grounding",
-      "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 1",
-      "fields": [
-        "property_address"
-      ]
-    },
-    {
-      "rule_id": "grounding",
-      "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 1",
-      "fields": [
-        "mortgage_purpose"
-      ]
-    },
-    {
-      "rule_id": "grounding",
-      "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 1",
-      "fields": [
-        "product_name"
-      ]
-    },
-    {
-      "rule_id": "grounding",
-      "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 1",
-      "fields": [
-        "repayment_type"
-      ]
-    },
-    {
-      "rule_id": "grounding",
-      "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 1",
-      "fields": [
-        "property_value"
-      ]
-    },
-    {
-      "rule_id": "grounding",
-      "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 1",
-      "fields": [
-        "loan_amount"
-      ]
-    },
-    {
-      "rule_id": "grounding",
-      "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 1",
-      "fields": [
-        "ltv_percent"
-      ]
-    },
-    {
-      "rule_id": "grounding",
-      "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 1",
-      "fields": [
-        "term_years"
-      ]
-    },
-    {
-      "rule_id": "grounding",
-      "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 1",
-      "fields": [
-        "initial_rate_percent"
-      ]
-    },
-    {
-      "rule_id": "grounding",
-      "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 1",
-      "fields": [
-        "initial_period_months"
-      ]
-    },
-    {
-      "rule_id": "grounding",
-      "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 1",
-      "fields": [
-        "initial_period_end_date"
-      ]
-    },
-    {
-      "rule_id": "grounding",
-      "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 1",
-      "fields": [
-        "follow_on_rate_percent"
-      ]
-    },
-    {
-      "rule_id": "grounding",
-      "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 1",
-      "fields": [
-        "monthly_payment_initial"
-      ]
-    },
-    {
-      "rule_id": "grounding",
-      "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 1",
-      "fields": [
-        "monthly_payment_follow_on"
-      ]
-    },
-    {
-      "rule_id": "grounding",
-      "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 1",
-      "fields": [
-        "total_amount_repayable"
-      ]
-    },
-    {
-      "rule_id": "grounding",
-      "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 1",
-      "fields": [
-        "product_fee"
-      ]
-    },
-    {
-      "rule_id": "grounding",
-      "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 1",
-      "fields": [
-        "product_fee_added_to_loan"
-      ]
-    },
-    {
-      "rule_id": "grounding",
-      "severity": "warn",
-      "status": "pass",
-      "message": "Quote found on page 2",
-      "fields": [
-        "early_repayment_charges"
+        "bowel_preparation_required"
       ]
     },
     {
       "rule_id": "grounding",
       "severity": "warn",
       "status": "fail",
-      "message": "Ungrounded: quote found on page 1, not page 2",
+      "message": "Ungrounded: quote not found on page 1 or any other page",
       "fields": [
-        "overpayment_allowance_percent"
+        "medicine_instructions"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "fail",
+      "message": "Ungrounded: quote not found on page 1 or any other page",
+      "fields": [
+        "items_to_bring"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "escort_required"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "escort_hours"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "no_driving_days"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "driving_advice"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 1",
+      "fields": [
+        "recovery_summary"
+      ]
+    },
+    {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "fail",
+      "message": "Ungrounded: quote not found on page 1 or any other page",
+      "fields": [
+        "warning_signs"
       ]
     },
     {
@@ -341,10 +302,19 @@
       ]
     },
     {
+      "rule_id": "grounding",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Quote found on page 2",
+      "fields": [
+        "out_of_hours_phone"
+      ]
+    },
+    {
       "rule_id": "readability",
       "severity": "warn",
       "status": "pass",
-      "message": "Reading ease 73.3 meets the target of 60",
+      "message": "Reading ease 73.6 meets the target of 60",
       "fields": []
     }
   ]

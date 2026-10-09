@@ -1,7 +1,7 @@
 {
   "fields": {
     "patient_name": {
-      "evidence_quote": "Mr Imran Shah",
+      "evidence_quote": "Dear Mr Imran Shah,",
       "page": 1,
       "value": "Mr Imran Shah"
     },
@@ -13,7 +13,7 @@
     "letter_date": {
       "evidence_quote": "Date: 5 October 2026",
       "page": 1,
-      "value": "5052-10-05"
+      "value": "2026-10-05"
     },
     "procedure_name": {
       "evidence_quote": "You are booked for a colonoscopy.",
@@ -21,7 +21,7 @@
       "value": "colonoscopy"
     },
     "procedure_plain_english": {
-      "evidence_quote": "A thin, flexible tube with a camera is used to look at the lining of your large bowel.",
+      "evidence_quote": "You are booked for a colonoscopy. A thin, flexible tube with a camera is used to look at the lining of your large bowel.",
       "page": 1,
       "value": "A thin, flexible tube with a camera is used to look at the lining of your large bowel."
     },
@@ -56,14 +56,14 @@
       "value": 4.0
     },
     "last_food_time": {
-      "evidence_quote": "Have your last solid food by 9am on Tuesday 3 November 2026.",
+      "evidence_quote": "Have your last solid food by 9am on Tuesday 3 November 2026",
       "page": 1,
-      "value": "2026-11-03 09:00"
+      "value": "2026-11-03T09:00:00"
     },
     "last_clear_fluids_time": {
       "evidence_quote": "You can keep drinking clear fluids (water, squash, black tea) until 11am on the day of your appointment.",
       "page": 1,
-      "value": "2026-11-04 11:00"
+      "value": "2026-11-04T11:00:00"
     },
     "bowel_preparation_required": {
       "evidence_quote": "Follow a low-fibre diet for 2 days before your appointment. Have your last solid food by 9am on Tuesday 3 November 2026. After that, take the bowel preparation as described on the separate sheet and drink clear fluids only.",
@@ -71,7 +71,7 @@
       "value": true
     },
     "medicine_instructions": {
-      "evidence_quote": "Stop taking iron tablets 7 days before your appointment.\nIf you take blood-thinning medicines or medicines for diabetes, call the pre-assessment team. Do not stop them without advice.",
+      "evidence_quote": "(cid:127) Stop taking iron tablets 7 days before your appointment.\n(cid:127) If you take blood-thinning medicines or medicines for diabetes, call the pre-assessment team. Do not stop them without advice.",
       "page": 1,
       "value": [
         "Stop taking iron tablets 7 days before your appointment.",
@@ -79,7 +79,7 @@
       ]
     },
     "items_to_bring": {
-      "evidence_quote": "Please leave jewellery and valuables at home.\n(cid:127) A list of your medicines\n(cid:127) A dressing gown and slippers\n(cid:127) Your bowel preparation instruction sheet",
+      "evidence_quote": "(cid:127) A list of your medicines\n(cid:127) A dressing gown and slippers\n(cid:127) Your bowel preparation instruction sheet",
       "page": 1,
       "value": [
         "A list of your medicines",
@@ -108,7 +108,7 @@
       "value": "Do not drive, cycle or operate machinery for 24 hours after sedation."
     },
     "recovery_summary": {
-      "evidence_quote": "You may feel bloated for a few hours. Most people are back to normal the next day.",
+      "evidence_quote": "Most people are back to normal the next day.",
       "page": 1,
       "value": "You may feel bloated for a few hours. Most people are back to normal the next day."
     },
@@ -134,7 +134,7 @@
   },
   "provider": "ollama",
   "model": "qwen2.5:7b",
-  "prompt_sha256": "8833d0d57c6afc5924e0a525ee9cd17d068e258a04c47c8b272d553d4e858346",
-  "duration_seconds": 112.472,
+  "prompt_sha256": "027be5c99a78198e2fe1845cba13edda1111dcbbdeb98316779c0e06dbc0dc44",
+  "duration_seconds": 113.94,
   "attempts": 1
 }

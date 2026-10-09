@@ -1,0 +1,40 @@
+{
+  "run_id": "20a70b74d8a6484394e76cf6a42e2c4a",
+  "timestamp": "2026-10-09T07:56:31+00:00",
+  "pack": {
+    "name": "healthcare",
+    "schema_version": "1.0.0"
+  },
+  "customer_id": "h-003",
+  "input": {
+    "file": "h-003.pdf",
+    "sha256": "6c7b9d92f6c5eed8aaa150ba61c69620324ad036a77d1cf27b19f0492fb55175"
+  },
+  "extraction": {
+    "provider": "ollama",
+    "model": "qwen2.5:7b",
+    "prompt_sha256": "027be5c99a78198e2fe1845cba13edda1111dcbbdeb98316779c0e06dbc0dc44",
+    "attempts": 1
+  },
+  "stage_seconds": {
+    "ingest": 0.136,
+    "extract": 107.648,
+    "check": 0.003,
+    "render": 0.031
+  },
+  "checks": {
+    "pass": 30,
+    "fail": 3,
+    "skip": 1,
+    "errors": 0,
+    "warnings": 3,
+    "blocking": false
+  },
+  "outputs": {
+    "extraction.json": "473642a59dd6b7e330d83cbadb9453d11d1b4f3b2a55d797be36734e701e9086",
+    "scenes.json": "5613f96ac1eaec3690f0f10e0ed40c09b8324ca6fcabe71b8520b8501d7f508c",
+    "captions.vtt": "cc22ffadeb4a8f78522f87604c36a969519581a60d892153e93849dc99e34e51",
+    "quality_report.json": "0189b3e44a67da8ba17fc16add57a62e5b18275b23e376f6a1abd15df796a699",
+    "chunks.json": "832eb397a13740a0846d775f304a52c0f5c97d2b1c46303eaebb3169a0bdd113"
+  }
+}

@@ -13,7 +13,7 @@
     "offer_date": {
       "evidence_quote": "Date: 14 September 2026",
       "page": 1,
-      "value": "1494-09-14"
+      "value": "2026-09-14"
     },
     "offer_expiry_date": {
       "evidence_quote": "This offer is valid until 14 March 2027.",
@@ -21,14 +21,14 @@
       "value": "2027-03-14"
     },
     "property_address": {
-      "evidence_quote": "The property shown above. Please read this document carefully. It sets out the key features of the mortgage, what you will pay, and the conditions that apply.",
+      "evidence_quote": "Flat 4\n18 Quarry Lane\nStonebridge\nST4 9QP",
       "page": 1,
-      "value": "18 Quarry Lane, Stonebridge, ST4 9QP"
+      "value": "Flat 4, 18 Quarry Lane, Stonebridge, ST4 9QP"
     },
     "mortgage_purpose": {
       "evidence_quote": "We are pleased to offer you a mortgage for the purchase (first-time buyer) of the property shown above.",
       "page": 1,
-      "value": "first-time buyer"
+      "value": "purchase (first-time buyer)"
     },
     "product_name": {
       "evidence_quote": "Product 2 Year Fixed First Home 90%",
@@ -36,7 +36,7 @@
       "value": "2 Year Fixed First Home"
     },
     "repayment_type": {
-      "evidence_quote": "Mortgage term 30 years Repayment method Capital and interest (repayment)",
+      "evidence_quote": "Mortgage term 30 years\nRepayment method Capital and interest (repayment)",
       "page": 1,
       "value": "capital and interest"
     },
@@ -81,7 +81,7 @@
       "value": 7.49
     },
     "monthly_payment_initial": {
-      "evidence_quote": "Fixed rate at 4.89% 24 £1,359.76",
+      "evidence_quote": "Period Number of payments Monthly payment\nFixed rate at 4.89% 24 £1,359.76",
       "page": 1,
       "value": 1359.76
     },
@@ -106,8 +106,8 @@
       "value": false
     },
     "early_repayment_charges": {
-      "evidence_quote": "Early repayment charge (ERC) applies to the amount repaid:\nPeriod Early repayment charge\nYear 1 2% of the amount repaid\nYear 2 1% of the amount repaid",
-      "page": 1,
+      "evidence_quote": "Period Early repayment charge\nYear 1 2% of the amount repaid\nYear 2 1% of the amount repaid",
+      "page": 2,
       "value": [
         {
           "year": 1,
@@ -132,7 +132,7 @@
   },
   "provider": "ollama",
   "model": "qwen2.5:7b",
-  "prompt_sha256": "f6602a2d5eb26896bed40d21f302094e8a80afc27419041ba2aa7ea40e654180",
-  "duration_seconds": 109.45,
+  "prompt_sha256": "8b1acfae7de559a169fa3b45e8f840257681a8d34ad2b81d27d8b574685fc5f4",
+  "duration_seconds": 94.678,
   "attempts": 1
 }

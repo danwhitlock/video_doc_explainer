@@ -1,0 +1,176 @@
+{
+  "pack": "healthcare",
+  "customer_id": "h-003",
+  "words_per_second": 2.6,
+  "total_seconds": 127.69,
+  "scenes": [
+    {
+      "id": "welcome",
+      "title": "Getting ready for your procedure",
+      "visual": {
+        "type": "title",
+        "heading": "Hello Chloe",
+        "subheading": "knee arthroscopy (left knee)"
+      },
+      "narration": "Hello Chloe. This video helps you get ready for your knee arthroscopy (left knee) at Brackenridge. It takes about two minutes. You can pause it, turn on captions, or ask a question at any time.",
+      "speech": "Hello Chloe. This video helps you get ready for your knee arthroscopy (left knee) at Brackenridge. It takes about two minutes. You can pause it, turn on captions, or ask a question at any time.",
+      "start_seconds": 0.0,
+      "duration_seconds": 13.46
+    },
+    {
+      "id": "what-happens",
+      "title": "What happens",
+      "visual": {
+        "type": "stat",
+        "stats": [
+          {
+            "label": "Procedure",
+            "value": "knee arthroscopy (left knee)"
+          },
+          {
+            "label": "Anaesthetic",
+            "value": "General"
+          },
+          {
+            "label": "Stay",
+            "value": "Day case"
+          }
+        ]
+      },
+      "narration": "Keyhole surgery: a small camera and instruments are passed through tiny cuts to look inside and repair your knee joint. You'll be fully asleep during the procedure. It's a day case, so you should go home the same day.",
+      "speech": "Keyhole surgery: a small camera and instruments are passed through tiny cuts to look inside and repair your knee joint. You'll be fully asleep during the procedure. It's a day case, so you should go home the same day.",
+      "start_seconds": 13.46,
+      "duration_seconds": 15.0
+    },
+    {
+      "id": "when-where",
+      "title": "When and where",
+      "visual": {
+        "type": "stat",
+        "stats": [
+          {
+            "label": "Date",
+            "value": "Thursday 19 November"
+          },
+          {
+            "label": "Arrive at",
+            "value": "7am"
+          },
+          {
+            "label": "Where",
+            "value": "Day Surgery Unit, Level 2, Brackenridge General Hospital"
+          }
+        ]
+      },
+      "narration": "Your appointment is on Thursday 19 November. Please arrive at 7am. Go to the Day Surgery Unit, Level 2, Brackenridge General Hospital. Expect to be with us for about 6 hours.",
+      "speech": "Your appointment is on Thursday 19 November. Please arrive at 7am. Go to the Day Surgery Unit, Level 2, Brackenridge General Hospital. Expect to be with us for about 6 hours.",
+      "start_seconds": 28.46,
+      "duration_seconds": 11.92
+    },
+    {
+      "id": "eating-drinking",
+      "title": "Eating and drinking",
+      "visual": {
+        "type": "timeline",
+        "tone": "important",
+        "items": [
+          {
+            "time": "2am on the day",
+            "label": "Last food"
+          },
+          {
+            "time": "6am on the day",
+            "label": "Last drink"
+          },
+          {
+            "time": "7am on the day",
+            "label": "Arrive"
+          }
+        ]
+      },
+      "narration": "This part is important for your safety. Don't eat anything after 2am on the day. You can drink clear fluids until 6am on the day. After that, nothing at all. If you eat or drink after these times, we may have to cancel your procedure.",
+      "speech": "This part is important for your safety. Don't eat anything after 2am on the day. You can drink clear fluids until 6am on the day. After that, nothing at all. If you eat or drink after these times, we may have to cancel your procedure.",
+      "start_seconds": 40.38,
+      "duration_seconds": 17.31
+    },
+    {
+      "id": "medicines",
+      "title": "Your medicines",
+      "visual": {
+        "type": "checklist",
+        "items": [
+          "Take your usual morning medicines with a small sip of water, unless told otherwise.",
+          "If you take blood-thinning medicines, call the pre-assessment team. Do not stop them without advice."
+        ]
+      },
+      "narration": "Now, your medicines. Take your usual morning medicines with a small sip of water, unless told otherwise. If you take blood-thinning medicines, call the pre-assessment team. Do not stop them without advice.",
+      "speech": "Now, your medicines. Take your usual morning medicines with a small sip of water, unless told otherwise. If you take blood-thinning medicines, call the pre-assessment team. Do not stop them without advice.",
+      "start_seconds": 57.69,
+      "duration_seconds": 12.31
+    },
+    {
+      "id": "what-to-bring",
+      "title": "What to bring",
+      "visual": {
+        "type": "checklist",
+        "items": [
+          "A list of your medicines",
+          "Loose shorts or trousers",
+          "Flat, comfortable shoes"
+        ]
+      },
+      "narration": "Please bring a list of your medicines, loose shorts or trousers and flat, comfortable shoes. Leave jewellery and valuables at home.",
+      "speech": "Please bring a list of your medicines, loose shorts or trousers and flat, comfortable shoes. Leave jewellery and valuables at home.",
+      "start_seconds": 70.0,
+      "duration_seconds": 8.08
+    },
+    {
+      "id": "going-home",
+      "title": "Going home",
+      "visual": {
+        "type": "alert",
+        "tone": "important",
+        "heading": "An adult must stay with you for 24 hours",
+        "body": "Do not drive until you can do an emergency stop without pain. For most people this is 1 to 2 weeks."
+      },
+      "narration": "You must have a responsible adult to take you home and stay with you for 24 hours. Do not drive until you can do an emergency stop without pain. For most people this is 1 to 2 weeks. Keep your leg raised when resting. Most people return to desk work within 1 to 2 weeks.",
+      "speech": "You must have a responsible adult to take you home and stay with you for 24 hours. Do not drive until you can do an emergency stop without pain. For most people this is 1 to 2 weeks. Keep your leg raised when resting. Most people return to desk work within 1 to 2 weeks.",
+      "start_seconds": 78.08,
+      "duration_seconds": 21.15
+    },
+    {
+      "id": "warning-signs",
+      "title": "When to get help",
+      "visual": {
+        "type": "alert",
+        "tone": "danger",
+        "heading": "Call us straight away if you have:",
+        "items": [
+          "Increasing redness, heat or swelling around the knee",
+          "A high temperature",
+          "Pain or swelling in your calf",
+          "Call 999 if you have chest pain or sudden breathlessness"
+        ]
+      },
+      "narration": "After you get home, call us straight away if you have any of these: increasing redness, heat or swelling around the knee; a high temperature; pain or swelling in your calf. Call 999 if you have chest pain or sudden breathlessness.",
+      "speech": "After you get home, call us straight away if you have any of these: increasing redness, heat or swelling around the knee; a high temperature; pain or swelling in your calf. Call 999 if you have chest pain or sudden breathlessness.",
+      "start_seconds": 99.23,
+      "duration_seconds": 15.77
+    },
+    {
+      "id": "contact",
+      "title": "Any questions?",
+      "visual": {
+        "type": "contact",
+        "phone": "01632 960577",
+        "secondary_phone": "01632 960999",
+        "reference": "BH-603845",
+        "hours": "Mon to Fri 9am to 5pm. Out of hours: 01632 960999"
+      },
+      "narration": "If you have a question, type it in the box next to this video, or call us on 01632 960577. Outside office hours, call 01632 960999. We look forward to seeing you, Chloe.",
+      "speech": "If you have a question, type it in the box next to this video, or call us on oh one six three two, nine six oh, five seven seven. Outside office hours, call oh one six three two, nine six oh, nine nine nine. We look forward to seeing you, Chloe.",
+      "start_seconds": 115.0,
+      "duration_seconds": 12.69
+    }
+  ]
+}

@@ -1,11 +1,11 @@
 {
   "summary": {
-    "pass": 29,
-    "fail": 3,
+    "pass": 33,
+    "fail": 0,
     "skip": 1,
-    "errors": 1,
-    "warnings": 2,
-    "blocking": true
+    "errors": 0,
+    "warnings": 0,
+    "blocking": false
   },
   "results": [
     {
@@ -37,8 +37,8 @@
     {
       "rule_id": "appointment-after-letter",
       "severity": "error",
-      "status": "fail",
-      "message": "Expected letter_date (5052-10-05) before appointment_date (2026-11-04)",
+      "status": "pass",
+      "message": "letter_date (2026-10-05) is before appointment_date (2026-11-04)",
       "fields": [
         "letter_date",
         "appointment_date"
@@ -48,7 +48,7 @@
       "rule_id": "food-before-fluids",
       "severity": "error",
       "status": "pass",
-      "message": "last_food_time (2026-11-03 09:00) is before last_clear_fluids_time (2026-11-04 11:00)",
+      "message": "last_food_time (2026-11-03T09:00:00) is before last_clear_fluids_time (2026-11-04T11:00:00)",
       "fields": [
         "last_food_time",
         "last_clear_fluids_time"
@@ -58,7 +58,7 @@
       "rule_id": "fluids-before-arrival",
       "severity": "error",
       "status": "pass",
-      "message": "last_clear_fluids_time (2026-11-04 11:00) is before appointment_date + arrival_time (2026-11-04T13:00)",
+      "message": "last_clear_fluids_time (2026-11-04T11:00:00) is before appointment_date + arrival_time (2026-11-04T13:00)",
       "fields": [
         "last_clear_fluids_time",
         "appointment_date",
@@ -223,8 +223,8 @@
     {
       "rule_id": "grounding",
       "severity": "warn",
-      "status": "fail",
-      "message": "Ungrounded: quote not found on page 1 or any other page",
+      "status": "pass",
+      "message": "Quote found on page 1",
       "fields": [
         "medicine_instructions"
       ]
@@ -232,8 +232,8 @@
     {
       "rule_id": "grounding",
       "severity": "warn",
-      "status": "fail",
-      "message": "Ungrounded: quote not found on page 1 or any other page",
+      "status": "pass",
+      "message": "Quote found on page 1",
       "fields": [
         "items_to_bring"
       ]
@@ -309,6 +309,13 @@
       "fields": [
         "out_of_hours_phone"
       ]
+    },
+    {
+      "rule_id": "readability",
+      "severity": "warn",
+      "status": "pass",
+      "message": "Reading ease 70.8 meets the target of 60",
+      "fields": []
     }
   ]
 }

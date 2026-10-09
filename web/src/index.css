@@ -30,3 +30,95 @@ h3 {
   outline: 3px solid var(--color-focus);
   outline-offset: 2px;
 }
+
+/* ---- Shell: header, main, footer ---- */
+
+.visually-hidden {
+  /* Off-screen but still read by screen readers. */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100%;
+  z-index: 10;
+  padding: 0.75rem 1rem;
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 2px solid var(--color-text);
+  border-radius: var(--radius);
+  font-weight: 700;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+.site-header {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.site-header__inner,
+.site-main,
+.site-footer {
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+.site-header__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.75rem;
+  padding-block: 1rem;
+}
+
+.site-header__brand {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.site-header__tagline {
+  margin: 0 0 0 auto;
+  font-size: 0.95rem;
+}
+
+.site-main {
+  padding-block: 2rem 3rem;
+}
+
+/* Focus lands on main via the skip link; no ring needed for a non-interactive area. */
+.site-main:focus {
+  outline: none;
+}
+
+.theme-root {
+  display: flex;
+  flex-direction: column;
+}
+
+.site-main {
+  flex: 1;
+  width: 100%;
+}
+
+.site-footer {
+  width: 100%;
+  max-width: none;
+  background: var(--color-surface-alt);
+  color: var(--color-text-muted);
+  text-align: center;
+  font-size: 0.95rem;
+  padding-block: 1rem;
+}

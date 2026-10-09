@@ -1,4 +1,5 @@
 import { packs } from "./data";
+import { Layout } from "./shell/Layout";
 import { ThemeProvider } from "./theme/ThemeProvider";
 
 export default function App() {
@@ -7,13 +8,10 @@ export default function App() {
 
   return (
     <ThemeProvider theme={pack.theme}>
-      <main>
+      <Layout>
         <h1>Explainer Engine</h1>
         <p>Your document, explained.</p>
-      </main>
-      <footer>
-        <p>Fictional demonstrator — not financial or medical advice</p>
-      </footer>
+      </Layout>
     </ThemeProvider>
   );
 }

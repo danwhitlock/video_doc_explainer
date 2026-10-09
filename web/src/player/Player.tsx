@@ -1,23 +1,33 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useMemo, useReducer } from "react";
 import { SceneVisual } from "../scenes/SceneVisual";
 import type { Scene } from "../types";
 import { initialPlayerState, playerReducer, SPEEDS } from "./playerState";
+import { estimateSeconds, splitSentences } from "./sentences";
 
 /** One scene at a time, with play/pause, previous/next, speed and a chapter list. */
-export function Player({ scenes }: { scenes: Scene[] }) {
-  const [state, dispatch] = useReducer(playerReducer, scenes.length, initialPlayerState);
+export function Player({ scenes, wordsPerSecond }: { scenes: Scene[]; wordsPerSecond: number }) {
+  // Each scene's narration as sentences: the unit the player moves through,
+  // and (from 5.11) the active caption.
+  const sentences = useMemo(() => scenes.map((scene) => splitSentences(scene.narration)), [scenes]);
+  const [state, dispatch] = useReducer(
+    playerReducer,
+    sentences.map((list) => list.length),
+    initialPlayerState,
+  );
   const scene = scenes[state.index];
+  const sentence = sentences[state.index][state.sentence] ?? "";
   const isFirst = state.index === 0;
   const isLast = state.index === scenes.length - 1;
 
-  // While playing, end the scene after its estimated duration (faster at higher
-  // speeds). The clean-up cancels the timer whenever the scene, speed or play
-  // state changes, so only one is ever running. Narration takes over in 5.10.
+  // While playing, end the sentence after its estimated time (faster at higher
+  // speeds). The clean-up cancels the timer whenever the sentence, speed or
+  // play state changes, so only one is ever running. Speech takes over in 5.10b.
   useEffect(() => {
     if (!state.playing) return;
-    const timer = setTimeout(() => dispatch({ type: "sceneEnded" }), (scene.duration_seconds * 1000) / state.speed);
+    const ms = (estimateSeconds(sentence, wordsPerSecond) * 1000) / state.speed;
+    const timer = setTimeout(() => dispatch({ type: "sentenceEnded" }), ms);
     return () => clearTimeout(timer);
-  }, [state.playing, state.index, state.speed, scene.duration_seconds]);
+  }, [state.playing, state.index, state.sentence, state.speed, sentence, wordsPerSecond]);
 
   const playLabel = state.playing ? "Pause" : state.finished ? "Play again" : "Play";
 

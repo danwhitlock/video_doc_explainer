@@ -33,7 +33,11 @@ export function CustomerPage({ pack, customer, navigated }: { pack: Pack; custom
       {scenes.status === "ready" && (
         // key: a different customer gets a fresh player (scene 1, paused),
         // not the previous customer's position.
-        <Player key={`${pack.name}/${customer.id}`} scenes={scenes.file.scenes} />
+        <Player
+          key={`${pack.name}/${customer.id}`}
+          scenes={scenes.file.scenes}
+          wordsPerSecond={scenes.file.words_per_second}
+        />
       )}
     </>
   );

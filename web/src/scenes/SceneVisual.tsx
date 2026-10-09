@@ -1,4 +1,8 @@
 import type { Visual } from "../types";
+import { AlertVisual } from "./visuals/AlertVisual";
+import { ContactVisual } from "./visuals/ContactVisual";
+import { StatVisual } from "./visuals/StatVisual";
+import { TitleVisual } from "./visuals/TitleVisual";
 
 /**
  * Picks the component for a scene's visual type. A switch (rather than a
@@ -7,15 +11,19 @@ import type { Visual } from "../types";
  */
 export function SceneVisual({ visual }: { visual: Visual }) {
   switch (visual.type) {
-    // Real components replace these placeholders in 5.7b and 5.8.
     case "title":
+      return <TitleVisual visual={visual} />;
     case "stat":
+      return <StatVisual visual={visual} />;
+    case "alert":
+      return <AlertVisual visual={visual} />;
+    case "contact":
+      return <ContactVisual visual={visual} />;
+    // Real components replace these placeholders in 5.8.
     case "comparison":
     case "timeline":
     case "table":
     case "checklist":
-    case "alert":
-    case "contact":
       return <VisualPlaceholder type={visual.type} />;
     default: {
       // Exhaustiveness check: if a new type is added to Visual but not handled

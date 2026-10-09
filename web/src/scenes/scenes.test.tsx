@@ -72,11 +72,12 @@ describe("CustomerPage loading scenes", () => {
 
     const { rerender } = render(<CustomerPage pack={pack} customer={customer} navigated={false} />);
     rerender(<CustomerPage pack={pack} customer={pack.customers[1]} navigated={false} />);
-    await screen.findByText("Current customer");
+    await screen.findByRole("heading", { name: "Current customer" });
 
     answerFirst(respondWith(scenesFile(scene("old", "Previous customer"))));
     await new Promise((resolve) => setTimeout(resolve, 0));
-    expect(screen.queryByText("Previous customer")).toBeNull();
+    expect(screen.queryAllByText("Previous customer")).toHaveLength(0);
+    expect(screen.getByRole("heading", { name: "Current customer" })).toBeTruthy();
   });
 });
 

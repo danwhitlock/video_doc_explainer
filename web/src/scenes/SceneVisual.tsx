@@ -1,7 +1,11 @@
 import type { Visual } from "../types";
 import { AlertVisual } from "./visuals/AlertVisual";
+import { ChecklistVisual } from "./visuals/ChecklistVisual";
+import { ComparisonVisual } from "./visuals/ComparisonVisual";
 import { ContactVisual } from "./visuals/ContactVisual";
 import { StatVisual } from "./visuals/StatVisual";
+import { TableVisual } from "./visuals/TableVisual";
+import { TimelineVisual } from "./visuals/TimelineVisual";
 import { TitleVisual } from "./visuals/TitleVisual";
 
 /**
@@ -15,16 +19,18 @@ export function SceneVisual({ visual }: { visual: Visual }) {
       return <TitleVisual visual={visual} />;
     case "stat":
       return <StatVisual visual={visual} />;
+    case "comparison":
+      return <ComparisonVisual visual={visual} />;
+    case "timeline":
+      return <TimelineVisual visual={visual} />;
+    case "table":
+      return <TableVisual visual={visual} />;
+    case "checklist":
+      return <ChecklistVisual visual={visual} />;
     case "alert":
       return <AlertVisual visual={visual} />;
     case "contact":
       return <ContactVisual visual={visual} />;
-    // Real components replace these placeholders in 5.8.
-    case "comparison":
-    case "timeline":
-    case "table":
-    case "checklist":
-      return <VisualPlaceholder type={visual.type} />;
     default: {
       // Exhaustiveness check: if a new type is added to Visual but not handled
       // above, `visual` isn't `never` here and the build fails.
@@ -32,8 +38,4 @@ export function SceneVisual({ visual }: { visual: Visual }) {
       throw new Error(`Unknown visual type: ${JSON.stringify(unhandled)}`);
     }
   }
-}
-
-function VisualPlaceholder({ type }: { type: Visual["type"] }) {
-  return <div className="visual-placeholder">{type} visual</div>;
 }

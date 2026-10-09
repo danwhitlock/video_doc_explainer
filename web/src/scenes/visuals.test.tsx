@@ -1,8 +1,12 @@
 import { cleanup, render, screen, within } from "@testing-library/react";
 import { afterEach, describe, expect, test } from "vitest";
 import { AlertVisual } from "./visuals/AlertVisual";
+import { ChecklistVisual } from "./visuals/ChecklistVisual";
+import { ComparisonVisual } from "./visuals/ComparisonVisual";
 import { ContactVisual, telHref } from "./visuals/ContactVisual";
 import { StatVisual } from "./visuals/StatVisual";
+import { TableVisual } from "./visuals/TableVisual";
+import { TimelineVisual } from "./visuals/TimelineVisual";
 import { TitleVisual } from "./visuals/TitleVisual";
 
 afterEach(cleanup);
@@ -85,5 +89,87 @@ describe("ContactVisual", () => {
     expect(container.textContent).toContain("FBS-2026-104381");
     expect(container.textContent).toContain("Mon to Fri");
     expect(container.textContent).not.toContain("Out of hours");
+  });
+});
+
+describe("ComparisonVisual", () => {
+  const visual = {
+    type: "comparison" as const,
+    before: { label: "Until 31 October 2028", value: "£1,359.76", caption: "4.89% fixed" },
+    after: { label: "After that", value: "£1,770.43", caption: "7.49% variable" },
+    delta: "£410.67 more a month",
+  };
+
+  test("shows before, then after, then the difference in words", () => {
+    const { container } = render(<ComparisonVisual visual={visual} />);
+    const text = container.textContent!;
+    expect(text.indexOf("£1,359.76")).toBeLessThan(text.indexOf("£1,770.43"));
+    expect(text).toContain("4.89% fixed");
+    expect(text).toContain("£410.67 more a month");
+  });
+
+  test("the arrow is decorative", () => {
+    render(<ComparisonVisual visual={visual} />);
+    expect(screen.getByText("→").getAttribute("aria-hidden")).toBe("true");
+  });
+});
+
+describe("TimelineVisual", () => {
+  const items = [
+    { time: "9am the day before", label: "Last food" },
+    { time: "11am on the day", label: "Last drink" },
+    { time: "1pm on the day", label: "Arrive" },
+  ];
+
+  test("is an ordered list, in the data's order", () => {
+    const { container } = render(<TimelineVisual visual={{ type: "timeline", items }} />);
+    const list = container.querySelector("ol")!;
+    const entries = within(list).getAllByRole("listitem");
+    expect(entries.map((entry) => entry.textContent)).toEqual([
+      "9am the day beforeLast food",
+      "11am on the dayLast drink",
+      "1pm on the dayArrive",
+    ]);
+  });
+
+  test("says its tone in words, unless it's plain info", () => {
+    render(<TimelineVisual visual={{ type: "timeline", tone: "important", items }} />);
+    expect(screen.getByText("Important")).toBeTruthy();
+    cleanup();
+    render(<TimelineVisual visual={{ type: "timeline", tone: "info", items }} />);
+    expect(screen.queryByText("Note")).toBeNull();
+  });
+});
+
+describe("TableVisual", () => {
+  const visual = {
+    type: "table" as const,
+    columns: ["Period", "Charge on the amount repaid"],
+    rows: [
+      ["Year 1", "2%"],
+      ["Year 2", "1%"],
+    ],
+    footnote: "Overpay up to 10% a year with no charge.",
+  };
+
+  test("has column headers and a header for each row", () => {
+    render(<TableVisual visual={visual} />);
+    expect(screen.getAllByRole("columnheader").map((th) => th.textContent)).toEqual(visual.columns);
+    expect(screen.getAllByRole("rowheader").map((th) => th.textContent)).toEqual(["Year 1", "Year 2"]);
+    expect(screen.getAllByRole("cell").map((td) => td.textContent)).toEqual(["2%", "1%"]);
+  });
+
+  test("shows the footnote", () => {
+    render(<TableVisual visual={visual} />);
+    expect(screen.getByText(visual.footnote)).toBeTruthy();
+  });
+});
+
+describe("ChecklistVisual", () => {
+  test("lists the items, with no checkboxes", () => {
+    render(<ChecklistVisual visual={{ type: "checklist", items: ["Bring your letter", "Arrange a lift home"] }} />);
+    const items = within(screen.getByRole("list")).getAllByRole("listitem");
+    expect(items.map((item) => item.textContent)).toEqual(["Bring your letter", "Arrange a lift home"]);
+    expect(screen.queryByRole("checkbox")).toBeNull();
   });
 });

@@ -1,11 +1,5 @@
-import type { AlertVisual as AlertData, Tone } from "../../types";
-
-// The tone is said in words as well as colour, so colour is never the only signal.
-const TONE_LABEL: Record<Tone, string> = {
-  info: "Note",
-  important: "Important",
-  danger: "Warning",
-};
+import type { AlertVisual as AlertData } from "../../types";
+import { TONE_LABEL } from "./tone";
 
 /**
  * A callout. Deliberately not role="alert": that makes screen readers

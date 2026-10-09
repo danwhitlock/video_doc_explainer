@@ -1,6 +1,7 @@
 import { cleanup, render, screen, within } from "@testing-library/react";
 import { afterEach, describe, expect, test, vi } from "vitest";
 import { packs } from "../data";
+import { ThemeProvider } from "../theme/ThemeProvider";
 import { CustomerPage } from "../pages/CustomerPage";
 import { VISUAL_TYPES, type Scene, type ScenesFile, type Visual } from "../types";
 import { SceneVisual } from "./SceneVisual";
@@ -45,7 +46,7 @@ function respondWith(body: unknown, status = 200) {
 describe("CustomerPage loading scenes", () => {
   test("shows loading, then every scene in order", async () => {
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue(respondWith(scenesFile(scene("a", "First"), scene("b", "Second")))));
-    render(<CustomerPage pack={pack} customer={customer} navigated={false} />);
+    render(<ThemeProvider theme={pack.theme}><CustomerPage pack={pack} customer={customer} navigated={false} /></ThemeProvider>);
 
     expect(screen.getByRole("status").textContent).toContain("Loading");
     const chapters = await screen.findByRole("navigation", { name: "Chapters" });
@@ -55,7 +56,7 @@ describe("CustomerPage loading scenes", () => {
 
   test("a missing file shows an error, and the way back stays", async () => {
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response("", { status: 404 })));
-    render(<CustomerPage pack={pack} customer={customer} navigated={false} />);
+    render(<ThemeProvider theme={pack.theme}><CustomerPage pack={pack} customer={customer} navigated={false} /></ThemeProvider>);
 
     expect((await screen.findByRole("alert")).textContent).toContain("isn't available");
     expect(screen.getByRole("link", { name: "← All customers" })).toBeTruthy();
@@ -70,8 +71,8 @@ describe("CustomerPage loading scenes", () => {
       .mockResolvedValueOnce(respondWith(scenesFile(scene("now", "Current customer"))));
     vi.stubGlobal("fetch", fetchMock);
 
-    const { rerender } = render(<CustomerPage pack={pack} customer={customer} navigated={false} />);
-    rerender(<CustomerPage pack={pack} customer={pack.customers[1]} navigated={false} />);
+    const { rerender } = render(<ThemeProvider theme={pack.theme}><CustomerPage pack={pack} customer={customer} navigated={false} /></ThemeProvider>);
+    rerender(<ThemeProvider theme={pack.theme}><CustomerPage pack={pack} customer={pack.customers[1]} navigated={false} /></ThemeProvider>);
     await screen.findByRole("heading", { name: "Current customer" });
 
     answerFirst(respondWith(scenesFile(scene("old", "Previous customer"))));

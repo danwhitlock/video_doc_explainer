@@ -1,33 +1,48 @@
 import { useEffect, useMemo, useReducer } from "react";
 import { SceneVisual } from "../scenes/SceneVisual";
+import { useTheme } from "../theme/ThemeProvider";
 import type { Scene } from "../types";
+import { defaultNarrator, type Narrator } from "./narrator";
 import { initialPlayerState, playerReducer, SPEEDS } from "./playerState";
-import { estimateSeconds, splitSentences } from "./sentences";
+import { splitSentences } from "./sentences";
 
 /** One scene at a time, with play/pause, previous/next, speed and a chapter list. */
-export function Player({ scenes, wordsPerSecond }: { scenes: Scene[]; wordsPerSecond: number }) {
-  // Each scene's narration as sentences: the unit the player moves through,
-  // and (from 5.11) the active caption.
-  const sentences = useMemo(() => scenes.map((scene) => splitSentences(scene.narration)), [scenes]);
+interface PlayerProps {
+  scenes: Scene[];
+  wordsPerSecond: number;
+  /** The customer's preferred speech rate (customers.json prefs.speech_rate). */
+  customerRate: number;
+  /** Who speaks; tests pass a fake. Defaults to Web Speech, or a silent timer without it. */
+  narrator?: Narrator;
+}
+
+export function Player({ scenes, wordsPerSecond, customerRate, narrator: injected }: PlayerProps) {
+  const { voice } = useTheme();
+  const narrator = useMemo(() => injected ?? defaultNarrator(voice, wordsPerSecond), [injected, voice, wordsPerSecond]);
+
+  // Each scene as sentences: narration (shown, and counted) and speech (spoken).
+  // A test checks every committed scene has the same number of each.
+  const narration = useMemo(() => scenes.map((scene) => splitSentences(scene.narration)), [scenes]);
+  const speech = useMemo(() => scenes.map((scene) => splitSentences(scene.speech)), [scenes]);
   const [state, dispatch] = useReducer(
     playerReducer,
-    sentences.map((list) => list.length),
+    narration.map((list) => list.length),
     initialPlayerState,
   );
   const scene = scenes[state.index];
-  const sentence = sentences[state.index][state.sentence] ?? "";
+  const spoken = speech[state.index][state.sentence] ?? "";
   const isFirst = state.index === 0;
   const isLast = state.index === scenes.length - 1;
+  // The theme's voice rate, the customer's preference and the Speed menu combine.
+  const rate = voice.rate * customerRate * state.speed;
 
-  // While playing, end the sentence after its estimated time (faster at higher
-  // speeds). The clean-up cancels the timer whenever the sentence, speed or
-  // play state changes, so only one is ever running. Speech takes over in 5.10b.
+  // While playing, say the current sentence; when it's done, move on. The
+  // clean-up stops speech whenever the sentence, rate or play state changes
+  // (including Pause and leaving the page), so only one sentence is ever spoken.
   useEffect(() => {
     if (!state.playing) return;
-    const ms = (estimateSeconds(sentence, wordsPerSecond) * 1000) / state.speed;
-    const timer = setTimeout(() => dispatch({ type: "sentenceEnded" }), ms);
-    return () => clearTimeout(timer);
-  }, [state.playing, state.index, state.sentence, state.speed, sentence, wordsPerSecond]);
+    return narrator.speak(spoken, rate, () => dispatch({ type: "sentenceEnded" }));
+  }, [state.playing, state.index, state.sentence, spoken, rate, narrator]);
 
   const playLabel = state.playing ? "Pause" : state.finished ? "Play again" : "Play";
 

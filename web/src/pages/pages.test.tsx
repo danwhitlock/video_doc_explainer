@@ -1,6 +1,7 @@
 import { cleanup, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, test, vi } from "vitest";
 import { packs } from "../data";
+import { ThemeProvider } from "../theme/ThemeProvider";
 import { CustomerPage } from "./CustomerPage";
 import { PageHeading } from "./PageHeading";
 
@@ -34,7 +35,7 @@ describe("CustomerPage", () => {
     // CustomerPage fetches scenes; answer with one, so the test needs no server.
     const oneScene = { id: "a", title: "A", visual: { type: "checklist", items: ["x"] }, narration: "", speech: "", start_seconds: 0, duration_seconds: 1 };
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(JSON.stringify({ scenes: [oneScene] }))));
-    render(<CustomerPage pack={pack} customer={customer} navigated={false} />);
+    render(<ThemeProvider theme={pack.theme}><CustomerPage pack={pack} customer={customer} navigated={false} /></ThemeProvider>);
 
     expect(screen.getByRole("heading", { level: 1 }).textContent).toContain(customer.preferred_name);
     expect(screen.getByRole("link", { name: "← All customers" }).getAttribute("href")).toBe(`#/${pack.name}`);

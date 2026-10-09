@@ -37,6 +37,7 @@ export function CustomerPage({ pack, customer, navigated }: { pack: Pack; custom
           key={`${pack.name}/${customer.id}`}
           scenes={scenes.file.scenes}
           wordsPerSecond={scenes.file.words_per_second}
+          customerRate={customer.prefs.speech_rate}
         />
       )}
     </>

@@ -1,10 +1,10 @@
 import { routeHref } from "../routing";
-import { SceneVisual } from "../scenes/SceneVisual";
+import { Player } from "../player/Player";
 import { useScenes } from "../scenes/useScenes";
 import type { Customer, Pack } from "../types";
 import { PageHeading } from "./PageHeading";
 
-/** One customer's explainer. For now a storyboard of every scene; the Player takes over in 5.9. */
+/** One customer's explainer: loads their scenes and plays them. */
 export function CustomerPage({ pack, customer, navigated }: { pack: Pack; customer: Customer; navigated: boolean }) {
   const heading = `${customer.preferred_name}'s explainer`;
   const scenes = useScenes(pack.name, customer.id);
@@ -31,17 +31,9 @@ export function CustomerPage({ pack, customer, navigated }: { pack: Pack; custom
       )}
 
       {scenes.status === "ready" && (
-        <ol className="storyboard">
-          {scenes.file.scenes.map((scene) => (
-            <li key={scene.id} className="storyboard__scene">
-              <section aria-labelledby={`scene-${scene.id}`}>
-                <h2 id={`scene-${scene.id}`}>{scene.title}</h2>
-                <SceneVisual visual={scene.visual} />
-                <p className="storyboard__narration">{scene.narration}</p>
-              </section>
-            </li>
-          ))}
-        </ol>
+        // key: a different customer gets a fresh player (scene 1, paused),
+        // not the previous customer's position.
+        <Player key={`${pack.name}/${customer.id}`} scenes={scenes.file.scenes} />
       )}
     </>
   );

@@ -1,4 +1,4 @@
-import { cleanup, render, screen } from "@testing-library/react";
+import { cleanup, render, screen, within } from "@testing-library/react";
 import { afterEach, describe, expect, test, vi } from "vitest";
 import { packs } from "../data";
 import { CustomerPage } from "../pages/CustomerPage";
@@ -48,8 +48,8 @@ describe("CustomerPage loading scenes", () => {
     render(<CustomerPage pack={pack} customer={customer} navigated={false} />);
 
     expect(screen.getByRole("status").textContent).toContain("Loading");
-    const headings = await screen.findAllByRole("heading", { level: 2 });
-    expect(headings.map((heading) => heading.textContent)).toEqual(["First", "Second"]);
+    const chapters = await screen.findByRole("navigation", { name: "Chapters" });
+    expect(within(chapters).getAllByRole("button").map((button) => button.textContent)).toEqual(["1First", "2Second"]);
     expect(screen.getByText("First narration.")).toBeTruthy();
   });
 

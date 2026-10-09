@@ -290,31 +290,7 @@ h3 {
   font-weight: 700;
 }
 
-/* ---- Storyboard (temporary: every scene at once, until the Player in 5.9) ---- */
-
-.storyboard {
-  list-style: none;
-  margin: 2rem 0 0;
-  padding: 0;
-  display: grid;
-  gap: 1.5rem;
-}
-
-.storyboard__scene {
-  padding: 1.25rem 1.5rem;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  background: var(--color-surface);
-}
-
-.storyboard__scene h2 {
-  margin-top: 0;
-}
-
-.storyboard__narration {
-  margin-bottom: 0;
-  max-width: 40rem;
-}
+/* ---- Customer page ---- */
 
 .load-error {
   margin-top: 2rem;
@@ -667,4 +643,169 @@ h3 {
 .checklist__tick {
   flex-shrink: 0;
   color: var(--color-primary);
+}
+
+/* ---- Player ---- */
+
+.player {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 18rem;
+  grid-template-areas:
+    "stage chapters"
+    "controls chapters";
+  gap: 1rem 2rem;
+  margin-top: 2rem;
+  align-items: start;
+}
+
+@media (max-width: 60rem) {
+  .player {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "stage" "controls" "chapters";
+  }
+}
+
+.player__stage {
+  grid-area: stage;
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+.player__title {
+  margin-top: 0;
+}
+
+.player__narration {
+  margin-bottom: 0;
+  max-width: 40rem;
+}
+
+.player__controls {
+  grid-area: controls;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.player__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2.75rem;
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: var(--color-primary);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.player__button:hover {
+  background: var(--color-surface-alt);
+}
+
+.player__button--primary {
+  min-width: 9rem;
+  justify-content: center;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.player__button--primary:hover {
+  background: var(--color-primary);
+  text-decoration: underline;
+}
+
+/* Dimmed but still focusable; the dashed border means colour isn't the only signal. */
+.player__button[aria-disabled="true"] {
+  border-style: dashed;
+  color: var(--color-text-muted);
+  border-color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+
+.player__position {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.player__speed {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+  font-weight: 700;
+}
+
+.player__speed select {
+  min-height: 2.75rem;
+  padding: 0.25rem 0.5rem;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+}
+
+.chapters {
+  grid-area: chapters;
+}
+
+.chapters__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.25rem;
+}
+
+.chapters__button {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.5rem 0.75rem;
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  background: none;
+  color: var(--color-text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.chapters__button:hover {
+  background: var(--color-surface-alt);
+}
+
+/* Current chapter: border, bold text and a filled number, not just a colour. */
+.chapters__button[aria-current="step"] {
+  border-color: var(--color-primary);
+  background: var(--color-surface-alt);
+  font-weight: 700;
+}
+
+.chapters__number {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 2px solid var(--color-primary);
+  border-radius: 50%;
+  color: var(--color-primary);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.chapters__button[aria-current="step"] .chapters__number {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
 }

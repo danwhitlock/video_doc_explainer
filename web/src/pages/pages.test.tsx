@@ -31,12 +31,13 @@ describe("CustomerPage", () => {
   const customer = pack.customers[0];
 
   test("names the customer and links back to the pack's home", async () => {
-    // CustomerPage fetches scenes; answer with none, so the test needs no server.
-    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(JSON.stringify({ scenes: [] }))));
+    // CustomerPage fetches scenes; answer with one, so the test needs no server.
+    const oneScene = { id: "a", title: "A", visual: { type: "checklist", items: ["x"] }, narration: "", speech: "", start_seconds: 0, duration_seconds: 1 };
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(JSON.stringify({ scenes: [oneScene] }))));
     render(<CustomerPage pack={pack} customer={customer} navigated={false} />);
 
     expect(screen.getByRole("heading", { level: 1 }).textContent).toContain(customer.preferred_name);
     expect(screen.getByRole("link", { name: "← All customers" }).getAttribute("href")).toBe(`#/${pack.name}`);
-    await screen.findByRole("list"); // let the fetch finish before the test ends
+    await screen.findByRole("navigation", { name: "Chapters" }); // let the fetch finish before the test ends
   });
 });

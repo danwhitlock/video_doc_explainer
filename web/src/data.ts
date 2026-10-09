@@ -38,8 +38,9 @@ export async function loadScenes(pack: string, customer: string): Promise<Scenes
   }
   const data = await response.json();
   // A light check only: the pipeline has already validated this file.
-  if (!Array.isArray(data?.scenes)) {
-    throw new Error(`${url} has no scenes list`);
+  // An empty list counts as missing: the player needs at least one scene.
+  if (!Array.isArray(data?.scenes) || data.scenes.length === 0) {
+    throw new Error(`${url} has no scenes`);
   }
   return data as ScenesFile;
 }

@@ -25,13 +25,19 @@ describe("loadScenes", () => {
   });
 
   test("fetches the customer's scenes.json", async () => {
-    const fetchMock = vi.fn().mockResolvedValue(new Response(JSON.stringify({ scenes: [] })));
+    const fetchMock = vi.fn().mockResolvedValue(new Response(JSON.stringify({ scenes: [{ id: "welcome" }] })));
     vi.stubGlobal("fetch", fetchMock);
 
     const result = await loadScenes("mortgage", "m-001");
 
     expect(fetchMock).toHaveBeenCalledWith("/data/mortgage/m-001/scenes.json");
-    expect(result.scenes).toEqual([]);
+    expect(result.scenes).toEqual([{ id: "welcome" }]);
+  });
+
+  test("a file with no scenes counts as missing", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(JSON.stringify({ scenes: [] }))));
+
+    await expect(loadScenes("mortgage", "m-001")).rejects.toThrow("has no scenes");
   });
 
   test("a missing file gives a clear error", async () => {

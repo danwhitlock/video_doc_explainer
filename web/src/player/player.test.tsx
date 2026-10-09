@@ -30,13 +30,16 @@ const scenes = [
 const baseTheme = packs[0].theme;
 const theme: Theme = { ...baseTheme, voice: { ...baseTheme.voice, rate: 1 } };
 
-function renderPlayer(props: { narrator?: Narrator; customerRate?: number; playerScenes?: Scene[]; playerTheme?: Theme } = {}) {
+function renderPlayer(
+  props: { narrator?: Narrator; customerRate?: number; captions?: boolean; playerScenes?: Scene[]; playerTheme?: Theme } = {},
+) {
   return render(
     <ThemeProvider theme={props.playerTheme ?? theme}>
       <Player
         scenes={props.playerScenes ?? scenes}
         wordsPerSecond={WPS}
         customerRate={props.customerRate ?? 1}
+        captionsDefault={props.captions ?? true}
         narrator={props.narrator}
       />
     </ThemeProvider>,
@@ -221,5 +224,48 @@ describe("Player narration", () => {
     fireEvent.change(screen.getByLabelText("Speed"), { target: { value: "1.5" } });
     fireEvent.click(button(/^Play$/));
     expect(said[0].rate).toBeCloseTo(0.95 * 0.9 * 1.5, 10);
+  });
+});
+
+describe("Player captions", () => {
+  function caption() {
+    return screen.queryByTestId("caption")?.textContent ?? null;
+  }
+
+  test("show the current sentence as written, and follow playback", () => {
+    renderPlayer();
+    expect(caption()).toBe("Hello there friend.");
+    fireEvent.click(button(/^Play$/));
+    wait(3_000);
+    expect(caption()).toBe("Welcome.");
+    wait(1_000);
+    expect(caption()).toBe("You borrow money.");
+  });
+
+  test("stay on the current sentence while paused", () => {
+    renderPlayer();
+    fireEvent.click(button(/^Play$/));
+    wait(3_000);
+    fireEvent.click(button(/^Pause$/));
+    wait(10_000);
+    expect(caption()).toBe("Welcome.");
+  });
+
+  test("start on or off from the customer's preference", () => {
+    renderPlayer({ captions: false });
+    expect(caption()).toBeNull();
+    expect(button(/Captions/).getAttribute("aria-pressed")).toBe("false");
+  });
+
+  test("the Captions toggle turns them off and on", () => {
+    renderPlayer();
+    const toggle = button(/Captions/);
+    expect(toggle.getAttribute("aria-pressed")).toBe("true");
+    fireEvent.click(toggle);
+    expect(caption()).toBeNull();
+    expect(toggle.getAttribute("aria-pressed")).toBe("false");
+    expect(toggle.textContent).toContain("off");
+    fireEvent.click(toggle);
+    expect(caption()).toBe("Hello there friend.");
   });
 });

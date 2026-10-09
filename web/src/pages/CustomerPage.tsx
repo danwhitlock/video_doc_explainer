@@ -38,6 +38,7 @@ export function CustomerPage({ pack, customer, navigated }: { pack: Pack; custom
           scenes={scenes.file.scenes}
           wordsPerSecond={scenes.file.words_per_second}
           customerRate={customer.prefs.speech_rate}
+          captionsDefault={customer.prefs.captions}
         />
       )}
     </>

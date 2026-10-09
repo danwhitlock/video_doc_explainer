@@ -677,9 +677,29 @@ h3 {
   margin-top: 0;
 }
 
-.player__narration {
-  margin-bottom: 0;
-  max-width: 40rem;
+/* Captions: large, text on surfaceAlt (a checked pair). Two lines' worth of
+   height reserved, so the layout doesn't jump between short and long sentences. */
+.player__caption {
+  display: flex;
+  align-items: center;
+  min-height: calc(2 * 1.4em + 1.5rem);
+  margin: 1rem 0 0;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  background: var(--color-surface-alt);
+  color: var(--color-text);
+  font-size: 1.25rem;
+  line-height: 1.4;
+}
+
+/* Toggle: pressed state shown by a filled style *and* the on/off word. */
+.player__toggle[aria-pressed="true"] {
+  background: var(--color-surface-alt);
+}
+
+.player__toggle-state {
+  font-weight: 400;
+  text-transform: lowercase;
 }
 
 .player__controls {

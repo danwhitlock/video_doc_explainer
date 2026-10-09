@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useReducer } from "react";
+import { useEffect, useMemo, useReducer, useState } from "react";
 import { SceneVisual } from "../scenes/SceneVisual";
 import { useTheme } from "../theme/ThemeProvider";
 import type { Scene } from "../types";
@@ -12,11 +12,13 @@ interface PlayerProps {
   wordsPerSecond: number;
   /** The customer's preferred speech rate (customers.json prefs.speech_rate). */
   customerRate: number;
+  /** Whether captions start on (customers.json prefs.captions). */
+  captionsDefault: boolean;
   /** Who speaks; tests pass a fake. Defaults to Web Speech, or a silent timer without it. */
   narrator?: Narrator;
 }
 
-export function Player({ scenes, wordsPerSecond, customerRate, narrator: injected }: PlayerProps) {
+export function Player({ scenes, wordsPerSecond, customerRate, captionsDefault, narrator: injected }: PlayerProps) {
   const { voice } = useTheme();
   const narrator = useMemo(() => injected ?? defaultNarrator(voice, wordsPerSecond), [injected, voice, wordsPerSecond]);
 
@@ -31,6 +33,11 @@ export function Player({ scenes, wordsPerSecond, customerRate, narrator: injecte
   );
   const scene = scenes[state.index];
   const spoken = speech[state.index][state.sentence] ?? "";
+  // The caption is the sentence being spoken, as written, so it's in sync by
+  // construction rather than by timing.
+  const caption = narration[state.index][state.sentence] ?? "";
+  // A viewing preference, not a playback rule, so it lives outside the reducer.
+  const [captionsOn, setCaptionsOn] = useState(captionsDefault);
   const isFirst = state.index === 0;
   const isLast = state.index === scenes.length - 1;
   // The theme's voice rate, the customer's preference and the Speed menu combine.
@@ -53,8 +60,13 @@ export function Player({ scenes, wordsPerSecond, customerRate, narrator: injecte
           {scene.title}
         </h2>
         <SceneVisual visual={scene.visual} />
-        {/* Temporary: captions and the transcript replace this in 5.11. */}
-        <p className="player__narration">{scene.narration}</p>
+        {/* Not a live region: captions are for people who can't hear the voice;
+            a screen reader reading them too would say everything twice. */}
+        {captionsOn && (
+          <p className="player__caption" data-testid="caption">
+            {caption}
+          </p>
+        )}
       </div>
 
       <div className="player__controls" role="group" aria-label="Player controls">
@@ -82,6 +94,15 @@ export function Player({ scenes, wordsPerSecond, customerRate, narrator: injecte
         <p className="player__position">
           Scene {state.index + 1} of {scenes.length}
         </p>
+
+        <button
+          type="button"
+          className="player__button player__toggle"
+          aria-pressed={captionsOn}
+          onClick={() => setCaptionsOn((on) => !on)}
+        >
+          Captions <span className="player__toggle-state">{captionsOn ? "on" : "off"}</span>
+        </button>
 
         <label className="player__speed">
           Speed

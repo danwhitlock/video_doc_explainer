@@ -3,7 +3,7 @@ import { useTheme } from "../theme/ThemeProvider";
 import { BrandMark } from "./BrandMark";
 
 /** The frame around every screen: skip link, branded header, main area, disclaimer footer. */
-export function Layout({ children }: { children: ReactNode }) {
+export function Layout({ homeHref, children }: { homeHref: string; children: ReactNode }) {
   const { brand } = useTheme();
 
   return (
@@ -14,13 +14,15 @@ export function Layout({ children }: { children: ReactNode }) {
       </a>
       <header className="site-header">
         <div className="site-header__inner">
-          <BrandMark mark={brand.mark} name={brand.name} />
-          <p className="site-header__brand">
-            {/* Shown as the wordmark (e.g. "FERNMOOR"), but read aloud as the full name:
-                some screen readers spell all-capitals words letter by letter. */}
-            <span aria-hidden="true">{brand.wordmark}</span>
-            <span className="visually-hidden">{brand.name}</span>
-          </p>
+          <a className="site-header__home" href={homeHref}>
+            <BrandMark mark={brand.mark} name={brand.name} />
+            <span className="site-header__brand">
+              {/* Shown as the wordmark (e.g. "FERNMOOR"), but read aloud as the full name:
+                  some screen readers spell all-capitals words letter by letter. */}
+              <span aria-hidden="true">{brand.wordmark}</span>
+              <span className="visually-hidden">{brand.name} home</span>
+            </span>
+          </a>
           <p className="site-header__tagline">{brand.tagline}</p>
         </div>
       </header>

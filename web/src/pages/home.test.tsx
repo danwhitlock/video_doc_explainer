@@ -8,7 +8,7 @@ afterEach(cleanup);
 const current = packs[1];
 
 function renderHome() {
-  return render(<Home pack={current} packs={packs} />);
+  return render(<Home pack={current} packs={packs} navigated={false} />);
 }
 
 describe("Home", () => {

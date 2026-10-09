@@ -81,6 +81,25 @@ h3 {
   padding-block: 1rem;
 }
 
+.site-header__home {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 2.75rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-header__home:hover .site-header__brand {
+  text-decoration: underline;
+}
+
+/* The theme's focus colour is chosen for light backgrounds and is under 3:1 on the
+   header (1.97:1 Fernmoor, 1.78:1 Brackenridge). onPrimary on primary is a checked pair. */
+.site-header :focus-visible {
+  outline-color: var(--color-on-primary);
+}
+
 .site-header__brand {
   margin: 0;
   font-family: var(--font-heading);
@@ -254,4 +273,19 @@ h3 {
   margin: auto 0 0;
   font-weight: 700;
   color: var(--color-primary);
+}
+
+/* ---- Pages ---- */
+
+/* Focus is moved to the heading from code after a navigation; it isn't interactive,
+   so no ring (the screen reader announcement is the point). */
+.page-heading:focus {
+  outline: none;
+}
+
+.back-link {
+  display: inline-block;
+  padding-block: 0.25rem;
+  color: var(--color-primary);
+  font-weight: 700;
 }

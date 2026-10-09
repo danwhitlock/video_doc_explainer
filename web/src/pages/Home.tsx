@@ -1,12 +1,18 @@
 import { routeHref } from "../routing";
 import { BrandMark } from "../shell/BrandMark";
 import type { Pack } from "../types";
+import { PageHeading } from "./PageHeading";
 
 /** Choose an industry (re-skins the page), then a customer (opens their explainer). */
-export function Home({ pack, packs }: { pack: Pack; packs: Pack[] }) {
+export function Home({ pack, packs, navigated }: { pack: Pack; packs: Pack[]; navigated: boolean }) {
   return (
     <>
-      <h1>Your document, explained</h1>
+      <PageHeading
+        documentTitle={`Your document, explained — ${pack.theme.brand.short_name}`}
+        focusOnMount={navigated}
+      >
+        Your document, explained
+      </PageHeading>
       <p className="lead">
         Choose an industry, then a customer, to see a personalised explainer of their own document.
       </p>

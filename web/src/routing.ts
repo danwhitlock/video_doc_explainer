@@ -30,15 +30,23 @@ export function routeHref(packName: string, customerId?: string): string {
   return customerId === undefined ? `#/${packName}` : `#/${packName}/${customerId}`;
 }
 
-/** The current route, updated whenever the hash changes (links, Back, Forward, typing). */
-export function useRoute(packs: Pack[]): Route {
+/**
+ * The current route, updated whenever the hash changes (links, Back, Forward,
+ * typing). `navigated` becomes true at the first change, so pages can tell a
+ * navigation inside the app from the very first page load.
+ */
+export function useRoute(packs: Pack[]): Route & { navigated: boolean } {
   const [hash, setHash] = useState(window.location.hash);
+  const [navigated, setNavigated] = useState(false);
 
   useEffect(() => {
-    const onHashChange = () => setHash(window.location.hash);
+    const onHashChange = () => {
+      setHash(window.location.hash);
+      setNavigated(true);
+    };
     window.addEventListener("hashchange", onHashChange);
     return () => window.removeEventListener("hashchange", onHashChange);
   }, []);
 
-  return parseRoute(hash, packs);
+  return { ...parseRoute(hash, packs), navigated };
 }

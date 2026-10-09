@@ -11,7 +11,7 @@ afterEach(cleanup);
 function renderLayout(theme: Theme) {
   return render(
     <ThemeProvider theme={theme}>
-      <Layout>
+      <Layout homeHref="#/somewhere">
         <h1>Page heading</h1>
       </Layout>
     </ThemeProvider>,
@@ -52,7 +52,15 @@ describe("Layout", () => {
     renderLayout({ ...base, brand: { ...base.brand, name: "Quillbank Society", wordmark: "QUILL" } });
 
     expect(screen.getByText("QUILL").getAttribute("aria-hidden")).toBe("true");
-    expect(screen.getByText("Quillbank Society").className).toBe("visually-hidden");
+    expect(screen.getByText("Quillbank Society home").className).toBe("visually-hidden");
+  });
+
+  test("the brand is a link home, named after the brand", () => {
+    const theme = packs[0].theme;
+    renderLayout(theme);
+
+    const home = screen.getByRole("link", { name: `${theme.brand.name} home` });
+    expect(home.getAttribute("href")).toBe("#/somewhere");
   });
 });
 

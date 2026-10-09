@@ -15,12 +15,14 @@
     "noEmit": true,
     "skipLibCheck": true,
     "types": [
-      "vite/client"
+      "vite/client",
+      "node"
     ],
     "allowImportingTsExtensions": true
   },
   "include": [
     "src",
+    "scripts",
     "vite.config.ts"
   ]
 }

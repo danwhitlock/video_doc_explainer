@@ -1,4 +1,5 @@
 import { packs } from "./data";
+import { Home } from "./pages/Home";
 import { useRoute } from "./routing";
 import { Layout } from "./shell/Layout";
 import { ThemeProvider } from "./theme/ThemeProvider";
@@ -10,8 +11,12 @@ export default function App() {
   return (
     <ThemeProvider theme={pack.theme}>
       <Layout>
-        {/* Temporary, to show routing working; replaced by Home (5.6b) and the Player (5.7+). */}
-        <h1>{customer === null ? `Home for ${pack.theme.brand.name}` : `Explainer for ${customer.preferred_name}`}</h1>
+        {customer === null ? (
+          <Home pack={pack} packs={packs} />
+        ) : (
+          // Temporary: replaced by a proper customer page (5.6c) and the Player (5.7+).
+          <h1>Explainer for {customer.preferred_name}</h1>
+        )}
       </Layout>
     </ThemeProvider>
   );

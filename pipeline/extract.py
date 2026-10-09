@@ -22,8 +22,9 @@ For every field, return:
 - value: the value, in the type and format the field's description asks for.
 - evidence_quote: a short quote copied word for word from the document that supports the value.
 - page: the page number from the "=== Page N ===" marker above the quote.
-If the document does not state a field, set value, evidence_quote and page to null.
-If a value is false or an empty list because the document never mentions it, set evidence_quote and page to null.
+Every value needs an evidence_quote and page, with one exception:
+a false or an empty list that comes from the document never mentioning something may have null evidence_quote and page.
+If the document does not state a field at all, set value, evidence_quote and page to null.
 Do not guess or calculate values that are not written in the document."""
 
 MAX_ATTEMPTS = 2  # the first try plus one retry with the validation errors
@@ -49,7 +50,7 @@ def extract(pages: list[str], schema: dict[str, Any], provider: LLMProvider) -> 
     """Extract `schema`'s fields from `pages`, retrying once if the reply is invalid."""
     wrapped = wrap_schema(schema)
     result_model = build_model(schema)
-    document = INSTRUCTIONS + "\n\n" + format_pages(pages)
+    document = INSTRUCTIONS + "\n\n" + describe_fields(schema) + "\n\n" + format_pages(pages)
 
     started = time.perf_counter()
     feedback = ""
@@ -91,6 +92,42 @@ def extract_customer(
     pack = load_pack(pack_name, packs_dir=packs_dir)
     pages = extract_pages(customer_document(pack, customer_id, packs_dir))
     return extract(pages, pack.extraction_schema, provider)
+
+
+def describe_fields(schema: dict[str, Any]) -> str:
+    """List each field's name, type and description as plain prompt text.
+
+    Ollama's `format` only constrains the reply's shape; the model never reads
+    the schema (measured in 4.6c-1). So the descriptions - "ISO date", "not the
+    illustrative figure" - must be in the prompt itself. Claude also sees them
+    via its tool definition; giving both providers the same prompt keeps the
+    comparison fair.
+    """
+    lines = ["Fields to extract:"]
+    for name, field in schema["properties"].items():
+        line = f"- {name} ({describe_type(field)})"
+        if field.get("description"):
+            line += f": {field['description']}"
+        lines.append(line)
+    return "\n".join(lines)
+
+
+def describe_type(field: dict[str, Any]) -> str:
+    """Short type label, e.g. "number", "string, date", "one of: a, b", "list of: year, percent"."""
+    if "enum" in field:
+        return "one of: " + ", ".join(str(option) for option in field["enum"])
+    types = field.get("type", "any")
+    if isinstance(types, list):
+        # "null" just means "may be missing", which the instructions already cover.
+        types = ", ".join(t for t in types if t != "null")
+    if types == "array":
+        items = field.get("items", {})
+        if "properties" in items:
+            return "list of: " + ", ".join(items["properties"])
+        return "list of " + describe_type(items)
+    if "format" in field:
+        return f"{types}, {field['format']}"
+    return types
 
 
 def format_pages(pages: list[str]) -> str:

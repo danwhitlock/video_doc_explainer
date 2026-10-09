@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from pipeline.extract import ExtractionError, extract, prompt_sha256
+from pipeline.extract import ExtractionError, describe_fields, extract, prompt_sha256
 from pipeline.schema_models import wrap_schema
 
 SCHEMA = {
@@ -59,6 +59,43 @@ def test_sends_page_markers_to_the_provider():
 
     assert "=== Page 1 ===\nLoan amount £256,500" in provider.texts[0]
     assert "=== Page 2 ===\nRepayable over 30 years" in provider.texts[0]
+
+
+def test_sends_every_field_description_to_the_provider():
+    # Ollama's `format` never reaches the model's prompt (4.6c-1), so the
+    # descriptions must be in the text itself.
+    provider = FakeProvider([GOOD_REPLY])
+
+    extract(PAGES, SCHEMA, provider)
+
+    assert "- loan_amount (number): Loan in pounds." in provider.texts[0]
+    assert "- term_years (integer): Term in years." in provider.texts[0]
+
+
+def test_field_list_shows_format_enum_and_list_items():
+    schema = {
+        "properties": {
+            "offer_date": {"type": "string", "format": "date", "description": "ISO date."},
+            "repayment_type": {"type": "string", "enum": ["capital and interest", "interest only"],
+                               "description": "Repayment method."},
+            "erc": {"type": "array", "description": "Charges by year.",
+                    "items": {"type": "object", "properties": {"year": {}, "percent": {}}}},
+            "conditions": {"type": "array", "items": {"type": "string"}, "description": "Conditions."},
+        }
+    }
+
+    lines = describe_fields(schema).splitlines()
+
+    assert "- offer_date (string, date): ISO date." in lines
+    assert "- repayment_type (one of: capital and interest, interest only): Repayment method." in lines
+    assert "- erc (list of: year, percent): Charges by year." in lines
+    assert "- conditions (list of string): Conditions." in lines
+
+
+def test_field_list_drops_null_from_nullable_types():
+    schema = {"properties": {"hours": {"type": ["number", "null"], "description": "Hours."}}}
+
+    assert "- hours (number): Hours." in describe_fields(schema)
 
 
 def test_good_first_reply_takes_one_attempt_and_records_metadata():
